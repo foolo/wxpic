@@ -1,0 +1,6 @@
+*.o
+wxpic
+.sconsign.dblite
+.cproject
+.project
+.settings/
