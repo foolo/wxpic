@@ -1,6 +1,9 @@
+#include <wx/wfstream.h>
 #include "MainWindow.h"
+#include "ShapeTool.h"
 
-MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title) : MainWindowLayout(parent, id, title)
+MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
+ : MainWindowLayout(parent, id, title)
 {
 }
 
@@ -10,5 +13,13 @@ MainWindow::~MainWindow()
 
 void MainWindow::open(wxString filename)
 {
-	std::cout << "open " << filename << std::endl;
+	wxImage img;
+	wxFFileInputStream fis(filename);
+	wxPNGHandler pngHandler;
+	if (pngHandler.LoadFile(&img, fis)) {
+		std::shared_ptr<wxBitmap> bmp(new wxBitmap(img));
+		undoBuffer = std::unique_ptr<UndoBuffer>(new UndoBuffer(bmp));
+		imagePanel->setImageSource(undoBuffer.get());
+		imagePanel->setTool(new ShapeTool(undoBuffer.get()));
+	}
 }

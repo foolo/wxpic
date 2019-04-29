@@ -1,9 +1,12 @@
 #pragma once
 
+#include <memory>
 #include <wx/wx.h>
 #include <wx/sizer.h>
+#include "IImageSource.h"
+#include "ITool.h"
 
-class wxCustomButton : public wxWindow
+class ImagePanel : public wxWindow
 {
 
     bool pressedDown;
@@ -12,8 +15,14 @@ class wxCustomButton : public wxWindow
     static const int buttonWidth = 200;
     static const int buttonHeight = 50;
 
+    IImageSource *imageSource;
+    std::unique_ptr<ITool> tool;
+
 public:
-    wxCustomButton(wxFrame* parent, wxString text);
+    ImagePanel(wxFrame* parent, wxString text);
+
+    void setImageSource(IImageSource *is);
+    void setTool(ITool *t);
 
     void paintEvent(wxPaintEvent & evt);
     void paintNow();

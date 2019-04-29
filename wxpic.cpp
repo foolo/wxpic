@@ -12,6 +12,8 @@
 // This is an automatically generated file.
 // Manual changes will be overwritten without warning!
 
+#include <vector>
+#include <string>
 #include <wx/wx.h>
 #include <wx/image.h>
 #include "MainWindow.h"
@@ -26,12 +28,17 @@ IMPLEMENT_APP(MyApp)
 
 bool MyApp::OnInit()
 {
-	std::cout << wxApp::argc << ", " << wxApp::argv[0] << std::endl;
-	
-    wxInitAllImageHandlers();
-    MainWindow* mainWindow0 = new MainWindow(NULL, wxID_ANY, wxEmptyString);
-    SetTopWindow(mainWindow0);
-    mainWindow0->Show();
-	mainWindow0->open(wxApp::argv[0]);
-    return true;
+	std::vector<std::string> args;
+	for (int i = 1; i < wxApp::argc; i++) {
+		args.push_back(std::string(wxApp::argv[i]));
+	}
+
+	wxInitAllImageHandlers();
+	MainWindow* mainWindow0 = new MainWindow(NULL, wxID_ANY, wxEmptyString);
+	SetTopWindow(mainWindow0);
+	mainWindow0->Show();
+	if (args.size() > 0) {
+		mainWindow0->open(args.at(0));
+	}
+	return true;
 }
