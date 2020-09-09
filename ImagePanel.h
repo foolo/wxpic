@@ -1,10 +1,10 @@
 #pragma once
 
+#include "IImageSource.h"
+#include "ITool.h"
 #include <memory>
 #include <wx/wx.h>
 #include <wx/sizer.h>
-#include "IImageSource.h"
-#include "ITool.h"
 
 class ImagePanel : public wxWindow
 {

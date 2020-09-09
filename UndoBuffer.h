@@ -1,9 +1,9 @@
 #pragma once
 
+#include "IImageSource.h"
 #include <vector>
 #include <memory>
 #include <wx/bitmap.h>
-#include "IImageSource.h"
 
 class UndoBuffer : public IImageSource {
 

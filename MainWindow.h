@@ -1,8 +1,8 @@
 #pragma once
 
-#include <memory>
 #include "MainWindowLayout.h"
 #include "UndoBuffer.h"
+#include <memory>
 
 class MainWindow : public MainWindowLayout
 {

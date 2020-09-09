@@ -1,6 +1,6 @@
-#include <wx/wfstream.h>
 #include "MainWindow.h"
 #include "ShapeTool.h"
+#include <wx/wfstream.h>
 
 MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
  : MainWindowLayout(parent, id, title)

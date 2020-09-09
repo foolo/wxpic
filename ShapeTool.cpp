@@ -1,5 +1,5 @@
-#include <wx/dcmemory.h>
 #include "ShapeTool.h"
+#include <wx/dcmemory.h>
 #include <iostream>
 
 ShapeTool::ShapeTool(IImageSource* imageSource) :

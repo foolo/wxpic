@@ -12,11 +12,11 @@
 // This is an automatically generated file.
 // Manual changes will be overwritten without warning!
 
+#include "MainWindow.h"
 #include <vector>
 #include <string>
 #include <wx/wx.h>
 #include <wx/image.h>
-#include "MainWindow.h"
 
 
 class MyApp: public wxApp {
