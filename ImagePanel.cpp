@@ -30,6 +30,7 @@ ImagePanel::ImagePanel(wxFrame* parent, wxString text) :
     SetMinSize( wxSize(buttonWidth, buttonHeight) );
     this->text = text;
     pressedDown = false;
+    tool = std::unique_ptr<ITool>(new NullTool());
 }
 
 /*
