@@ -1,12 +1,12 @@
 #pragma once
 
 #include "MainWindowLayout.h"
-#include "UndoBuffer.h"
 #include <memory>
+#include "ImageStack.h"
 
 class MainWindow : public MainWindowLayout
 {
-	std::unique_ptr<UndoBuffer> undoBuffer;
+	std::unique_ptr<ImageStack> imageStack;
 
 public:
 	MainWindow(wxWindow* parent, wxWindowID id, const wxString& title);

@@ -4,7 +4,7 @@ src = [
 	'MainWindow.cpp',
 	'MainWindowLayout.cpp',
 	'ImagePanel.cpp',
-	'UndoBuffer.cpp',
+	'ImageStack.cpp',
 	'ShapeTool.cpp',
 ]
 

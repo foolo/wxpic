@@ -1,7 +1,7 @@
 #include "ImagePanel.h"
 
-void ImagePanel::setImageSource(IImageSource *is) {
-	imageSource = is;
+void ImagePanel::setImageSource(ImageStack *is) {
+	imageStack = is;
 	tool = std::unique_ptr<ITool>(new NullTool());
 }
 
@@ -25,7 +25,7 @@ END_EVENT_TABLE()
 
 
 ImagePanel::ImagePanel(wxFrame* parent) :
- wxWindow(parent, wxID_ANY), imageSource(NULL)
+ wxWindow(parent, wxID_ANY), imageStack(NULL)
 {
     SetMinSize( wxSize(buttonWidth, buttonHeight) );
     pressedDown = false;
@@ -47,8 +47,8 @@ void ImagePanel::render(wxDC&  dc) {
     if (preview != NULL) {
     	dc.DrawBitmap(*preview, wxPoint(0,0));
     }
-    else if (imageSource != NULL) {
-    	std::shared_ptr<wxBitmap> bmp(imageSource->getImage());
+    else if (imageStack != NULL) {
+    	std::shared_ptr<wxBitmap> bmp(imageStack->getImage());
     	dc.DrawBitmap(*bmp.get(), wxPoint(0,0));
     }
 }

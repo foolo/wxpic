@@ -18,9 +18,9 @@ void MainWindow::open(wxString filename)
 	wxPNGHandler pngHandler;
 	if (pngHandler.LoadFile(&img, fis)) {
 		std::shared_ptr<wxBitmap> bmp(new wxBitmap(img));
-		undoBuffer = std::unique_ptr<UndoBuffer>(new UndoBuffer(bmp));
-		imagePanel->setImageSource(undoBuffer.get());
-		imagePanel->setTool(new ShapeTool(undoBuffer.get()));
+		imageStack = std::unique_ptr<ImageStack>(new ImageStack(bmp));
+		imagePanel->setImageSource(imageStack.get());
+		imagePanel->setTool(new ShapeTool(imageStack.get()));
 	}
 }
 

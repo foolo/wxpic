@@ -2,8 +2,8 @@
 #include <wx/dcmemory.h>
 #include <iostream>
 
-ShapeTool::ShapeTool(IImageSource* imageSource) :
-		imageSource(imageSource), startPos(wxDefaultCoord, wxDefaultCoord)
+ShapeTool::ShapeTool(ImageStack* imageSource) :
+		imageStack(imageSource), startPos(wxDefaultCoord, wxDefaultCoord)
 {
 }
 
@@ -13,7 +13,7 @@ void ShapeTool::mouseDown(wxPoint pos) {
 
 void ShapeTool::mouseMoved(wxPoint pos) {
 	if (startPos.IsFullySpecified()) {
-		preview = std::unique_ptr<wxBitmap>(new wxBitmap(*imageSource->getImage()));
+		preview = std::unique_ptr<wxBitmap>(new wxBitmap(*imageStack->getImage()));
 		wxMemoryDC dc;
 		dc.SelectObject(*preview);
 		dc.SetPen(wxPen(*wxRED));
@@ -24,7 +24,7 @@ void ShapeTool::mouseMoved(wxPoint pos) {
 
 void ShapeTool::mouseUp(wxPoint pos) {
 	wxMemoryDC dc;
-	dc.SelectObject(*imageSource->getImage());
+	dc.SelectObject(*imageStack->getImage());
 	dc.SetPen(wxPen(*wxRED));
 	preview = std::unique_ptr<wxBitmap>();
 	startPos = wxPoint(wxDefaultCoord, wxDefaultCoord);

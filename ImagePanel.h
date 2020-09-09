@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IImageSource.h"
+#include "ImageStack.h"
 #include "ITool.h"
 #include <memory>
 #include <wx/wx.h>
@@ -11,13 +11,13 @@ class ImagePanel : public wxWindow {
     static const int buttonWidth = 200;
     static const int buttonHeight = 50;
 
-    IImageSource *imageSource;
+    ImageStack *imageStack;
     std::unique_ptr<ITool> tool;
 
 public:
     ImagePanel(wxFrame* parent);
 
-    void setImageSource(IImageSource *is);
+    void setImageSource(ImageStack *is);
     void setTool(ITool *t);
 
     void paintEvent(wxPaintEvent & evt);

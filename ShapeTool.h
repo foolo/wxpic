@@ -1,14 +1,14 @@
 #pragma once
-#include "IImageSource.h"
+#include "ImageStack.h"
 #include "ITool.h"
 
 class ShapeTool : public ITool {
-	IImageSource *imageSource;
+	ImageStack *imageStack;
 	wxPoint startPos;
 	std::unique_ptr<wxBitmap> preview;
 
 public:
-	ShapeTool(IImageSource *imageSource);
+	ShapeTool(ImageStack *imageStack);
 	void mouseDown(wxPoint pos);
 	void mouseMoved(wxPoint pos);
 	void mouseUp(wxPoint pos);
