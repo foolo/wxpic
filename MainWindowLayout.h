@@ -19,6 +19,7 @@
 // end wxGlade
 
 // begin wxGlade: ::extracode
+#include <wx/windowid.h>
 #include "ImagePanel.h"
 // end wxGlade
 
