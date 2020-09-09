@@ -10,7 +10,6 @@ class ImagePanel : public wxWindow
 {
 
     bool pressedDown;
-    wxString text;
 
     static const int buttonWidth = 200;
     static const int buttonHeight = 50;
@@ -19,7 +18,7 @@ class ImagePanel : public wxWindow
     std::unique_ptr<ITool> tool;
 
 public:
-    ImagePanel(wxFrame* parent, wxString text);
+    ImagePanel(wxFrame* parent);
 
     void setImageSource(IImageSource *is);
     void setTool(ITool *t);

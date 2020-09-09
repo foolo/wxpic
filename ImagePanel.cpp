@@ -24,11 +24,10 @@ BEGIN_EVENT_TABLE(ImagePanel, wxPanel)
 END_EVENT_TABLE()
 
 
-ImagePanel::ImagePanel(wxFrame* parent, wxString text) :
+ImagePanel::ImagePanel(wxFrame* parent) :
  wxWindow(parent, wxID_ANY), imageSource(NULL)
 {
     SetMinSize( wxSize(buttonWidth, buttonHeight) );
-    this->text = text;
     pressedDown = false;
     tool = std::unique_ptr<ITool>(new NullTool());
 }
@@ -68,14 +67,6 @@ void ImagePanel::paintNow()
  */
 void ImagePanel::render(wxDC&  dc)
 {
-    if (pressedDown)
-        dc.SetBrush( *wxRED_BRUSH );
-    else
-        dc.SetBrush( *wxGREY_BRUSH );
-
-    dc.DrawRectangle( 0, 0, buttonWidth, buttonHeight );
-    dc.DrawText( text, 20, 15 );
-
     wxBitmap *preview = tool->getPreview();
     if (preview != NULL) {
     	dc.DrawBitmap(*preview, wxPoint(0,0));
