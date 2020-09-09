@@ -32,41 +32,17 @@ ImagePanel::ImagePanel(wxFrame* parent) :
     tool = std::unique_ptr<ITool>(new NullTool());
 }
 
-/*
- * Called by the system of by wxWidgets when the panel needs
- * to be redrawn. You can also trigger this call by
- * calling Refresh()/Update().
- */
-
-void ImagePanel::paintEvent(wxPaintEvent & evt)
-{
-    // depending on your system you may need to look at double-buffered dcs
+void ImagePanel::paintEvent(wxPaintEvent & evt) {
     wxPaintDC dc(this);
     render(dc);
 }
 
-/*
- * Alternatively, you can use a clientDC to paint on the panel
- * at any time. Using this generally does not free you from
- * catching paint events, since it is possible that e.g. the window
- * manager throws away your drawing when the window comes to the
- * background, and expects you will redraw it when the window comes
- * back (by sending a paint event).
- */
-void ImagePanel::paintNow()
-{
-    // depending on your system you may need to look at double-buffered dcs
+void ImagePanel::paintNow() {
     wxClientDC dc(this);
     render(dc);
 }
 
-/*
- * Here we do the actual rendering. I put it in a separate
- * method so that it can work no matter what type of DC
- * (e.g. wxPaintDC or wxClientDC) is used.
- */
-void ImagePanel::render(wxDC&  dc)
-{
+void ImagePanel::render(wxDC&  dc) {
     wxBitmap *preview = tool->getPreview();
     if (preview != NULL) {
     	dc.DrawBitmap(*preview, wxPoint(0,0));
@@ -77,8 +53,7 @@ void ImagePanel::render(wxDC&  dc)
     }
 }
 
-void ImagePanel::mouseDown(wxMouseEvent& event)
-{
+void ImagePanel::mouseDown(wxMouseEvent& event) {
 	tool->mouseDown(event.GetPosition());
     pressedDown = true;
     paintNow();
@@ -89,18 +64,13 @@ void ImagePanel::mouseMoved(wxMouseEvent& event) {
 	paintNow();
 }
 
-void ImagePanel::mouseReleased(wxMouseEvent& event)
-{
+void ImagePanel::mouseReleased(wxMouseEvent& event) {
 	tool->mouseUp(event.GetPosition());
     pressedDown = false;
     paintNow();
-
-    //wxMessageBox( wxT("You pressed a custom button") );
 }
-void ImagePanel::mouseLeftWindow(wxMouseEvent& event)
-{
-    if (pressedDown)
-    {
+void ImagePanel::mouseLeftWindow(wxMouseEvent& event) {
+    if (pressedDown) {
         pressedDown = false;
         paintNow();
     }

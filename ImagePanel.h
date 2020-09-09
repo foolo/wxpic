@@ -6,11 +6,8 @@
 #include <wx/wx.h>
 #include <wx/sizer.h>
 
-class ImagePanel : public wxWindow
-{
-
+class ImagePanel : public wxWindow {
     bool pressedDown;
-
     static const int buttonWidth = 200;
     static const int buttonHeight = 50;
 
