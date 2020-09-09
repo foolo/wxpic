@@ -1,18 +1,35 @@
 #include <wx/dcmemory.h>
 #include "ShapeTool.h"
+#include <iostream>
+
+ShapeTool::ShapeTool(IImageSource* imageSource) :
+		imageSource(imageSource), startPos(wxDefaultCoord, wxDefaultCoord)
+{
+}
 
 void ShapeTool::mouseDown(wxPoint pos) {
 	startPos = pos;
 }
 
-ShapeTool::ShapeTool(IImageSource* imageSource) :
-		imageSource(imageSource)
-{
+void ShapeTool::mouseMoved(wxPoint pos) {
+	if (startPos.IsFullySpecified()) {
+		preview = std::unique_ptr<wxBitmap>(new wxBitmap(*imageSource->getImage()));
+		wxMemoryDC dc;
+		dc.SelectObject(*preview);
+		dc.SetPen(wxPen(*wxRED));
+		wxSize size(pos.x - startPos.x, pos.y - startPos.y);
+		dc.DrawRectangle(startPos, size);
+	}
 }
 
 void ShapeTool::mouseUp(wxPoint pos) {
 	wxMemoryDC dc;
 	dc.SelectObject(*imageSource->getImage());
 	dc.SetPen(wxPen(*wxRED));
-	dc.DrawRectangle(wxPoint(10,10), wxSize(50,50));
+	preview = std::unique_ptr<wxBitmap>();
+	startPos = wxPoint(wxDefaultCoord, wxDefaultCoord);
+}
+
+wxBitmap* ShapeTool::getPreview() {
+	return preview.get();
 }

@@ -74,7 +74,12 @@ void ImagePanel::render(wxDC&  dc)
 
     dc.DrawRectangle( 0, 0, buttonWidth, buttonHeight );
     dc.DrawText( text, 20, 15 );
-    if (imageSource != NULL) {
+
+    wxBitmap *preview = tool->getPreview();
+    if (preview != NULL) {
+    	dc.DrawBitmap(*preview, wxPoint(0,0));
+    }
+    else if (imageSource != NULL) {
     	std::shared_ptr<wxBitmap> bmp(imageSource->getImage());
     	dc.DrawBitmap(*bmp.get(), wxPoint(0,0));
     }
@@ -86,13 +91,19 @@ void ImagePanel::mouseDown(wxMouseEvent& event)
     pressedDown = true;
     paintNow();
 }
+
+void ImagePanel::mouseMoved(wxMouseEvent& event) {
+	tool->mouseMoved(event.GetPosition());
+	paintNow();
+}
+
 void ImagePanel::mouseReleased(wxMouseEvent& event)
 {
 	tool->mouseUp(event.GetPosition());
     pressedDown = false;
     paintNow();
 
-    wxMessageBox( wxT("You pressed a custom button") );
+    //wxMessageBox( wxT("You pressed a custom button") );
 }
 void ImagePanel::mouseLeftWindow(wxMouseEvent& event)
 {
@@ -104,7 +115,6 @@ void ImagePanel::mouseLeftWindow(wxMouseEvent& event)
 }
 
 // currently unused events
-void ImagePanel::mouseMoved(wxMouseEvent& event) {}
 void ImagePanel::mouseWheelMoved(wxMouseEvent& event) {}
 void ImagePanel::rightClick(wxMouseEvent& event) {}
 void ImagePanel::keyPressed(wxKeyEvent& event) {}

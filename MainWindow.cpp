@@ -23,3 +23,13 @@ void MainWindow::open(wxString filename)
 		imagePanel->setTool(new ShapeTool(undoBuffer.get()));
 	}
 }
+
+void MainWindow::button_3_clicked(wxCommandEvent &event) {
+	event.Skip();
+	std::cout << "test1" << std::endl;
+}
+
+
+BEGIN_EVENT_TABLE(MainWindow, wxFrame)
+	EVT_BUTTON(wxID_ANY, MainWindow::button_3_clicked)
+END_EVENT_TABLE();
