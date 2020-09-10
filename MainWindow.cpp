@@ -5,6 +5,7 @@
 MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
  : MainWindowLayout(parent, id, title)
 {
+	Bind(wxEVT_BUTTON, &MainWindow::button_3_clicked, this);
 }
 
 MainWindow::~MainWindow()
@@ -28,8 +29,3 @@ void MainWindow::button_3_clicked(wxCommandEvent &event) {
 	event.Skip();
 	std::cout << "test1" << std::endl;
 }
-
-
-BEGIN_EVENT_TABLE(MainWindow, wxFrame)
-	EVT_BUTTON(wxID_ANY, MainWindow::button_3_clicked)
-END_EVENT_TABLE();

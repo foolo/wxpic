@@ -14,7 +14,4 @@ public:
 	void open(wxString filename);
 
 	void button_3_clicked(wxCommandEvent &event);
-	DECLARE_EVENT_TABLE();
-private:
-
 };
