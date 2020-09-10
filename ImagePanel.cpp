@@ -9,27 +9,21 @@ void ImagePanel::setTool(ITool* t) {
 	tool = std::unique_ptr<ITool>(t);
 }
 
-BEGIN_EVENT_TABLE(ImagePanel, wxPanel)
-    EVT_MOTION(ImagePanel::mouseMoved)
-    EVT_LEFT_DOWN(ImagePanel::mouseDown)
-    EVT_LEFT_UP(ImagePanel::mouseReleased)
-    EVT_RIGHT_DOWN(ImagePanel::rightClick)
-    EVT_LEAVE_WINDOW(ImagePanel::mouseLeftWindow)
-    EVT_KEY_DOWN(ImagePanel::keyPressed)
-    EVT_KEY_UP(ImagePanel::keyReleased)
-    EVT_MOUSEWHEEL(ImagePanel::mouseWheelMoved)
-
-    // catch paint events
-    EVT_PAINT(ImagePanel::paintEvent)
-END_EVENT_TABLE()
-
-
 ImagePanel::ImagePanel(wxFrame* parent) :
  wxWindow(parent, wxID_ANY), imageStack(NULL)
 {
     SetMinSize( wxSize(buttonWidth, buttonHeight) );
     pressedDown = false;
     tool = std::unique_ptr<ITool>(new NullTool());
+    Bind(wxEVT_MOTION, &ImagePanel::mouseMoved, this);
+    Bind(wxEVT_LEFT_DOWN, &ImagePanel::mouseDown, this);
+    Bind(wxEVT_LEFT_UP, &ImagePanel::mouseReleased, this);
+    Bind(wxEVT_RIGHT_DOWN, &ImagePanel::rightClick, this);
+    Bind(wxEVT_LEAVE_WINDOW, &ImagePanel::mouseLeftWindow, this);
+    Bind(wxEVT_KEY_DOWN, &ImagePanel::keyPressed, this);
+    Bind(wxEVT_KEY_UP, &ImagePanel::keyReleased, this);
+    Bind(wxEVT_MOUSEWHEEL, &ImagePanel::mouseWheelMoved, this);
+    Bind(wxEVT_PAINT, &ImagePanel::paintEvent, this);
 }
 
 void ImagePanel::paintEvent(wxPaintEvent & evt) {
