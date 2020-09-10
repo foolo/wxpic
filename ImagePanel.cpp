@@ -1,14 +1,5 @@
 #include "ImagePanel.h"
 
-void ImagePanel::setImageSource(ImageStack *is) {
-	imageStack = is;
-	tool = std::unique_ptr<ITool>(new NullTool());
-}
-
-void ImagePanel::setTool(ITool* t) {
-	tool = std::unique_ptr<ITool>(t);
-}
-
 ImagePanel::ImagePanel(wxFrame* parent) :
  wxWindow(parent, wxID_ANY), imageStack(NULL)
 {
@@ -24,6 +15,15 @@ ImagePanel::ImagePanel(wxFrame* parent) :
     Bind(wxEVT_KEY_UP, &ImagePanel::keyReleased, this);
     Bind(wxEVT_MOUSEWHEEL, &ImagePanel::mouseWheelMoved, this);
     Bind(wxEVT_PAINT, &ImagePanel::paintEvent, this);
+}
+
+void ImagePanel::setImageSource(ImageStack *is) {
+	imageStack = is;
+	tool = std::unique_ptr<ITool>(new NullTool());
+}
+
+void ImagePanel::setTool(ITool* t) {
+	tool = std::unique_ptr<ITool>(t);
 }
 
 void ImagePanel::paintEvent(wxPaintEvent & evt) {

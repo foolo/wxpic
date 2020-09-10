@@ -25,7 +25,6 @@ public:
 
     void render(wxDC& dc);
 
-    // some useful events
     void mouseDown(wxMouseEvent& event);
     void mouseMoved(wxMouseEvent& event);
     void mouseReleased(wxMouseEvent& event);
