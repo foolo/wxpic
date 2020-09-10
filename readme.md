@@ -4,4 +4,11 @@
 
 # Building
 
-	scons
+	meson build
+	cd build
+	ninja
+
+# Running
+
+	cd build
+	./wxpic FILENAME
