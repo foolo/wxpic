@@ -5,7 +5,10 @@
 MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
  : MainWindowLayout(parent, id, title)
 {
-	Bind(wxEVT_BUTTON, &MainWindow::button_3_clicked, this);
+	Bind(wxEVT_BUTTON, &MainWindow::button_3_clicked, this, button_3->GetId());
+	Bind(wxEVT_BUTTON, &MainWindow::button_4_clicked, this, button_4->GetId());
+	Bind(wxEVT_BUTTON, &MainWindow::button_5_clicked, this, button_5->GetId());
+	Bind(wxEVT_BUTTON, &MainWindow::button_6_clicked, this, button_6->GetId());
 }
 
 MainWindow::~MainWindow()
@@ -27,5 +30,20 @@ void MainWindow::open(wxString filename)
 
 void MainWindow::button_3_clicked(wxCommandEvent &event) {
 	event.Skip();
-	std::cout << "test1" << std::endl;
+	std::cout << "button_3_clicked" << std::endl;
+}
+
+void MainWindow::button_4_clicked(wxCommandEvent &event) {
+	event.Skip();
+	std::cout << "button_4_clicked" << std::endl;
+}
+
+void MainWindow::button_5_clicked(wxCommandEvent &event) {
+	event.Skip();
+	std::cout << "button_5_clicked" << std::endl;
+}
+
+void MainWindow::button_6_clicked(wxCommandEvent &event) {
+	event.Skip();
+	std::cout << "button_6_clicked" << std::endl;
 }
