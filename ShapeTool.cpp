@@ -9,6 +9,7 @@ ShapeTool::ShapeTool(ImageStack* imageSource) :
 
 void ShapeTool::mouseDown(wxPoint pos) {
 	startPos = pos;
+	mouseMoved(pos);
 }
 
 void ShapeTool::mouseMoved(wxPoint pos) {
