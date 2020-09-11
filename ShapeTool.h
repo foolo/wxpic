@@ -5,7 +5,7 @@
 class ShapeTool : public ITool {
 	ImageStack *imageStack;
 	wxPoint startPos;
-	std::unique_ptr<wxBitmap> preview;
+	std::shared_ptr<wxBitmap> preview;
 
 public:
 	ShapeTool(ImageStack *imageStack);

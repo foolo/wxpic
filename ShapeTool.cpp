@@ -13,7 +13,7 @@ void ShapeTool::mouseDown(wxPoint pos) {
 
 void ShapeTool::mouseMoved(wxPoint pos) {
 	if (startPos.IsFullySpecified()) {
-		preview = std::unique_ptr<wxBitmap>(new wxBitmap(*imageStack->getImage()));
+		preview = std::shared_ptr<wxBitmap>(new wxBitmap(*imageStack->getImage()));
 		wxMemoryDC dc;
 		dc.SelectObject(*preview);
 		dc.SetPen(wxPen(*wxRED));
@@ -26,7 +26,8 @@ void ShapeTool::mouseUp(wxPoint pos) {
 	wxMemoryDC dc;
 	dc.SelectObject(*imageStack->getImage());
 	dc.SetPen(wxPen(*wxRED));
-	preview = std::unique_ptr<wxBitmap>();
+	imageStack->pushImage(preview);
+	preview.reset();
 	startPos = wxPoint(wxDefaultCoord, wxDefaultCoord);
 }
 
