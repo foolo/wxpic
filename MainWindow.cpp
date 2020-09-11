@@ -9,6 +9,13 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 	Bind(wxEVT_BUTTON, &MainWindow::button_4_clicked, this, button_4->GetId());
 	Bind(wxEVT_BUTTON, &MainWindow::button_5_clicked, this, button_5->GetId());
 	Bind(wxEVT_BUTTON, &MainWindow::button_6_clicked, this, button_6->GetId());
+	Bind(wxEVT_MENU, &MainWindow::undo, this, wxID_UNDO);
+
+	const int ENTRIES_CNT = 1;
+	wxAcceleratorEntry entries[ENTRIES_CNT];
+	entries[0].Set(wxACCEL_CTRL, (int) 'Z', wxID_UNDO);
+	wxAcceleratorTable accel(ENTRIES_CNT, entries);
+	SetAcceleratorTable(accel);
 }
 
 MainWindow::~MainWindow()
@@ -46,4 +53,9 @@ void MainWindow::button_5_clicked(wxCommandEvent &event) {
 void MainWindow::button_6_clicked(wxCommandEvent &event) {
 	event.Skip();
 	std::cout << "button_6_clicked" << std::endl;
+}
+
+void MainWindow::undo(wxCommandEvent &event) {
+	event.Skip();
+	std::cout << "undo" << std::endl;
 }

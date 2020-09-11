@@ -73,6 +73,8 @@ void ImagePanel::mouseLeftWindow(wxMouseEvent& event) {
 // currently unused events
 void ImagePanel::mouseWheelMoved(wxMouseEvent& event) {}
 void ImagePanel::rightClick(wxMouseEvent& event) {}
-void ImagePanel::keyPressed(wxKeyEvent& event) {}
+void ImagePanel::keyPressed(wxKeyEvent& event) {
+	std::cout << "key pressed " << event.GetKeyCode() << std::endl;
+}
 void ImagePanel::keyReleased(wxKeyEvent& event) {}
 
