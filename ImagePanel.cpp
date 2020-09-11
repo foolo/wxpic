@@ -40,7 +40,7 @@ void ImagePanel::render(wxDC&  dc) {
     if (preview != NULL) {
     	dc.DrawBitmap(*preview, wxPoint(0,0));
     }
-    else if (imageStack != NULL) {
+    else {
     	std::shared_ptr<wxBitmap> bmp(imageStack->getImage());
     	dc.DrawBitmap(*bmp.get(), wxPoint(0,0));
     }
