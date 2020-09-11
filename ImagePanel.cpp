@@ -19,7 +19,6 @@ ImagePanel::ImagePanel(wxFrame* parent) :
 
 void ImagePanel::setImageSource(ImageStack *is) {
 	imageStack = is;
-	tool = std::unique_ptr<ITool>(new NullTool());
 }
 
 void ImagePanel::setTool(ITool* t) {

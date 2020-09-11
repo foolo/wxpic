@@ -8,7 +8,7 @@ class ImageStack {
 	std::vector<std::shared_ptr<wxBitmap> > buffer;
 
 public:
-	ImageStack(std::shared_ptr<wxBitmap> bmp);
 	std::shared_ptr<wxBitmap> getImage();
+	void clear();
 	void pushImage(std::shared_ptr<wxBitmap> bmp);
 };

@@ -5,6 +5,7 @@
 MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
  : MainWindowLayout(parent, id, title)
 {
+	imagePanel->setImageSource(&imageStack);
 	Bind(wxEVT_BUTTON, &MainWindow::button_3_clicked, this, button_3->GetId());
 	Bind(wxEVT_BUTTON, &MainWindow::button_4_clicked, this, button_4->GetId());
 	Bind(wxEVT_BUTTON, &MainWindow::button_5_clicked, this, button_5->GetId());
@@ -29,9 +30,9 @@ void MainWindow::open(wxString filename)
 	wxPNGHandler pngHandler;
 	if (pngHandler.LoadFile(&img, fis)) {
 		std::shared_ptr<wxBitmap> bmp(new wxBitmap(img));
-		imageStack = std::unique_ptr<ImageStack>(new ImageStack(bmp));
-		imagePanel->setImageSource(imageStack.get());
-		imagePanel->setTool(new ShapeTool(imageStack.get()));
+		imageStack.clear();
+		imageStack.pushImage(bmp);
+		imagePanel->setTool(new ShapeTool(&imageStack));
 	}
 }
 

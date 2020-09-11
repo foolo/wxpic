@@ -6,7 +6,7 @@
 
 class MainWindow : public MainWindowLayout
 {
-	std::unique_ptr<ImageStack> imageStack;
+	ImageStack imageStack;
 
 public:
 	MainWindow(wxWindow* parent, wxWindowID id, const wxString& title);
