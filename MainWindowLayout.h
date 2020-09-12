@@ -40,6 +40,7 @@ protected:
     wxButton* button_4;
     wxButton* button_5;
     wxButton* button_6;
+    wxButton* color_button;
     ImagePanel* imagePanel;
     // end wxGlade
 }; // wxGlade: end class

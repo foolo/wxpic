@@ -17,5 +17,6 @@ public:
 	void button_4_clicked(wxCommandEvent &event);
 	void button_5_clicked(wxCommandEvent &event);
 	void button_6_clicked(wxCommandEvent &event);
+	void color_button_clicked(wxCommandEvent &event);
 	void undo(wxCommandEvent &event);
 };

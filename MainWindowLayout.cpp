@@ -38,6 +38,9 @@ MainWindowLayout::MainWindowLayout(wxWindow* parent, wxWindowID id, const wxStri
     sizer_2->Add(button_5, 0, 0, 0);
     button_6 = new wxButton(this, wxID_ANY, wxT("button_6"));
     sizer_2->Add(button_6, 0, 0, 0);
+    color_button = new wxButton(this, wxID_ANY, wxEmptyString);
+    color_button->SetMinSize(wxSize(32, 32));
+    sizer_2->Add(color_button, 0, wxALL, 5);
     imagePanel = new ImagePanel(this);
     sizer_1->Add(imagePanel, 1, wxEXPAND, 0);
     
