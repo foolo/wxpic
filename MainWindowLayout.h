@@ -41,6 +41,7 @@ protected:
     wxButton* button_5;
     wxButton* button_6;
     wxButton* color_button;
+    wxChoice* brush_size_choice;
     ImagePanel* imagePanel;
     // end wxGlade
 }; // wxGlade: end class

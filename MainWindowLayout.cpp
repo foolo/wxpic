@@ -41,6 +41,9 @@ MainWindowLayout::MainWindowLayout(wxWindow* parent, wxWindowID id, const wxStri
     color_button = new wxButton(this, wxID_ANY, wxEmptyString);
     color_button->SetMinSize(wxSize(32, 32));
     sizer_2->Add(color_button, 0, wxALL, 5);
+    const wxString brush_size_choice_choices[] = {};
+    brush_size_choice = new wxChoice(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, brush_size_choice_choices);
+    sizer_2->Add(brush_size_choice, 0, 0, 0);
     imagePanel = new ImagePanel(this);
     sizer_1->Add(imagePanel, 1, wxEXPAND, 0);
     

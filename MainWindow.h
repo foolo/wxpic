@@ -1,12 +1,14 @@
 #pragma once
 
 #include "MainWindowLayout.h"
-#include <memory>
 #include "ImageStack.h"
+#include <memory>
+#include <vector>
 
 class MainWindow : public MainWindowLayout
 {
 	ImageStack imageStack;
+    const std::vector<int> brush_sizes{1, 2, 3, 4, 5, 6, 8, 10, 12, 15, 18};
 
 public:
 	MainWindow(wxWindow* parent, wxWindowID id, const wxString& title);

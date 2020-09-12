@@ -19,6 +19,11 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 	entries[0].Set(wxACCEL_CTRL, (int) 'Z', wxID_UNDO);
 	wxAcceleratorTable accel(ENTRIES_CNT, entries);
 	SetAcceleratorTable(accel);
+
+	for (unsigned i = 0; i < brush_sizes.size(); i++) {
+		brush_size_choice->Append(wxString(std::to_string(brush_sizes[i])));
+	}
+	brush_size_choice->SetSelection(0);
 }
 
 MainWindow::~MainWindow()
