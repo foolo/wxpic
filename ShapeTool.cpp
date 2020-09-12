@@ -23,6 +23,7 @@ void ShapeTool::mouseMoved(wxPoint pos) {
 	wxMemoryDC dc;
 	dc.SelectObject(*preview);
 	dc.SetPen(wxPen(mainWindow->getPrimaryColor()));
+	dc.SetBrush(*wxTRANSPARENT_BRUSH);
 	wxSize size(pos.x - startPos.x, pos.y - startPos.y);
 	dc.DrawRectangle(startPos, size);
 	imagePanel->Refresh();
