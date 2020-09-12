@@ -24,6 +24,7 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 		brush_size_choice->Append(wxString(std::to_string(brush_sizes[i])));
 	}
 	brush_size_choice->SetSelection(2);
+	color_button->SetBackgroundColour(*wxRED);
 }
 
 MainWindow::~MainWindow()
