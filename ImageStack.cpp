@@ -11,3 +11,9 @@ void ImageStack::clear() {
 void ImageStack::pushImage(std::shared_ptr<wxBitmap> bmp) {
 	buffer.push_back(bmp);
 }
+
+void ImageStack::popImage() {
+	if (buffer.size() > 1) {
+		buffer.pop_back();
+	}
+}

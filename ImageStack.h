@@ -11,4 +11,5 @@ public:
 	std::shared_ptr<wxBitmap> getImage();
 	void clear();
 	void pushImage(std::shared_ptr<wxBitmap> bmp);
+	void popImage();
 };

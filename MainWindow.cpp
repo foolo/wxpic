@@ -58,5 +58,6 @@ void MainWindow::button_6_clicked(wxCommandEvent &event) {
 
 void MainWindow::undo(wxCommandEvent &event) {
 	event.Skip();
-	std::cout << "undo" << std::endl;
+	imageStack.popImage();
+	imagePanel->paintNow();
 }
