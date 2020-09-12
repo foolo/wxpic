@@ -1,6 +1,7 @@
 #include "MainWindow.h"
 #include "ShapeTool.h"
 #include <wx/wfstream.h>
+#include <wx/colordlg.h>
 
 MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
  : MainWindowLayout(parent, id, title)
@@ -33,7 +34,7 @@ void MainWindow::open(wxString filename)
 		std::shared_ptr<wxBitmap> bmp(new wxBitmap(img));
 		imageStack.clear();
 		imageStack.pushImage(bmp);
-		imagePanel->setTool(new ShapeTool(&imageStack, imagePanel));
+		imagePanel->setTool(new ShapeTool(&imageStack, imagePanel, this));
 	}
 }
 
@@ -59,11 +60,18 @@ void MainWindow::button_6_clicked(wxCommandEvent &event) {
 
 void MainWindow::color_button_clicked(wxCommandEvent &event) {
 	event.Skip();
-	std::cout << "color_button_clicked" << std::endl;
+	wxColour color = wxGetColourFromUser(this, color_button->GetBackgroundColour());
+	if (color.IsOk()) {
+		color_button->SetBackgroundColour(color);
+	}
 }
 
 void MainWindow::undo(wxCommandEvent &event) {
 	event.Skip();
 	imageStack.popImage();
 	imagePanel->Refresh();
+}
+
+wxColor MainWindow::getPrimaryColor() {
+	return color_button->GetBackgroundColour();
 }
