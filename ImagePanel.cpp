@@ -30,11 +30,6 @@ void ImagePanel::paintEvent(wxPaintEvent & evt) {
     render(dc);
 }
 
-void ImagePanel::paintNow() {
-    wxClientDC dc(this);
-    render(dc);
-}
-
 void ImagePanel::render(wxDC&  dc) {
     wxBitmap *preview = tool->getPreview();
     if (preview != NULL) {
@@ -49,23 +44,19 @@ void ImagePanel::render(wxDC&  dc) {
 void ImagePanel::mouseDown(wxMouseEvent& event) {
 	tool->mouseDown(event.GetPosition());
     pressedDown = true;
-    paintNow();
 }
 
 void ImagePanel::mouseMoved(wxMouseEvent& event) {
 	tool->mouseMoved(event.GetPosition());
-	paintNow();
 }
 
 void ImagePanel::mouseReleased(wxMouseEvent& event) {
 	tool->mouseUp(event.GetPosition());
     pressedDown = false;
-    paintNow();
 }
 void ImagePanel::mouseLeftWindow(wxMouseEvent& event) {
     if (pressedDown) {
         pressedDown = false;
-        paintNow();
     }
 }
 

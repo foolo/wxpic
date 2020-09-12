@@ -21,7 +21,6 @@ public:
     void setTool(ITool *t);
 
     void paintEvent(wxPaintEvent & evt);
-    void paintNow();
 
     void render(wxDC& dc);
 

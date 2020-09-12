@@ -2,8 +2,8 @@
 #include <wx/dcmemory.h>
 #include <iostream>
 
-ShapeTool::ShapeTool(ImageStack* imageSource) :
-		imageStack(imageSource), startPos(wxDefaultCoord, wxDefaultCoord)
+ShapeTool::ShapeTool(ImageStack* imageSource, ImagePanel* imagePanel) :
+		imageStack(imageSource), imagePanel(imagePanel), startPos(wxDefaultCoord, wxDefaultCoord)
 {
 }
 
@@ -20,6 +20,7 @@ void ShapeTool::mouseMoved(wxPoint pos) {
 		dc.SetPen(wxPen(*wxRED));
 		wxSize size(pos.x - startPos.x, pos.y - startPos.y);
 		dc.DrawRectangle(startPos, size);
+		imagePanel->Refresh();
 	}
 }
 
@@ -30,6 +31,7 @@ void ShapeTool::mouseUp(wxPoint pos) {
 	imageStack->pushImage(preview);
 	preview.reset();
 	startPos = wxPoint(wxDefaultCoord, wxDefaultCoord);
+	imagePanel->Refresh();
 }
 
 wxBitmap* ShapeTool::getPreview() {

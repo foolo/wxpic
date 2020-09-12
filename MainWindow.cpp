@@ -32,7 +32,7 @@ void MainWindow::open(wxString filename)
 		std::shared_ptr<wxBitmap> bmp(new wxBitmap(img));
 		imageStack.clear();
 		imageStack.pushImage(bmp);
-		imagePanel->setTool(new ShapeTool(&imageStack));
+		imagePanel->setTool(new ShapeTool(&imageStack, imagePanel));
 	}
 }
 
@@ -59,5 +59,5 @@ void MainWindow::button_6_clicked(wxCommandEvent &event) {
 void MainWindow::undo(wxCommandEvent &event) {
 	event.Skip();
 	imageStack.popImage();
-	imagePanel->paintNow();
+	imagePanel->Refresh();
 }
