@@ -27,7 +27,10 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 	color_button->SetBackgroundColour(*wxRED);
 
 	createToolIcons();
-	toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(RECTANGLE_ID), icons.at(RECTANGLE_ID), wxITEM_RADIO, wxEmptyString, wxEmptyString);
+	wxToolBarToolBase *tmp_tool;
+
+	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(RECTANGLE_ID), icons.at(RECTANGLE_ID), wxITEM_RADIO, wxEmptyString, wxEmptyString);
+	Bind(wxEVT_MENU, &MainWindow::rectangle_tool_selected, this, tmp_tool->GetId());
 }
 
 MainWindow::~MainWindow()
@@ -65,6 +68,11 @@ void MainWindow::button_5_clicked(wxCommandEvent &event) {
 void MainWindow::button_6_clicked(wxCommandEvent &event) {
 	event.Skip();
 	std::cout << "button_6_clicked" << std::endl;
+}
+
+void MainWindow::rectangle_tool_selected(wxCommandEvent &event) {
+	event.Skip();
+	std::cout << "rectangle_tool_selected" << std::endl;
 }
 
 void MainWindow::color_button_clicked(wxCommandEvent &event) {
