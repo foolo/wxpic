@@ -36,6 +36,7 @@ private:
 protected:
     // begin wxGlade: MainWindowLayout::attributes
     wxMenuBar* mainWindow0_menubar;
+    wxToolBar* toolbar;
     wxButton* button_3;
     wxButton* button_4;
     wxButton* button_5;

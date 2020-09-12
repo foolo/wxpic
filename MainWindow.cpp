@@ -25,6 +25,9 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 	}
 	brush_size_choice->SetSelection(2);
 	color_button->SetBackgroundColour(*wxRED);
+
+	createToolIcons();
+	toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(RECTANGLE_ID), icons.at(RECTANGLE_ID), wxITEM_RADIO, wxEmptyString, wxEmptyString);
 }
 
 MainWindow::~MainWindow()
@@ -84,4 +87,23 @@ wxColor MainWindow::getPrimaryColor() {
 
 int MainWindow::getBrushSize() {
 	return brush_sizes.at(brush_size_choice->GetSelection());
+}
+
+void MainWindow::createToolIcons() {
+	for (int i = 0; i < TOOL_ID_MAX; i++) {
+		icons.push_back(wxBitmap(16, 16, 32));
+		wxMemoryDC dc;
+		dc.SelectObject(icons.back());
+		dc.SetBackground(*wxTRANSPARENT_BRUSH);
+		dc.Clear();
+		dc.SetPen(wxPen(*wxBLACK));
+		dc.SetBrush(*wxTRANSPARENT_BRUSH);
+		switch (i) {
+		case RECTANGLE_ID:
+			dc.DrawRectangle(3, 4, 10, 8);
+			break;
+		default:
+			break;
+		}
+	}
 }

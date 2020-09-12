@@ -27,6 +27,9 @@ MainWindowLayout::MainWindowLayout(wxWindow* parent, wxWindowID id, const wxStri
     wxglade_tmp_menu = new wxMenu();
     mainWindow0_menubar->Append(wxglade_tmp_menu, wxT("item"));
     SetMenuBar(mainWindow0_menubar);
+    toolbar = new wxToolBar(this, -1);
+    SetToolBar(toolbar);
+    toolbar->Realize();
     wxBoxSizer* sizer_1 = new wxBoxSizer(wxHORIZONTAL);
     wxBoxSizer* sizer_2 = new wxBoxSizer(wxVERTICAL);
     sizer_1->Add(sizer_2, 0, wxALL|wxEXPAND, 0);
