@@ -22,7 +22,7 @@ void ShapeTool::mouseMoved(wxPoint pos) {
 	preview = std::shared_ptr<wxBitmap>(new wxBitmap(*imageStack->getImage()));
 	wxMemoryDC dc;
 	dc.SelectObject(*preview);
-	dc.SetPen(wxPen(mainWindow->getPrimaryColor()));
+	dc.SetPen(wxPen(mainWindow->getPrimaryColor(), mainWindow->getBrushSize()));
 	dc.SetBrush(*wxTRANSPARENT_BRUSH);
 	wxSize size(pos.x - startPos.x, pos.y - startPos.y);
 	dc.DrawRectangle(startPos, size);

@@ -23,7 +23,7 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 	for (unsigned i = 0; i < brush_sizes.size(); i++) {
 		brush_size_choice->Append(wxString(std::to_string(brush_sizes[i])));
 	}
-	brush_size_choice->SetSelection(0);
+	brush_size_choice->SetSelection(2);
 }
 
 MainWindow::~MainWindow()
@@ -79,4 +79,8 @@ void MainWindow::undo(wxCommandEvent &event) {
 
 wxColor MainWindow::getPrimaryColor() {
 	return color_button->GetBackgroundColour();
+}
+
+int MainWindow::getBrushSize() {
+	return brush_sizes.at(brush_size_choice->GetSelection());
 }
