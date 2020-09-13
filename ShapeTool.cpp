@@ -59,8 +59,8 @@ wxRect normalize(wxRect r) {
 
 void ShapeTool::drawDc(wxMemoryDC &dc, const wxRect &r) {
 	switch (toolType) {
-	case RECTANGLE_ID: dc.DrawRectangle(r); break;
-	case ELLIPSE_ID: dc.DrawEllipse(normalize(r)); break;
+	case ToolType::RECTANGLE: dc.DrawRectangle(r); break;
+	case ToolType::ELLIPSE: dc.DrawEllipse(normalize(r)); break;
 	default: break;
 	}
 }

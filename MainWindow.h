@@ -5,11 +5,7 @@
 #include <memory>
 #include <vector>
 
-typedef enum {
-	RECTANGLE_ID,
-	ELLIPSE_ID,
-	TOOL_ID_MAX,
-} ToolType;
+enum class ToolType { RECTANGLE, ELLIPSE };
 
 class IconId {
 public:

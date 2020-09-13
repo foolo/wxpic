@@ -49,7 +49,7 @@ void MainWindow::open(wxString filename)
 		std::shared_ptr<wxBitmap> bmp(new wxBitmap(img));
 		imageStack.clear();
 		imageStack.pushImage(bmp);
-		imagePanel->setTool(new ShapeTool(&imageStack, imagePanel, this, RECTANGLE_ID));
+		imagePanel->setTool(new ShapeTool(&imageStack, imagePanel, this, ToolType::RECTANGLE));
 	}
 }
 
@@ -75,14 +75,12 @@ void MainWindow::button_6_clicked(wxCommandEvent &event) {
 
 void MainWindow::rectangle_tool_selected(wxCommandEvent &event) {
 	event.Skip();
-	std::cout << "rectangle_tool_selected" << std::endl;
-	imagePanel->setTool(new ShapeTool(&imageStack, imagePanel, this, RECTANGLE_ID));
+	imagePanel->setTool(new ShapeTool(&imageStack, imagePanel, this, ToolType::RECTANGLE));
 }
 
 void MainWindow::ellipse_tool_selected(wxCommandEvent &event) {
 	event.Skip();
-	std::cout << "ellipse_tool_selected" << std::endl;
-	imagePanel->setTool(new ShapeTool(&imageStack, imagePanel, this, ELLIPSE_ID));
+	imagePanel->setTool(new ShapeTool(&imageStack, imagePanel, this, ToolType::ELLIPSE));
 }
 
 void MainWindow::color_button_clicked(wxCommandEvent &event) {
@@ -117,14 +115,9 @@ void MainWindow::createToolIcons() {
 		dc.SetPen(wxPen(*wxBLACK));
 		dc.SetBrush(*wxTRANSPARENT_BRUSH);
 		switch (i) {
-		case IconId::RECTANGLE:
-			dc.DrawRectangle(3, 4, 10, 8);
-			break;
-		case IconId::ELLIPSE:
-			dc.DrawEllipse(2, 4, 12, 8);
-			break;
-		default:
-			break;
+		case IconId::RECTANGLE: dc.DrawRectangle(3, 4, 10, 8); break;
+		case IconId::ELLIPSE: dc.DrawEllipse(2, 4, 12, 8); break;
+		default: break;
 		}
 	}
 }
