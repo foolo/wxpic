@@ -63,12 +63,30 @@ double getRoundedRadius(const wxRect &r) {
 	return std::min(maxRadius, ROUNDED_RECTANGLE_RADIUS);
 }
 
+void drawArrow(wxMemoryDC &dc, const wxRect &r) {
+	int width = std::max(10, dc.GetPen().GetWidth() * 3);
+	wxPoint p0 = r.GetLeftTop();
+	wxPoint p1 = r.GetRightBottom();
+	double point_angle = 0.6;
+	double angle = std::atan2(r.height, r.width);
+	double dx_r = std::cos(angle - point_angle) * width;
+	double dy_r = std::sin(angle - point_angle) * width;
+	double dx_l = std::cos(angle + point_angle) * width;
+	double dy_l = std::sin(angle + point_angle) * width;
+	wxPoint pa_r = p1 - wxPoint(dx_r, dy_r);
+	wxPoint pa_l = p1 - wxPoint(dx_l, dy_l);
+	dc.DrawLine(p0, p1);
+	dc.DrawLine(p1, pa_r);
+	dc.DrawLine(p1, pa_l);
+}
+
 void ShapeTool::drawDc(wxMemoryDC &dc, const wxRect &r) {
 	switch (toolType) {
 	case ToolType::RECTANGLE: dc.DrawRectangle(r); break;
 	case ToolType::ROUNDED_RECTANGLE: dc.DrawRoundedRectangle(normalize(r), getRoundedRadius(r)); break;
 	case ToolType::ELLIPSE: dc.DrawEllipse(normalize(r)); break;
 	case ToolType::LINE: dc.DrawLine(r.GetLeftTop(), r.GetBottomRight()); break;
+	case ToolType::ARROW: drawArrow(dc, r); break;
 	default: break;
 	}
 }
