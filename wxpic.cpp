@@ -21,7 +21,7 @@
 
 class MyApp: public wxApp {
 public:
-    bool OnInit();
+	bool OnInit();
 };
 
 IMPLEMENT_APP(MyApp)

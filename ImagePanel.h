@@ -7,30 +7,30 @@
 #include <wx/sizer.h>
 
 class ImagePanel : public wxWindow {
-    bool pressedDown;
-    static const int buttonWidth = 200;
-    static const int buttonHeight = 50;
+	bool pressedDown;
+	static const int buttonWidth = 200;
+	static const int buttonHeight = 50;
 
-    ImageStack *imageStack;
-    std::unique_ptr<ITool> tool;
+	ImageStack *imageStack;
+	std::unique_ptr<ITool> tool;
 
 public:
-    ImagePanel(wxFrame* parent);
+	ImagePanel(wxFrame* parent);
 
-    void setImageSource(ImageStack *is);
-    void setTool(ITool *t);
+	void setImageSource(ImageStack *is);
+	void setTool(ITool *t);
 
-    void paintEvent(wxPaintEvent & evt);
+	void paintEvent(wxPaintEvent & evt);
 
-    void render(wxDC& dc);
+	void render(wxDC& dc);
 
-    void mouseDown(wxMouseEvent& event);
-    void mouseMoved(wxMouseEvent& event);
-    void mouseReleased(wxMouseEvent& event);
-    void mouseWheelMoved(wxMouseEvent& event);
-    void rightClick(wxMouseEvent& event);
-    void mouseLeftWindow(wxMouseEvent& event);
-    void keyPressed(wxKeyEvent& event);
-    void keyReleased(wxKeyEvent& event);
+	void mouseDown(wxMouseEvent& event);
+	void mouseMoved(wxMouseEvent& event);
+	void mouseReleased(wxMouseEvent& event);
+	void mouseWheelMoved(wxMouseEvent& event);
+	void rightClick(wxMouseEvent& event);
+	void mouseLeftWindow(wxMouseEvent& event);
+	void keyPressed(wxKeyEvent& event);
+	void keyReleased(wxKeyEvent& event);
 };
 
