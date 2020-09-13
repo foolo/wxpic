@@ -12,13 +12,7 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 	Bind(wxEVT_BUTTON, &MainWindow::button_5_clicked, this, button_5->GetId());
 	Bind(wxEVT_BUTTON, &MainWindow::button_6_clicked, this, button_6->GetId());
 	Bind(wxEVT_BUTTON, &MainWindow::color_button_clicked, this, color_button->GetId());
-	Bind(wxEVT_MENU, &MainWindow::undo, this, wxID_UNDO);
-
-	const int ENTRIES_CNT = 1;
-	wxAcceleratorEntry entries[ENTRIES_CNT];
-	entries[0].Set(wxACCEL_CTRL, (int) 'Z', wxID_UNDO);
-	wxAcceleratorTable accel(ENTRIES_CNT, entries);
-	SetAcceleratorTable(accel);
+	Bind(wxEVT_MENU, &MainWindow::undo, this, undo_menu_item->GetId());
 
 	for (unsigned i = 0; i < brush_sizes.size(); i++) {
 		brush_size_choice->Append(wxString(std::to_string(brush_sizes[i])));
