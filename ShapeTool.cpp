@@ -2,11 +2,12 @@
 #include <wx/dcmemory.h>
 #include <iostream>
 
-ShapeTool::ShapeTool(ImageStack* imageSource, ImagePanel* imagePanel, MainWindow* mainWindow) :
-		imageStack(imageSource),
-		imagePanel(imagePanel),
-		mainWindow(mainWindow),
-		startPos(wxDefaultCoord, wxDefaultCoord)
+ShapeTool::ShapeTool(ImageStack* is, ImagePanel* ip, MainWindow* mw, ToolType tt) :
+		imageStack(is),
+		imagePanel(ip),
+		mainWindow(mw),
+		startPos(wxDefaultCoord, wxDefaultCoord),
+		toolType(tt)
 {
 }
 
@@ -25,7 +26,7 @@ void ShapeTool::mouseMoved(wxPoint pos) {
 	dc.SetPen(wxPen(mainWindow->getPrimaryColor(), mainWindow->getBrushSize()));
 	dc.SetBrush(*wxTRANSPARENT_BRUSH);
 	wxSize size(pos.x - startPos.x, pos.y - startPos.y);
-	dc.DrawRectangle(startPos, size);
+	drawDc(dc, wxRect(startPos, size));
 	imagePanel->Refresh();
 }
 
@@ -41,4 +42,25 @@ void ShapeTool::mouseUp(wxPoint pos) {
 
 wxBitmap* ShapeTool::getPreview() {
 	return preview.get();
+}
+
+wxRect normalize(wxRect r) {
+	wxRect res(r);
+	if (res.width < 0) {
+		res.width = -res.width;
+		res.x -= res.width;
+	}
+	if (res.height < 0) {
+		res.height = -res.height;
+		res.y -= res.height;
+	}
+	return res;
+}
+
+void ShapeTool::drawDc(wxMemoryDC &dc, const wxRect &r) {
+	switch (toolType) {
+	case RECTANGLE_ID: dc.DrawRectangle(r); break;
+	case ELLIPSE_ID: dc.DrawEllipse(normalize(r)); break;
+	default: break;
+	}
 }
