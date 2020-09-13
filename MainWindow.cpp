@@ -32,6 +32,9 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::RECTANGLE), icons.at(IconId::RECTANGLE), wxITEM_RADIO, wxEmptyString, wxEmptyString);
 	Bind(wxEVT_MENU, &MainWindow::rectangle_tool_selected, this, tmp_tool->GetId());
 
+	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::ROUNDED_RECTANGLE), icons.at(IconId::ROUNDED_RECTANGLE), wxITEM_RADIO, wxEmptyString, wxEmptyString);
+	Bind(wxEVT_MENU, &MainWindow::rounded_rectangle_tool_selected, this, tmp_tool->GetId());
+
 	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::ELLIPSE), icons.at(IconId::ELLIPSE), wxITEM_RADIO, wxEmptyString, wxEmptyString);
 	Bind(wxEVT_MENU, &MainWindow::ellipse_tool_selected, this, tmp_tool->GetId());
 }
@@ -78,6 +81,11 @@ void MainWindow::rectangle_tool_selected(wxCommandEvent &event) {
 	imagePanel->setTool(new ShapeTool(&imageStack, imagePanel, this, ToolType::RECTANGLE));
 }
 
+void MainWindow::rounded_rectangle_tool_selected(wxCommandEvent &event) {
+	event.Skip();
+	imagePanel->setTool(new ShapeTool(&imageStack, imagePanel, this, ToolType::ROUNDED_RECTANGLE));
+}
+
 void MainWindow::ellipse_tool_selected(wxCommandEvent &event) {
 	event.Skip();
 	imagePanel->setTool(new ShapeTool(&imageStack, imagePanel, this, ToolType::ELLIPSE));
@@ -116,6 +124,7 @@ void MainWindow::createToolIcons() {
 		dc.SetBrush(*wxTRANSPARENT_BRUSH);
 		switch (i) {
 		case IconId::RECTANGLE: dc.DrawRectangle(3, 4, 10, 8); break;
+		case IconId::ROUNDED_RECTANGLE: dc.DrawRoundedRectangle(3, 4, 10, 8, 2); break;
 		case IconId::ELLIPSE: dc.DrawEllipse(2, 4, 12, 8); break;
 		default: break;
 		}

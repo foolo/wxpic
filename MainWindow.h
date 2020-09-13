@@ -4,11 +4,11 @@
 #include <memory>
 #include <vector>
 
-enum class ToolType { RECTANGLE, ELLIPSE };
+enum class ToolType { RECTANGLE, ROUNDED_RECTANGLE, ELLIPSE };
 
 class IconId {
 public:
-	enum { RECTANGLE, ELLIPSE, MAX };
+	enum { RECTANGLE, ROUNDED_RECTANGLE, ELLIPSE, MAX };
 };
 
 class MainWindow : public MainWindowLayout {
@@ -26,6 +26,7 @@ public:
 	void button_5_clicked(wxCommandEvent &event);
 	void button_6_clicked(wxCommandEvent &event);
 	void rectangle_tool_selected(wxCommandEvent &event);
+	void rounded_rectangle_tool_selected(wxCommandEvent &event);
 	void ellipse_tool_selected(wxCommandEvent &event);
 	void color_button_clicked(wxCommandEvent &event);
 	void undo(wxCommandEvent &event);

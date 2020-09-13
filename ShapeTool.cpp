@@ -57,9 +57,16 @@ wxRect normalize(wxRect r) {
 	return res;
 }
 
+double getRoundedRadius(const wxRect &r) {
+	const int ROUNDED_RECTANGLE_RADIUS = 10;
+	int maxRadius = std::min(std::abs(r.width), std::abs(r.height)) / 2;
+	return std::min(maxRadius, ROUNDED_RECTANGLE_RADIUS);
+}
+
 void ShapeTool::drawDc(wxMemoryDC &dc, const wxRect &r) {
 	switch (toolType) {
 	case ToolType::RECTANGLE: dc.DrawRectangle(r); break;
+	case ToolType::ROUNDED_RECTANGLE: dc.DrawRoundedRectangle(normalize(r), getRoundedRadius(r)); break;
 	case ToolType::ELLIPSE: dc.DrawEllipse(normalize(r)); break;
 	default: break;
 	}
