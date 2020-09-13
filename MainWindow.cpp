@@ -29,13 +29,13 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 	createToolIcons();
 	wxToolBarToolBase *tmp_tool;
 
-	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::RECTANGLE), icons.at(IconId::RECTANGLE), wxITEM_RADIO, wxEmptyString, wxEmptyString);
+	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::RECTANGLE), icons.at(IconId::RECTANGLE), wxITEM_RADIO, wxT("Rectangle"), wxEmptyString);
 	Bind(wxEVT_MENU, &MainWindow::rectangle_tool_selected, this, tmp_tool->GetId());
 
-	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::ROUNDED_RECTANGLE), icons.at(IconId::ROUNDED_RECTANGLE), wxITEM_RADIO, wxEmptyString, wxEmptyString);
+	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::ROUNDED_RECTANGLE), icons.at(IconId::ROUNDED_RECTANGLE), wxITEM_RADIO, wxT("Rounded rectangle"), wxEmptyString);
 	Bind(wxEVT_MENU, &MainWindow::rounded_rectangle_tool_selected, this, tmp_tool->GetId());
 
-	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::ELLIPSE), icons.at(IconId::ELLIPSE), wxITEM_RADIO, wxEmptyString, wxEmptyString);
+	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::ELLIPSE), icons.at(IconId::ELLIPSE), wxITEM_RADIO, wxT("Ellipse"), wxEmptyString);
 	Bind(wxEVT_MENU, &MainWindow::ellipse_tool_selected, this, tmp_tool->GetId());
 }
 
