@@ -17,41 +17,41 @@
 
 
 MainWindowLayout::MainWindowLayout(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style):
-    wxFrame(parent, id, title, pos, size, wxDEFAULT_FRAME_STYLE)
+				wxFrame(parent, id, title, pos, size, wxDEFAULT_FRAME_STYLE)
 {
-    // begin wxGlade: MainWindowLayout::MainWindowLayout
-    SetSize(wxSize(561, 404));
-    SetTitle(wxT("frame"));
-    mainWindow0_menubar = new wxMenuBar();
-    wxMenu *wxglade_tmp_menu;
-    wxglade_tmp_menu = new wxMenu();
-    mainWindow0_menubar->Append(wxglade_tmp_menu, wxT("item"));
-    SetMenuBar(mainWindow0_menubar);
-    toolbar = new wxToolBar(this, -1);
-    SetToolBar(toolbar);
-    toolbar->Realize();
-    wxBoxSizer* sizer_1 = new wxBoxSizer(wxHORIZONTAL);
-    wxBoxSizer* sizer_2 = new wxBoxSizer(wxVERTICAL);
-    sizer_1->Add(sizer_2, 0, wxALL|wxEXPAND, 0);
-    button_3 = new wxButton(this, wxID_ANY, wxT("button_3"));
-    sizer_2->Add(button_3, 0, 0, 0);
-    button_4 = new wxButton(this, wxID_ANY, wxT("button_4"));
-    sizer_2->Add(button_4, 0, 0, 0);
-    button_5 = new wxButton(this, wxID_ANY, wxT("button_5"));
-    sizer_2->Add(button_5, 0, 0, 0);
-    button_6 = new wxButton(this, wxID_ANY, wxT("button_6"));
-    sizer_2->Add(button_6, 0, 0, 0);
-    color_button = new wxButton(this, wxID_ANY, wxEmptyString);
-    color_button->SetMinSize(wxSize(32, 32));
-    sizer_2->Add(color_button, 0, wxALL, 5);
-    const wxString brush_size_choice_choices[] = {};
-    brush_size_choice = new wxChoice(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, brush_size_choice_choices);
-    sizer_2->Add(brush_size_choice, 0, 0, 0);
-    imagePanel = new ImagePanel(this);
-    sizer_1->Add(imagePanel, 1, wxEXPAND, 0);
-    
-    SetSizer(sizer_1);
-    Layout();
-    // end wxGlade
+				// begin wxGlade: MainWindowLayout::MainWindowLayout
+				SetSize(wxSize(561, 404));
+				SetTitle(wxT("frame"));
+				mainWindow0_menubar = new wxMenuBar();
+				wxMenu *wxglade_tmp_menu;
+				wxglade_tmp_menu = new wxMenu();
+				mainWindow0_menubar->Append(wxglade_tmp_menu, wxT("item"));
+				SetMenuBar(mainWindow0_menubar);
+				toolbar = new wxToolBar(this, -1);
+				SetToolBar(toolbar);
+				toolbar->Realize();
+				wxBoxSizer* sizer_1 = new wxBoxSizer(wxHORIZONTAL);
+				wxBoxSizer* sizer_2 = new wxBoxSizer(wxVERTICAL);
+				sizer_1->Add(sizer_2, 0, wxALL|wxEXPAND, 0);
+				button_3 = new wxButton(this, wxID_ANY, wxT("button_3"));
+				sizer_2->Add(button_3, 0, 0, 0);
+				button_4 = new wxButton(this, wxID_ANY, wxT("button_4"));
+				sizer_2->Add(button_4, 0, 0, 0);
+				button_5 = new wxButton(this, wxID_ANY, wxT("button_5"));
+				sizer_2->Add(button_5, 0, 0, 0);
+				button_6 = new wxButton(this, wxID_ANY, wxT("button_6"));
+				sizer_2->Add(button_6, 0, 0, 0);
+				color_button = new wxButton(this, wxID_ANY, wxEmptyString);
+				color_button->SetMinSize(wxSize(32, 32));
+				sizer_2->Add(color_button, 0, wxALL, 5);
+				const wxString brush_size_choice_choices[] = {};
+				brush_size_choice = new wxChoice(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, brush_size_choice_choices);
+				sizer_2->Add(brush_size_choice, 0, 0, 0);
+				imagePanel = new ImagePanel(this);
+				sizer_1->Add(imagePanel, 1, wxEXPAND, 0);
+				
+				SetSizer(sizer_1);
+				Layout();
+				// end wxGlade
 }
 

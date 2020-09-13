@@ -26,25 +26,25 @@
 
 class MainWindowLayout: public wxFrame {
 public:
-    // begin wxGlade: MainWindowLayout::ids
-    // end wxGlade
+				// begin wxGlade: MainWindowLayout::ids
+				// end wxGlade
 
-    MainWindowLayout(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos=wxDefaultPosition, const wxSize& size=wxDefaultSize, long style=wxDEFAULT_FRAME_STYLE);
+				MainWindowLayout(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos=wxDefaultPosition, const wxSize& size=wxDefaultSize, long style=wxDEFAULT_FRAME_STYLE);
 
 private:
 
 protected:
-    // begin wxGlade: MainWindowLayout::attributes
-    wxMenuBar* mainWindow0_menubar;
-    wxToolBar* toolbar;
-    wxButton* button_3;
-    wxButton* button_4;
-    wxButton* button_5;
-    wxButton* button_6;
-    wxButton* color_button;
-    wxChoice* brush_size_choice;
-    ImagePanel* imagePanel;
-    // end wxGlade
+				// begin wxGlade: MainWindowLayout::attributes
+				wxMenuBar* mainWindow0_menubar;
+				wxToolBar* toolbar;
+				wxButton* button_3;
+				wxButton* button_4;
+				wxButton* button_5;
+				wxButton* button_6;
+				wxButton* color_button;
+				wxChoice* brush_size_choice;
+				ImagePanel* imagePanel;
+				// end wxGlade
 }; // wxGlade: end class
 
 
