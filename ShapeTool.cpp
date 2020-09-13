@@ -68,6 +68,7 @@ void ShapeTool::drawDc(wxMemoryDC &dc, const wxRect &r) {
 	case ToolType::RECTANGLE: dc.DrawRectangle(r); break;
 	case ToolType::ROUNDED_RECTANGLE: dc.DrawRoundedRectangle(normalize(r), getRoundedRadius(r)); break;
 	case ToolType::ELLIPSE: dc.DrawEllipse(normalize(r)); break;
+	case ToolType::LINE: dc.DrawLine(r.GetLeftTop(), r.GetBottomRight()); break;
 	default: break;
 	}
 }

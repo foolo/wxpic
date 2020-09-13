@@ -37,6 +37,9 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 
 	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::ELLIPSE), icons.at(IconId::ELLIPSE), wxITEM_RADIO, wxT("Ellipse"), wxEmptyString);
 	Bind(wxEVT_MENU, &MainWindow::ellipse_tool_selected, this, tmp_tool->GetId());
+
+	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::LINE), icons.at(IconId::LINE), wxITEM_RADIO, wxT("Line"), wxEmptyString);
+	Bind(wxEVT_MENU, &MainWindow::line_tool_selected, this, tmp_tool->GetId());
 }
 
 MainWindow::~MainWindow()
@@ -91,6 +94,11 @@ void MainWindow::ellipse_tool_selected(wxCommandEvent &event) {
 	imagePanel->setTool(new ShapeTool(&imageStack, imagePanel, this, ToolType::ELLIPSE));
 }
 
+void MainWindow::line_tool_selected(wxCommandEvent &event) {
+	event.Skip();
+	imagePanel->setTool(new ShapeTool(&imageStack, imagePanel, this, ToolType::LINE));
+}
+
 void MainWindow::color_button_clicked(wxCommandEvent &event) {
 	event.Skip();
 	wxColour color = wxGetColourFromUser(this, color_button->GetBackgroundColour());
@@ -126,6 +134,7 @@ void MainWindow::createToolIcons() {
 		case IconId::RECTANGLE: dc.DrawRectangle(1, 3, 14, 10); break;
 		case IconId::ROUNDED_RECTANGLE: dc.DrawRoundedRectangle(0, 3, 16, 10, 3); break;
 		case IconId::ELLIPSE: dc.DrawEllipse(0, 3, 15, 10); break;
+		case IconId::LINE: dc.DrawLine(0, 13, 15, 3); break;
 		default: break;
 		}
 	}
