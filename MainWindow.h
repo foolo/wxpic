@@ -1,5 +1,4 @@
 #pragma once
-
 #include "MainWindowLayout.h"
 #include "ImageStack.h"
 #include <memory>
@@ -12,8 +11,7 @@ public:
 	enum { RECTANGLE, ELLIPSE, MAX };
 };
 
-class MainWindow : public MainWindowLayout
-{
+class MainWindow : public MainWindowLayout {
 	ImageStack imageStack;
 	const std::vector<int> brush_sizes{1, 2, 3, 4, 5, 6, 8, 10, 12, 15, 18};
 	std::vector<wxBitmap> icons;

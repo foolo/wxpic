@@ -1,5 +1,4 @@
 #pragma once
-
 #include "ImageStack.h"
 #include "ITool.h"
 #include <memory>
