@@ -123,9 +123,9 @@ void MainWindow::createToolIcons() {
 		dc.SetPen(wxPen(*wxBLACK));
 		dc.SetBrush(*wxTRANSPARENT_BRUSH);
 		switch (i) {
-		case IconId::RECTANGLE: dc.DrawRectangle(3, 4, 10, 8); break;
-		case IconId::ROUNDED_RECTANGLE: dc.DrawRoundedRectangle(3, 4, 10, 8, 2); break;
-		case IconId::ELLIPSE: dc.DrawEllipse(2, 4, 12, 8); break;
+		case IconId::RECTANGLE: dc.DrawRectangle(1, 3, 14, 10); break;
+		case IconId::ROUNDED_RECTANGLE: dc.DrawRoundedRectangle(0, 3, 16, 10, 3); break;
+		case IconId::ELLIPSE: dc.DrawEllipse(0, 3, 15, 10); break;
 		default: break;
 		}
 	}
