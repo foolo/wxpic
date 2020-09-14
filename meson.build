@@ -7,6 +7,7 @@ src = [
 	'ImagePanel.cpp',
 	'ImageStack.cpp',
 	'ShapeTool.cpp',
+	'Util.cpp',
 ]
 
 wx_dep = dependency('wxWidgets', version: '>=3.0.0')

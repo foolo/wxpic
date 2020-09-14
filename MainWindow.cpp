@@ -1,5 +1,6 @@
 #include "MainWindow.h"
 #include "ShapeTool.h"
+#include "Util.h"
 #include <wx/wfstream.h>
 #include <wx/colordlg.h>
 
@@ -45,14 +46,20 @@ MainWindow::~MainWindow()
 
 void MainWindow::open(wxString filename)
 {
-	wxImage img;
+	imageStack.clear();
 	wxFFileInputStream fis(filename);
-	wxPNGHandler pngHandler;
-	if (pngHandler.LoadFile(&img, fis)) {
-		std::shared_ptr<wxBitmap> bmp(new wxBitmap(img));
-		imageStack.clear();
-		imageStack.pushImage(bmp);
+	wxBitmap *bmp = Util::loadBitmap(fis);
+	if (bmp != NULL) {
+		imageStack.pushImage(std::shared_ptr<wxBitmap>(bmp));
 		imagePanel->setTool(new ShapeTool(&imageStack, imagePanel, this, ToolType::RECTANGLE));
+	}
+	else {
+		bmp = new wxBitmap(16, 16, 32);
+		wxMemoryDC dc;
+		dc.SelectObject(*bmp);
+		imageStack.pushImage(std::shared_ptr<wxBitmap>(bmp));
+		wxMessageBox("Could not load file\n" + filename, wxMessageBoxCaptionStr, wxICON_ERROR);
+		Close();
 	}
 }
 
