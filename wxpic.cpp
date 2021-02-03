@@ -17,6 +17,9 @@ bool MyApp::OnInit() {
 		args.push_back(std::string(wxApp::argv[i]));
 	}
 
+	wxLog* logger = new wxLogStream(&std::cout);
+	wxLog::SetActiveTarget(logger);
+
 	wxInitAllImageHandlers();
 	MainWindow* mainWindow0 = new MainWindow(NULL, wxID_ANY, wxEmptyString);
 	SetTopWindow(mainWindow0);
