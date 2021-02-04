@@ -31,9 +31,6 @@ void ShapeTool::mouseMoved(wxPoint pos) {
 }
 
 void ShapeTool::mouseUp(wxPoint pos) {
-	wxMemoryDC dc;
-	dc.SelectObject(*imageStack->getImage());
-	dc.SetPen(wxPen(mainWindow->getPrimaryColor()));
 	imageStack->pushImage(preview);
 	preview.reset();
 	startPos = wxPoint(wxDefaultCoord, wxDefaultCoord);
