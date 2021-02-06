@@ -1,5 +1,6 @@
 #include "MainWindow.h"
 #include "ShapeTool.h"
+#include "DrawTool.h"
 #include "Util.h"
 #include <wx/wfstream.h>
 #include <wx/colordlg.h>
@@ -38,6 +39,9 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 
 	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::ARROW), icons.at(IconId::ARROW), wxITEM_RADIO, "Arrow", wxEmptyString);
 	Bind(wxEVT_MENU, &MainWindow::arrow_tool_selected, this, tmp_tool->GetId());
+
+	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::DRAW), icons.at(IconId::DRAW), wxITEM_RADIO, "Draw", wxEmptyString);
+	Bind(wxEVT_MENU, &MainWindow::draw_tool_selected, this, tmp_tool->GetId());
 }
 
 MainWindow::~MainWindow()
@@ -108,6 +112,11 @@ void MainWindow::arrow_tool_selected(wxCommandEvent &event) {
 	imagePanel->setTool(new ShapeTool(&imageStack, imagePanel, this, ToolType::ARROW));
 }
 
+void MainWindow::draw_tool_selected(wxCommandEvent &event) {
+	event.Skip();
+	imagePanel->setTool(new DrawTool(&imageStack, imagePanel, this));
+}
+
 void MainWindow::color_button_clicked(wxCommandEvent &event) {
 	event.Skip();
 	wxColour color = wxGetColourFromUser(this, color_button->GetBackgroundColour());
@@ -149,6 +158,20 @@ void MainWindow::createToolIcons() {
 			dc.DrawLine(15, 8, 12, 5);
 			dc.DrawLine(15, 8, 12, 11);
 			break;
+		case IconId::DRAW: {
+			const int d = 2;
+			const int s1x = 0+d;
+			const int s1y = 11-d;
+			const int s2x = 4+d;
+			const int s2y = 15-d;
+			dc.DrawLine(0, 15, s2x, s2y);
+			dc.DrawLine(0, 15, s1x, s1y);
+			dc.DrawLine(s1x, s1y, s2x, s2y);
+			dc.DrawLine(s1x, s1y, 11, 0);
+			dc.DrawLine(s2x, s2y, 15, 4);
+			dc.DrawLine(11, 0, 15, 4);
+		}
+		break;
 		default: break;
 		}
 	}

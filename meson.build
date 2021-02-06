@@ -7,6 +7,7 @@ src = [
 	'ImagePanel.cpp',
 	'ImageStack.cpp',
 	'ShapeTool.cpp',
+	'DrawTool.cpp',
 	'Util.cpp',
 ]
 
