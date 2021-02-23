@@ -12,6 +12,13 @@ class ImagePanel : public wxWindow {
 
 	ImageStack *imageStack;
 	std::unique_ptr<ITool> tool;
+	int zoomScrollLevel = 0;
+	double zoomScale = 1.0;
+	static constexpr const double zoomLevelMap[] = {1.0, 1.5, 2.0, 3.0, 4.0};
+
+private:
+	wxPoint mouseToImg(const wxPoint &mp);
+	double zoomLevelToScale(int n);
 
 public:
 	ImagePanel(wxFrame* parent);

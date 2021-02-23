@@ -5,4 +5,5 @@
 class Util {
 public:
 	static wxBitmap *loadBitmap(wxFFileInputStream &fis);
+	static int limit(int val, int min, int max);
 };

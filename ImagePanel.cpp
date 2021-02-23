@@ -1,4 +1,6 @@
 #include "ImagePanel.h"
+#include "Util.h"
+#include <iterator>
 
 ImagePanel::ImagePanel(wxFrame* parent) :
  wxWindow(parent, wxID_ANY), imageStack(NULL)
@@ -32,6 +34,7 @@ void ImagePanel::paintEvent(wxPaintEvent & evt) {
 
 void ImagePanel::render(wxDC&  dc) {
 	wxBitmap *preview = tool->getPreview();
+	dc.SetUserScale(zoomScale, zoomScale);
 	if (preview != NULL) {
 		dc.DrawBitmap(*preview, wxPoint(0,0));
 	}
@@ -41,17 +44,21 @@ void ImagePanel::render(wxDC&  dc) {
 	}
 }
 
+wxPoint ImagePanel::mouseToImg(const wxPoint &mp) {
+	return wxPoint(mp.x / zoomScale, mp.y / zoomScale);
+}
+
 void ImagePanel::mouseDown(wxMouseEvent& event) {
-	tool->mouseDown(event.GetPosition());
+	tool->mouseDown(mouseToImg(event.GetPosition()));
 	pressedDown = true;
 }
 
 void ImagePanel::mouseMoved(wxMouseEvent& event) {
-	tool->mouseMoved(event.GetPosition());
+	tool->mouseMoved(mouseToImg(event.GetPosition()));
 }
 
 void ImagePanel::mouseReleased(wxMouseEvent& event) {
-	tool->mouseUp(event.GetPosition());
+	tool->mouseUp(mouseToImg(event.GetPosition()));
 	pressedDown = false;
 }
 void ImagePanel::mouseLeftWindow(wxMouseEvent& event) {
@@ -60,8 +67,30 @@ void ImagePanel::mouseLeftWindow(wxMouseEvent& event) {
 	}
 }
 
+double ImagePanel::zoomLevelToScale(int n) {
+	unsigned i = std::abs(n);
+	if (i >= std::size(zoomLevelMap)) {
+		return 1.0;
+	}
+	if (n < 0) {
+		return 1.0 / zoomLevelMap[i];
+	}
+	else {
+		return zoomLevelMap[i];
+	}
+}
+
+void ImagePanel::mouseWheelMoved(wxMouseEvent& event) {
+	if (event.GetModifiers() & wxMOD_CONTROL) {
+		zoomScrollLevel += event.GetWheelRotation();
+		const int maxZoomLevel = std::size(zoomLevelMap) - 1;
+		int zoomLevel = Util::limit(zoomScrollLevel / event.GetWheelDelta(), -maxZoomLevel, maxZoomLevel);
+		zoomScale = zoomLevelToScale(zoomLevel);
+		Refresh();
+	}
+}
+
 // currently unused events
-void ImagePanel::mouseWheelMoved(wxMouseEvent& event) {}
 void ImagePanel::rightClick(wxMouseEvent& event) {}
 void ImagePanel::keyPressed(wxKeyEvent& event) {
 	std::cout << "key pressed " << event.GetKeyCode() << std::endl;
