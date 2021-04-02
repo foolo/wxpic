@@ -50,6 +50,10 @@ wxPoint ImagePanel::mouseToImg(const wxPoint &mp) {
 	return wxPoint(dm.x / zoomScale, dm.y / zoomScale);
 }
 
+wxPoint ImagePanel::imgToMouse(const wxPoint &ic) {
+	return ic * zoomScale + imagePanPos;
+}
+
 void ImagePanel::mouseLeftDown(wxMouseEvent& event) {
 	if (inputState == InputState::IDLE) {
 		tool->mouseDown(mouseToImg(event.GetPosition()));
@@ -102,10 +106,17 @@ double ImagePanel::zoomLevelToScale(int n) {
 
 void ImagePanel::mouseWheelMoved(wxMouseEvent& event) {
 	if (event.GetModifiers() & wxMOD_CONTROL) {
+		wxPoint zoomPointInImage = mouseToImg(event.GetPosition());
+
 		zoomScrollLevel += event.GetWheelRotation();
 		const int maxZoomLevel = std::size(zoomLevelMap) - 1;
 		int zoomLevel = Util::limit(zoomScrollLevel / event.GetWheelDelta(), -maxZoomLevel, maxZoomLevel);
 		zoomScale = zoomLevelToScale(zoomLevel);
+
+		wxPoint newAnchorPos = imgToMouse(zoomPointInImage);
+		wxPoint dm = newAnchorPos - event.GetPosition();
+		imagePanPos -= dm;
+
 		Refresh();
 	}
 }

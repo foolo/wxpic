@@ -22,6 +22,7 @@ class ImagePanel : public wxWindow {
 
 private:
 	wxPoint mouseToImg(const wxPoint &mp);
+	wxPoint imgToMouse(const wxPoint &mp);
 	double zoomLevelToScale(int n);
 
 public:
