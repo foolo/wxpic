@@ -80,6 +80,7 @@ void ImagePanel::mouseMoved(wxMouseEvent& event) {
 	}
 	else if (inputState == InputState::MIDDLE_DOWN) {
 		imagePanPos = event.GetPosition() - panGrabPosInImage;
+		adjustImagePos();
 		Refresh();
 	}
 }
@@ -104,6 +105,30 @@ double ImagePanel::zoomLevelToScale(int n) {
 	}
 }
 
+void ImagePanel::adjustImagePos() {
+	int imgWidth = imageStack->getImage()->GetWidth() * zoomScale;
+	int imgHeight = imageStack->getImage()->GetHeight() * zoomScale;
+	if (imgWidth < GetSize().x) {
+		imagePanPos.x = 0;
+	}
+	else if (imagePanPos.x > 0){
+		imagePanPos.x = 0;
+	}
+	else if (imagePanPos.x + imgWidth < GetSize().x) {
+		imagePanPos.x = GetSize().x - imgWidth;
+	}
+
+	if (imgHeight < GetSize().y) {
+		imagePanPos.y = 0;
+	}
+	else if (imagePanPos.y > 0){
+		imagePanPos.y = 0;
+	}
+	else if (imagePanPos.y + imgHeight < GetSize().y) {
+		imagePanPos.y = GetSize().y - imgHeight;
+	}
+}
+
 void ImagePanel::mouseWheelMoved(wxMouseEvent& event) {
 	if (event.GetModifiers() & wxMOD_CONTROL) {
 		wxPoint zoomPointInImage = mouseToImg(event.GetPosition());
@@ -117,6 +142,7 @@ void ImagePanel::mouseWheelMoved(wxMouseEvent& event) {
 		wxPoint dm = newAnchorPos - event.GetPosition();
 		imagePanPos -= dm;
 
+		adjustImagePos();
 		Refresh();
 	}
 }

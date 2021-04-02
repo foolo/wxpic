@@ -24,6 +24,7 @@ private:
 	wxPoint mouseToImg(const wxPoint &mp);
 	wxPoint imgToMouse(const wxPoint &mp);
 	double zoomLevelToScale(int n);
+	void adjustImagePos();
 
 public:
 	ImagePanel(wxFrame* parent);
