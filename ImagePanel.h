@@ -5,8 +5,9 @@
 #include <wx/wx.h>
 #include <wx/sizer.h>
 
+enum class InputState {IDLE, LEFT_DOWN, MIDDLE_DOWN};
+
 class ImagePanel : public wxWindow {
-	bool pressedDown;
 	static const int buttonWidth = 200;
 	static const int buttonHeight = 50;
 
@@ -15,6 +16,9 @@ class ImagePanel : public wxWindow {
 	int zoomScrollLevel = 0;
 	double zoomScale = 1.0;
 	static constexpr const double zoomLevelMap[] = {1.0, 1.5, 2.0, 3.0, 4.0};
+	wxPoint imagePanPos;
+	wxPoint panGrabPosInImage;
+	InputState inputState = InputState::IDLE;
 
 private:
 	wxPoint mouseToImg(const wxPoint &mp);
@@ -30,12 +34,13 @@ public:
 
 	void render(wxDC& dc);
 
-	void mouseDown(wxMouseEvent& event);
+	void mouseLeftDown(wxMouseEvent& event);
+	void mouseMiddleDown(wxMouseEvent& event);
+	void mouseMiddleReleased(wxMouseEvent& event);
 	void mouseMoved(wxMouseEvent& event);
-	void mouseReleased(wxMouseEvent& event);
+	void mouseLeftReleased(wxMouseEvent& event);
 	void mouseWheelMoved(wxMouseEvent& event);
 	void rightClick(wxMouseEvent& event);
-	void mouseLeftWindow(wxMouseEvent& event);
 	void keyPressed(wxKeyEvent& event);
 	void keyReleased(wxKeyEvent& event);
 };

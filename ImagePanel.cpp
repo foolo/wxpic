@@ -6,13 +6,13 @@ ImagePanel::ImagePanel(wxFrame* parent) :
  wxWindow(parent, wxID_ANY), imageStack(NULL)
 {
 	SetMinSize( wxSize(buttonWidth, buttonHeight) );
-	pressedDown = false;
 	tool = std::unique_ptr<ITool>(new NullTool());
 	Bind(wxEVT_MOTION, &ImagePanel::mouseMoved, this);
-	Bind(wxEVT_LEFT_DOWN, &ImagePanel::mouseDown, this);
-	Bind(wxEVT_LEFT_UP, &ImagePanel::mouseReleased, this);
+	Bind(wxEVT_LEFT_DOWN, &ImagePanel::mouseLeftDown, this);
+	Bind(wxEVT_MIDDLE_DOWN, &ImagePanel::mouseMiddleDown, this);
+	Bind(wxEVT_MIDDLE_UP, &ImagePanel::mouseMiddleReleased, this);
+	Bind(wxEVT_LEFT_UP, &ImagePanel::mouseLeftReleased, this);
 	Bind(wxEVT_RIGHT_DOWN, &ImagePanel::rightClick, this);
-	Bind(wxEVT_LEAVE_WINDOW, &ImagePanel::mouseLeftWindow, this);
 	Bind(wxEVT_KEY_DOWN, &ImagePanel::keyPressed, this);
 	Bind(wxEVT_KEY_UP, &ImagePanel::keyReleased, this);
 	Bind(wxEVT_MOUSEWHEEL, &ImagePanel::mouseWheelMoved, this);
@@ -35,6 +35,7 @@ void ImagePanel::paintEvent(wxPaintEvent & evt) {
 void ImagePanel::render(wxDC&  dc) {
 	wxBitmap *preview = tool->getPreview();
 	dc.SetUserScale(zoomScale, zoomScale);
+	dc.SetDeviceOrigin(imagePanPos.x, imagePanPos.y);
 	if (preview != NULL) {
 		dc.DrawBitmap(*preview, wxPoint(0,0));
 	}
@@ -45,25 +46,44 @@ void ImagePanel::render(wxDC&  dc) {
 }
 
 wxPoint ImagePanel::mouseToImg(const wxPoint &mp) {
-	return wxPoint(mp.x / zoomScale, mp.y / zoomScale);
+	wxPoint dm = mp - imagePanPos;
+	return wxPoint(dm.x / zoomScale, dm.y / zoomScale);
 }
 
-void ImagePanel::mouseDown(wxMouseEvent& event) {
-	tool->mouseDown(mouseToImg(event.GetPosition()));
-	pressedDown = true;
+void ImagePanel::mouseLeftDown(wxMouseEvent& event) {
+	if (inputState == InputState::IDLE) {
+		tool->mouseDown(mouseToImg(event.GetPosition()));
+		inputState = InputState::LEFT_DOWN;
+	}
+}
+
+void ImagePanel::mouseMiddleDown(wxMouseEvent& event) {
+	if (inputState == InputState::IDLE) {
+		panGrabPosInImage = event.GetPosition() - imagePanPos;
+		inputState = InputState::MIDDLE_DOWN;
+	}
+}
+
+void ImagePanel::mouseMiddleReleased(wxMouseEvent& event) {
+	if (inputState == InputState::MIDDLE_DOWN) {
+		inputState = InputState::IDLE;
+	}
 }
 
 void ImagePanel::mouseMoved(wxMouseEvent& event) {
-	tool->mouseMoved(mouseToImg(event.GetPosition()));
+	if (inputState == InputState::LEFT_DOWN) {
+		tool->mouseMoved(mouseToImg(event.GetPosition()));
+	}
+	else if (inputState == InputState::MIDDLE_DOWN) {
+		imagePanPos = event.GetPosition() - panGrabPosInImage;
+		Refresh();
+	}
 }
 
-void ImagePanel::mouseReleased(wxMouseEvent& event) {
-	tool->mouseUp(mouseToImg(event.GetPosition()));
-	pressedDown = false;
-}
-void ImagePanel::mouseLeftWindow(wxMouseEvent& event) {
-	if (pressedDown) {
-		pressedDown = false;
+void ImagePanel::mouseLeftReleased(wxMouseEvent& event) {
+	if (inputState == InputState::LEFT_DOWN) {
+		tool->mouseUp(mouseToImg(event.GetPosition()));
+		inputState = InputState::IDLE;
 	}
 }
 
