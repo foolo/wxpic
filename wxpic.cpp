@@ -27,5 +27,8 @@ bool MyApp::OnInit() {
 	if (args.size() > 0) {
 		mainWindow0->open(args.at(0));
 	}
+	else {
+		mainWindow0->open("");
+	}
 	return true;
 }

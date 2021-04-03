@@ -19,7 +19,8 @@ class MainWindow : public MainWindowLayout {
 public:
 	MainWindow(wxWindow* parent, wxWindowID id, const wxString& title);
 	virtual ~MainWindow();
-	void open(wxString filename);
+	wxBitmap *loadBitmap(const wxString &filename);
+	void open(const wxString &filename);
 
 	void button_3_clicked(wxCommandEvent &event);
 	void button_4_clicked(wxCommandEvent &event);

@@ -48,11 +48,24 @@ MainWindow::~MainWindow()
 {
 }
 
-void MainWindow::open(wxString filename)
-{
+wxBitmap *MainWindow::loadBitmap(const wxString &filename) {
+	if (filename.empty()) {
+		wxBitmap *bmp = new wxBitmap(640, 480, 32);
+		wxMemoryDC dc;
+		dc.SelectObject(*bmp);
+		dc.SetBackground(*wxWHITE_BRUSH);
+		dc.Clear();
+		return bmp;
+	}
+	else {
+		wxFFileInputStream fis(filename);
+		return Util::loadBitmap(fis);
+	}
+}
+
+void MainWindow::open(const wxString &filename) {
 	imageStack.clear();
-	wxFFileInputStream fis(filename);
-	wxBitmap *bmp = Util::loadBitmap(fis);
+	wxBitmap *bmp = loadBitmap(filename);
 	if (bmp != NULL) {
 		imageStack.pushImage(std::shared_ptr<wxBitmap>(bmp));
 		imagePanel->setTool(new ShapeTool(&imageStack, imagePanel, this, ToolType::RECTANGLE));
