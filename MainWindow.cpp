@@ -48,6 +48,15 @@ MainWindow::~MainWindow()
 {
 }
 
+void MainWindow::updateTitle() {
+	if (loadedFilename.empty()) {
+		SetTitle("(new image)");
+	}
+	else {
+		SetTitle(loadedFilename);
+	}
+}
+
 wxBitmap *MainWindow::loadBitmap(const wxString &filename) {
 	if (filename.empty()) {
 		wxBitmap *bmp = new wxBitmap(640, 480, 32);
@@ -69,6 +78,8 @@ void MainWindow::open(const wxString &filename) {
 	if (bmp != NULL) {
 		imageStack.pushImage(std::shared_ptr<wxBitmap>(bmp));
 		imagePanel->setTool(new ShapeTool(&imageStack, imagePanel, this, ToolType::RECTANGLE));
+		loadedFilename = filename;
+		updateTitle();
 	}
 	else {
 		bmp = new wxBitmap(16, 16, 32);

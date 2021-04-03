@@ -15,11 +15,15 @@ class MainWindow : public MainWindowLayout {
 	ImageStack imageStack;
 	const std::vector<int> brush_sizes{1, 2, 3, 4, 5, 6, 8, 10, 12, 15, 18};
 	std::vector<wxBitmap> icons;
+	wxString loadedFilename;
+
+private:
+	wxBitmap *loadBitmap(const wxString &filename);
+	void updateTitle();
 
 public:
 	MainWindow(wxWindow* parent, wxWindowID id, const wxString& title);
 	virtual ~MainWindow();
-	wxBitmap *loadBitmap(const wxString &filename);
 	void open(const wxString &filename);
 
 	void button_3_clicked(wxCommandEvent &event);
