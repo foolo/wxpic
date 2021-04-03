@@ -46,5 +46,6 @@ public:
 	void rightClick(wxMouseEvent& event);
 	void keyPressed(wxKeyEvent& event);
 	void keyReleased(wxKeyEvent& event);
+	void windowResized(wxSizeEvent& event);
 };
 

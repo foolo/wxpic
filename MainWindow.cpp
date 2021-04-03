@@ -15,6 +15,7 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 	Bind(wxEVT_BUTTON, &MainWindow::button_6_clicked, this, button_6->GetId());
 	Bind(wxEVT_BUTTON, &MainWindow::color_button_clicked, this, color_button->GetId());
 	Bind(wxEVT_MENU, &MainWindow::undo, this, undo_menu_item->GetId());
+	Bind(wxEVT_SIZE, &MainWindow::resized, this );
 
 	for (unsigned i = 0; i < brush_sizes.size(); i++) {
 		brush_size_choice->Append(wxString(std::to_string(brush_sizes[i])));
@@ -154,6 +155,11 @@ void MainWindow::undo(wxCommandEvent &event) {
 	event.Skip();
 	imageStack.popImage();
 	imagePanel->Refresh();
+}
+
+void MainWindow::resized(wxSizeEvent& event) {
+	event.Skip();
+	imagePanel->windowResized(event);
 }
 
 wxColor MainWindow::getPrimaryColor() {

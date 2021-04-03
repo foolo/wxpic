@@ -158,3 +158,6 @@ void ImagePanel::keyPressed(wxKeyEvent& event) {
 }
 void ImagePanel::keyReleased(wxKeyEvent& event) {}
 
+void ImagePanel::windowResized(wxSizeEvent& event) {
+	adjustImagePos();
+}

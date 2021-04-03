@@ -38,6 +38,7 @@ public:
 	void draw_tool_selected(wxCommandEvent &event);
 	void color_button_clicked(wxCommandEvent &event);
 	void undo(wxCommandEvent &event);
+	void resized(wxSizeEvent& event);
 	wxColor getPrimaryColor();
 	int getBrushSize();
 	void createToolIcons();
