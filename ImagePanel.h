@@ -25,6 +25,7 @@ private:
 	wxPoint imgToMouse(const wxPoint &mp);
 	double zoomLevelToScale(int n);
 	void adjustImagePos();
+	std::shared_ptr<wxBitmap> getVisibleBitmap();
 
 public:
 	ImagePanel(wxFrame* parent);

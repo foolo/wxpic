@@ -32,17 +32,21 @@ void ImagePanel::paintEvent(wxPaintEvent & evt) {
 	render(dc);
 }
 
-void ImagePanel::render(wxDC&  dc) {
-	std::shared_ptr<wxBitmap> preview = tool->getPreview();
-	dc.SetUserScale(zoomScale, zoomScale);
-	dc.SetDeviceOrigin(imagePanPos.x, imagePanPos.y);
-	if (preview != NULL) {
-		dc.DrawBitmap(*preview, wxPoint(0,0));
+std::shared_ptr<wxBitmap> ImagePanel::getVisibleBitmap() {
+	std::shared_ptr<wxBitmap> preview(tool->getPreview());
+	if (preview) {
+		return preview;
 	}
 	else {
-		std::shared_ptr<wxBitmap> bmp(imageStack->getImage());
-		dc.DrawBitmap(*bmp.get(), wxPoint(0,0));
+		return imageStack->getImage();
 	}
+}
+
+void ImagePanel::render(wxDC&  dc) {
+	std::shared_ptr<wxBitmap> bmp = getVisibleBitmap();
+	dc.SetUserScale(zoomScale, zoomScale);
+	dc.SetDeviceOrigin(imagePanPos.x, imagePanPos.y);
+	dc.DrawBitmap(*bmp, wxPoint(0,0));
 }
 
 wxPoint ImagePanel::mouseToImg(const wxPoint &mp) {
@@ -106,8 +110,8 @@ double ImagePanel::zoomLevelToScale(int n) {
 }
 
 void ImagePanel::adjustImagePos() {
-	int imgWidth = imageStack->getImage()->GetWidth() * zoomScale;
-	int imgHeight = imageStack->getImage()->GetHeight() * zoomScale;
+	int imgWidth = getVisibleBitmap()->GetWidth() * zoomScale;
+	int imgHeight = getVisibleBitmap()->GetHeight() * zoomScale;
 	if (imgWidth < GetSize().x) {
 		imagePanPos.x = 0;
 	}
