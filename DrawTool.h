@@ -16,5 +16,5 @@ public:
 	void mouseDown(wxPoint pos);
 	void mouseMoved(wxPoint pos);
 	void mouseUp(wxPoint pos);
-	wxBitmap *getPreview();
+	std::shared_ptr<wxBitmap> getPreview();
 };

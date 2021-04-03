@@ -37,6 +37,6 @@ void DrawTool::mouseUp(wxPoint pos) {
 	imagePanel->Refresh();
 }
 
-wxBitmap* DrawTool::getPreview() {
-	return preview.get();
+std::shared_ptr<wxBitmap> DrawTool::getPreview() {
+	return preview;
 }

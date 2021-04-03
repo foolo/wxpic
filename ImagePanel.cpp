@@ -33,7 +33,7 @@ void ImagePanel::paintEvent(wxPaintEvent & evt) {
 }
 
 void ImagePanel::render(wxDC&  dc) {
-	wxBitmap *preview = tool->getPreview();
+	std::shared_ptr<wxBitmap> preview = tool->getPreview();
 	dc.SetUserScale(zoomScale, zoomScale);
 	dc.SetDeviceOrigin(imagePanPos.x, imagePanPos.y);
 	if (preview != NULL) {

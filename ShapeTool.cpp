@@ -37,8 +37,8 @@ void ShapeTool::mouseUp(wxPoint pos) {
 	imagePanel->Refresh();
 }
 
-wxBitmap* ShapeTool::getPreview() {
-	return preview.get();
+std::shared_ptr<wxBitmap> ShapeTool::getPreview() {
+	return preview;
 }
 
 wxRect normalize(wxRect r) {
