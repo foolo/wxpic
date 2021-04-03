@@ -25,6 +25,9 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 	createToolIcons();
 	wxToolBarToolBase *tmp_tool;
 
+	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::DRAW), icons.at(IconId::DRAW), wxITEM_RADIO, "Draw", wxEmptyString);
+	Bind(wxEVT_MENU, &MainWindow::draw_tool_selected, this, tmp_tool->GetId());
+
 	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::RECTANGLE), icons.at(IconId::RECTANGLE), wxITEM_RADIO, "Rectangle", wxEmptyString);
 	Bind(wxEVT_MENU, &MainWindow::rectangle_tool_selected, this, tmp_tool->GetId());
 
@@ -39,9 +42,6 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 
 	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::ARROW), icons.at(IconId::ARROW), wxITEM_RADIO, "Arrow", wxEmptyString);
 	Bind(wxEVT_MENU, &MainWindow::arrow_tool_selected, this, tmp_tool->GetId());
-
-	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::DRAW), icons.at(IconId::DRAW), wxITEM_RADIO, "Draw", wxEmptyString);
-	Bind(wxEVT_MENU, &MainWindow::draw_tool_selected, this, tmp_tool->GetId());
 }
 
 MainWindow::~MainWindow()
@@ -77,7 +77,8 @@ void MainWindow::open(const wxString &filename) {
 	wxBitmap *bmp = loadBitmap(filename);
 	if (bmp != NULL) {
 		imageStack.pushImage(std::shared_ptr<wxBitmap>(bmp));
-		imagePanel->setTool(new ShapeTool(&imageStack, imagePanel, this, ToolType::RECTANGLE));
+		wxCommandEvent tmp;
+		draw_tool_selected(tmp);
 		loadedFilename = filename;
 		updateTitle();
 	}
