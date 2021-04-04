@@ -2,8 +2,8 @@
 #include "Util.h"
 #include <iterator>
 
-ImagePanel::ImagePanel(wxFrame* parent) :
- wxWindow(parent, wxID_ANY), imageStack(NULL)
+ImagePanel::ImagePanel(wxScrolledWindow* parent) :
+ wxWindow(parent, wxID_ANY), imageStack(NULL), parentWindow(parent)
 {
 	SetMinSize( wxSize(buttonWidth, buttonHeight) );
 	tool = std::unique_ptr<ITool>(new NullTool());
@@ -45,17 +45,15 @@ std::shared_ptr<wxBitmap> ImagePanel::getVisibleBitmap() {
 void ImagePanel::render(wxDC&  dc) {
 	std::shared_ptr<wxBitmap> bmp = getVisibleBitmap();
 	dc.SetUserScale(zoomScale, zoomScale);
-	dc.SetDeviceOrigin(imagePanPos.x, imagePanPos.y);
 	dc.DrawBitmap(*bmp, wxPoint(0,0));
 }
 
 wxPoint ImagePanel::mouseToImg(const wxPoint &mp) {
-	wxPoint dm = mp - imagePanPos;
-	return wxPoint(dm.x / zoomScale, dm.y / zoomScale);
+	return wxPoint(mp.x / zoomScale, mp.y / zoomScale);
 }
 
 wxPoint ImagePanel::imgToMouse(const wxPoint &ic) {
-	return ic * zoomScale + imagePanPos;
+	return ic * zoomScale;
 }
 
 void ImagePanel::mouseLeftDown(wxMouseEvent& event) {
@@ -67,7 +65,7 @@ void ImagePanel::mouseLeftDown(wxMouseEvent& event) {
 
 void ImagePanel::mouseMiddleDown(wxMouseEvent& event) {
 	if (inputState == InputState::IDLE) {
-		panGrabPosInImage = event.GetPosition() - imagePanPos;
+		panGrabPosInImage = event.GetPosition();
 		inputState = InputState::MIDDLE_DOWN;
 	}
 }
@@ -83,9 +81,10 @@ void ImagePanel::mouseMoved(wxMouseEvent& event) {
 		tool->mouseMoved(mouseToImg(event.GetPosition()));
 	}
 	else if (inputState == InputState::MIDDLE_DOWN) {
-		imagePanPos = event.GetPosition() - panGrabPosInImage;
-		adjustImagePos();
-		Refresh();
+		wxPoint dm = event.GetPosition() - panGrabPosInImage;
+		wxPoint currentScrollPos = wxPoint(parentWindow->GetScrollPos(wxHORIZONTAL), parentWindow->GetScrollPos(wxVERTICAL));
+		wxPoint newScrollPos = currentScrollPos - dm;
+		parentWindow->Scroll(std::max(0, newScrollPos.x), std::max(0, newScrollPos.y));
 	}
 }
 
@@ -112,40 +111,16 @@ double ImagePanel::zoomLevelToScale(int n) {
 void ImagePanel::adjustImagePos() {
 	int imgWidth = getVisibleBitmap()->GetWidth() * zoomScale;
 	int imgHeight = getVisibleBitmap()->GetHeight() * zoomScale;
-	if (imgWidth < GetSize().x) {
-		imagePanPos.x = 0;
-	}
-	else if (imagePanPos.x > 0){
-		imagePanPos.x = 0;
-	}
-	else if (imagePanPos.x + imgWidth < GetSize().x) {
-		imagePanPos.x = GetSize().x - imgWidth;
-	}
-
-	if (imgHeight < GetSize().y) {
-		imagePanPos.y = 0;
-	}
-	else if (imagePanPos.y > 0){
-		imagePanPos.y = 0;
-	}
-	else if (imagePanPos.y + imgHeight < GetSize().y) {
-		imagePanPos.y = GetSize().y - imgHeight;
-	}
+	SetMinSize(wxSize(imgWidth, imgHeight));
+	parentWindow->FitInside();
 }
 
 void ImagePanel::mouseWheelMoved(wxMouseEvent& event) {
 	if (event.GetModifiers() & wxMOD_CONTROL) {
-		wxPoint zoomPointInImage = mouseToImg(event.GetPosition());
-
 		zoomScrollLevel += event.GetWheelRotation();
 		const int maxZoomLevel = std::size(zoomLevelMap) - 1;
 		int zoomLevel = Util::limit(zoomScrollLevel / event.GetWheelDelta(), -maxZoomLevel, maxZoomLevel);
 		zoomScale = zoomLevelToScale(zoomLevel);
-
-		wxPoint newAnchorPos = imgToMouse(zoomPointInImage);
-		wxPoint dm = newAnchorPos - event.GetPosition();
-		imagePanPos -= dm;
-
 		adjustImagePos();
 		Refresh();
 	}

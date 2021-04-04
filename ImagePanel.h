@@ -16,9 +16,9 @@ class ImagePanel : public wxWindow {
 	int zoomScrollLevel = 0;
 	double zoomScale = 1.0;
 	static constexpr const double zoomLevelMap[] = {1.0, 1.5, 2.0, 3.0, 4.0};
-	wxPoint imagePanPos;
 	wxPoint panGrabPosInImage;
 	InputState inputState = InputState::IDLE;
+	wxScrolledWindow* parentWindow;
 
 private:
 	wxPoint mouseToImg(const wxPoint &mp);
@@ -28,7 +28,7 @@ private:
 	std::shared_ptr<wxBitmap> getVisibleBitmap();
 
 public:
-	ImagePanel(wxFrame* parent);
+	ImagePanel(wxScrolledWindow* parent);
 
 	void setImageSource(ImageStack *is);
 	void setTool(ITool *t);

@@ -50,9 +50,14 @@ MainWindowLayout::MainWindowLayout(wxWindow* parent, wxWindowID id, const wxStri
 				brush_size_choice = new wxChoice(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, brush_size_choice_choices);
 				brush_size_choice->SetToolTip(wxT("Brush size"));
 				sizer_2->Add(brush_size_choice, 0, 0, 0);
-				imagePanel = new ImagePanel(this);
-				sizer_1->Add(imagePanel, 1, wxEXPAND, 0);
+				panel_1 = new wxScrolledWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
+				panel_1->SetScrollRate(1, 1);
+				sizer_1->Add(panel_1, 1, wxEXPAND, 0);
+				wxBoxSizer* sizer_3 = new wxBoxSizer(wxHORIZONTAL);
+				imagePanel = new ImagePanel(panel_1);
+				sizer_3->Add(imagePanel, 1, wxEXPAND, 0);
 				
+				panel_1->SetSizer(sizer_3);
 				SetSizer(sizer_1);
 				Layout();
 				// end wxGlade
