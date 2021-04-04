@@ -84,7 +84,8 @@ void ImagePanel::mouseMoved(wxMouseEvent& event) {
 		wxPoint dm = event.GetPosition() - panGrabPosInImage;
 		wxPoint currentScrollPos = wxPoint(parentWindow->GetScrollPos(wxHORIZONTAL), parentWindow->GetScrollPos(wxVERTICAL));
 		wxPoint newScrollPos = currentScrollPos - dm;
-		parentWindow->Scroll(std::max(0, newScrollPos.x), std::max(0, newScrollPos.y));
+		wxSize ds = GetSize() - parentWindow->GetSize();
+		parentWindow->Scroll(std::min(ds.x, newScrollPos.x), std::min(ds.y, newScrollPos.y));
 	}
 }
 
@@ -111,7 +112,10 @@ double ImagePanel::zoomLevelToScale(int n) {
 void ImagePanel::adjustImagePos() {
 	int imgWidth = getVisibleBitmap()->GetWidth() * zoomScale;
 	int imgHeight = getVisibleBitmap()->GetHeight() * zoomScale;
-	SetMinSize(wxSize(imgWidth, imgHeight));
+	const int scrollbarPadding = 5;
+	int scrollbarHeight = wxSystemSettings::GetMetric(wxSYS_HSCROLL_Y);
+	int scrollbarWidth = wxSystemSettings::GetMetric(wxSYS_VSCROLL_X);
+	SetMinSize(wxSize(imgWidth + scrollbarWidth + scrollbarPadding, imgHeight + scrollbarHeight + scrollbarPadding));
 	parentWindow->FitInside();
 }
 
