@@ -124,7 +124,12 @@ void ImagePanel::mouseWheelMoved(wxMouseEvent& event) {
 		wxPoint zoomPointInImage = mouseToImg(event.GetPosition());
 		zoomScrollLevel += event.GetWheelRotation();
 		const int maxZoomLevel = std::size(zoomLevelMap) - 1;
-		int zoomLevel = Util::limit(zoomScrollLevel / event.GetWheelDelta(), -maxZoomLevel, maxZoomLevel);
+		int newZoomLevel = Util::limit(zoomScrollLevel / event.GetWheelDelta(), -maxZoomLevel, maxZoomLevel);
+		zoomScrollLevel = newZoomLevel * event.GetWheelDelta();
+		if (newZoomLevel == zoomLevel) {
+			return;
+		}
+		zoomLevel = newZoomLevel;
 		zoomScale = zoomLevelToScale(zoomLevel);
 
 		wxPoint currentScrollPos = wxPoint(parentWindow->GetScrollPos(wxHORIZONTAL), parentWindow->GetScrollPos(wxVERTICAL));

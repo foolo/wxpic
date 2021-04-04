@@ -15,6 +15,7 @@ class ImagePanel : public wxWindow {
 	std::unique_ptr<ITool> tool;
 	int zoomScrollLevel = 0;
 	double zoomScale = 1.0;
+	int zoomLevel = 0;
 	static constexpr const double zoomLevelMap[] = {1.0, 1.5, 2.0, 3.0, 4.0};
 	wxPoint panGrabPosInImage;
 	InputState inputState = InputState::IDLE;
