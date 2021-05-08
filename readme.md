@@ -8,6 +8,10 @@
 	cd build
 	ninja
 
+# Create snap
+
+	snapcraft
+
 # Running
 
 	cd build

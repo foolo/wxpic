@@ -13,4 +13,4 @@ src = [
 
 wx_dep = dependency('wxWidgets', version: '>=3.0.0')
 
-executable('wxpic', src, dependencies: wx_dep)
+executable('wxpic', src, dependencies: wx_dep, install : true)
