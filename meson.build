@@ -1,14 +1,14 @@
 project('wxpic', 'cpp', default_options : ['cpp_std=c++17'])
 
 src = [
-	'wxpic.cpp',
-	'MainWindow.cpp',
-	'MainWindowLayout.cpp',
-	'ImagePanel.cpp',
-	'ImageStack.cpp',
-	'ShapeTool.cpp',
-	'DrawTool.cpp',
-	'Util.cpp',
+	'src/wxpic.cpp',
+	'src/MainWindow.cpp',
+	'src/MainWindowLayout.cpp',
+	'src/ImagePanel.cpp',
+	'src/ImageStack.cpp',
+	'src/ShapeTool.cpp',
+	'src/DrawTool.cpp',
+	'src/Util.cpp',
 ]
 
 wx_dep = dependency('wxWidgets', version: '>=3.0.0')
