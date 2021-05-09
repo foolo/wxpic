@@ -16,3 +16,7 @@
 
 	cd build
 	./wxpic FILENAME
+
+# Update icon
+
+	xxd --include res/crosshair.png > src/image_data.h

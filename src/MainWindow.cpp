@@ -2,6 +2,7 @@
 #include "ShapeTool.h"
 #include "DrawTool.h"
 #include "Util.h"
+#include "image_data.h"
 #include <wx/wfstream.h>
 #include <wx/colordlg.h>
 
@@ -24,6 +25,8 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 	color_button->SetBackgroundColour(*wxRED);
 
 	createToolIcons();
+	initCursor();
+
 	wxToolBarToolBase *tmp_tool;
 
 	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::DRAW), icons.at(IconId::DRAW), wxITEM_RADIO, "Draw", wxEmptyString);
@@ -206,4 +209,11 @@ void MainWindow::createToolIcons() {
 		default: break;
 		}
 	}
+}
+
+void MainWindow::initCursor() {
+	wxImage img = wxBitmap::NewFromPNGData(res_crosshair_png, res_crosshair_png_len).ConvertToImage();
+	img.SetOption(wxIMAGE_OPTION_CUR_HOTSPOT_X, 8);
+	img.SetOption(wxIMAGE_OPTION_CUR_HOTSPOT_Y, 8);
+	imagePanel->SetCursor(wxCursor(img));
 }

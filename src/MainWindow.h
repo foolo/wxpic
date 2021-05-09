@@ -42,4 +42,5 @@ public:
 	wxColor getPrimaryColor();
 	int getBrushSize();
 	void createToolIcons();
+	void initCursor();
 };
