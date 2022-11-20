@@ -1,0 +1,7 @@
+https://github.com/Lin-Buo-Ren/filezilla-snap/blob/master/snap/snapcraft.yaml
+
+https://forum.snapcraft.io/t/wxwidgets-based-app/21561
+
+name: wxpicname + apps: wxpic: => exec name = wxpicname.wxpic
+name: wxpic + apps: wxpic: => exec name = wxpic
+
