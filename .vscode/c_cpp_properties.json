@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/usr/include/wx-3.0",
+                "/usr/include/c++/11",
+                "/usr/include/x86_64-linux-gnu/c++/11",
+                "/usr/lib/x86_64-linux-gnu/wx/include/gtk3-unicode-3.0"
+            ],
+            "defines": [
+                "_FILE_OFFSET_BITS=64",
+                "WXUSINGDLL",
+                "__WXGTK__"
+            ],
+            "compilerPath": "/usr/bin/c++",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "linux-gcc-x64"
+        }
+    ],
+    "version": 4
+}
