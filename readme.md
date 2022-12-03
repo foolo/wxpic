@@ -12,6 +12,10 @@
 
 	snapcraft
 
+or
+
+	snapcraft remote-build --build-for=amd64
+
 # Running
 
 	cd build
