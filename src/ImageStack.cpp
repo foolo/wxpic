@@ -1,19 +1,28 @@
 #include "ImageStack.h"
 
 std::shared_ptr<wxBitmap> ImageStack::getImage() {
-	return buffer.back();
+	return undoBuffer.back();
 }
 
 void ImageStack::clear() {
-	buffer.clear();
+	undoBuffer.clear();
 }
 
 void ImageStack::pushImage(std::shared_ptr<wxBitmap> bmp) {
-	buffer.push_back(bmp);
+	undoBuffer.push_back(bmp);
+	redoBuffer.clear();
+}
+
+void ImageStack::redo() {
+	if (redoBuffer.size() > 0) {
+		undoBuffer.push_back(redoBuffer.back());
+		redoBuffer.pop_back();
+	}
 }
 
 void ImageStack::popImage() {
-	if (buffer.size() > 1) {
-		buffer.pop_back();
+	if (undoBuffer.size() > 1) {
+		redoBuffer.push_back(undoBuffer.back());
+		undoBuffer.pop_back();
 	}
 }

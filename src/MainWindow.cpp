@@ -16,6 +16,7 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 	Bind(wxEVT_BUTTON, &MainWindow::button_6_clicked, this, button_6->GetId());
 	Bind(wxEVT_BUTTON, &MainWindow::color_button_clicked, this, color_button->GetId());
 	Bind(wxEVT_MENU, &MainWindow::undo, this, undo_menu_item->GetId());
+	Bind(wxEVT_MENU, &MainWindow::redo, this, redo_menu_item->GetId());
 	Bind(wxEVT_SIZE, &MainWindow::resized, this );
 
 	for (unsigned i = 0; i < brush_sizes.size(); i++) {
@@ -157,6 +158,12 @@ void MainWindow::color_button_clicked(wxCommandEvent &event) {
 void MainWindow::undo(wxCommandEvent &event) {
 	event.Skip();
 	imageStack.popImage();
+	imagePanel->Refresh();
+}
+
+void MainWindow::redo(wxCommandEvent &event) {
+	event.Skip();
+	imageStack.redo();
 	imagePanel->Refresh();
 }
 

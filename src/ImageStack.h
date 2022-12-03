@@ -4,11 +4,13 @@
 #include <wx/bitmap.h>
 
 class ImageStack {
-	std::vector<std::shared_ptr<wxBitmap> > buffer;
+	std::vector<std::shared_ptr<wxBitmap> > undoBuffer;
+	std::vector<std::shared_ptr<wxBitmap> > redoBuffer;
 
 public:
 	std::shared_ptr<wxBitmap> getImage();
 	void clear();
 	void pushImage(std::shared_ptr<wxBitmap> bmp);
+	void redo();
 	void popImage();
 };
