@@ -4,8 +4,8 @@
 
 # Building
 
-	meson build
-	cd build
+	meson builddir
+	cd builddir
 	ninja
 
 # Create snap
@@ -18,7 +18,7 @@ or
 
 # Running
 
-	cd build
+	cd builddir
 	./wxpic FILENAME
 
 # Update icon

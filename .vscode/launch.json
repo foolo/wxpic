@@ -7,7 +7,7 @@
 		{
 			"name": "mybuild",
 			"type": "cppdbg",
-			"program": "${workspaceRoot}/build/wxpic",
+			"program": "${workspaceRoot}/builddir/wxpic",
 			"cwd": "${workspaceRoot}",
 			"request": "launch",
 			"preLaunchTask": "Meson: Build all targets"
