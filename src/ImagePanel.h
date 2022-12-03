@@ -25,7 +25,6 @@ private:
 	wxPoint mouseToImg(const wxPoint &mp);
 	wxPoint imgToMouse(const wxPoint &mp);
 	double zoomLevelToScale(int n);
-	void adjustImagePos();
 	std::shared_ptr<wxBitmap> getVisibleBitmap();
 
 public:
@@ -37,6 +36,7 @@ public:
 	void paintEvent(wxPaintEvent & evt);
 
 	void render(wxDC& dc);
+	void adjustImagePos();
 
 	void mouseLeftDown(wxMouseEvent& event);
 	void mouseMiddleDown(wxMouseEvent& event);

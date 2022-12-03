@@ -5,6 +5,7 @@
 #include "image_data.h"
 #include <wx/wfstream.h>
 #include <wx/colordlg.h>
+#include <wx/display.h>
 
 MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
  : MainWindowLayout(parent, id, title)
@@ -62,6 +63,19 @@ void MainWindow::updateTitle() {
 	}
 }
 
+void MainWindow::updateSize() {
+	imagePanel->adjustImagePos();
+	Layout();
+	wxSize scrollbarSize(wxSystemSettings::GetMetric(wxSYS_VSCROLL_X), wxSystemSettings::GetMetric(wxSYS_HSCROLL_Y));
+	wxSize sizeDiff = imagePanel->GetSize() - panel_1->GetClientSize();
+	wxSize newSize = GetSize() + sizeDiff + scrollbarSize;
+	wxSize maxSize(1024, 768);
+	wxSize minSize(640, 480);
+	newSize.SetWidth(Util::limit(newSize.GetWidth(), minSize.GetWidth(), maxSize.GetWidth()));
+	newSize.SetHeight(Util::limit(newSize.GetHeight(), minSize.GetHeight(), maxSize.GetHeight()));
+	SetSize(newSize);
+}
+
 wxBitmap *MainWindow::loadBitmap(const wxString &filename) {
 	if (filename.empty()) {
 		wxBitmap *bmp = new wxBitmap(640, 480, 32);
@@ -86,6 +100,7 @@ void MainWindow::open(const wxString &filename) {
 		draw_tool_selected(tmp);
 		loadedFilename = filename;
 		updateTitle();
+		updateSize();
 	}
 	else {
 		bmp = new wxBitmap(16, 16, 32);

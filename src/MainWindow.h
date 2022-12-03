@@ -20,6 +20,7 @@ class MainWindow : public MainWindowLayout {
 private:
 	wxBitmap *loadBitmap(const wxString &filename);
 	void updateTitle();
+	void updateSize();
 
 public:
 	MainWindow(wxWindow* parent, wxWindowID id, const wxString& title);
