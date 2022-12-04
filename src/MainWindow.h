@@ -22,12 +22,14 @@ private:
 	LoadedFile *loadBitmap(const wxString &filename);
 	void updateTitle();
 	void updateSize();
+	bool save();
 
 public:
 	MainWindow(wxWindow* parent, wxWindowID id, const wxString& title);
 	virtual ~MainWindow();
 	void open(const wxString &filename);
 	void save(wxCommandEvent &event);
+	void on_close(wxCloseEvent& event);
 
 	void button_3_clicked(wxCommandEvent &event);
 	void button_4_clicked(wxCommandEvent &event);

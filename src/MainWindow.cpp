@@ -19,7 +19,8 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 	Bind(wxEVT_MENU, &MainWindow::save, this, save_menu_item->GetId());
 	Bind(wxEVT_MENU, &MainWindow::undo, this, undo_menu_item->GetId());
 	Bind(wxEVT_MENU, &MainWindow::redo, this, redo_menu_item->GetId());
-	Bind(wxEVT_SIZE, &MainWindow::resized, this );
+	Bind(wxEVT_SIZE, &MainWindow::resized, this);
+	Bind(wxEVT_CLOSE_WINDOW, &MainWindow::on_close, this);
 
 	for (unsigned i = 0; i < brush_sizes.size(); i++) {
 		brush_size_choice->Append(wxString(std::to_string(brush_sizes[i])));
@@ -98,7 +99,7 @@ void MainWindow::open(const wxString &filename) {
 	imageStack.clear();
 	loadedFile = std::shared_ptr<LoadedFile>(loadBitmap(filename));
 	if (loadedFile) {
-		imageStack.pushImage(loadedFile->bitmap);
+		imageStack.init(loadedFile->bitmap);
 		wxCommandEvent tmp;
 		draw_tool_selected(tmp);
 		updateTitle();
@@ -108,20 +109,48 @@ void MainWindow::open(const wxString &filename) {
 		wxBitmap *bmp = new wxBitmap(16, 16, 32);
 		wxMemoryDC dc;
 		dc.SelectObject(*bmp);
-		imageStack.pushImage(std::shared_ptr<wxBitmap>(bmp));
+		imageStack.init(std::shared_ptr<wxBitmap>(bmp));
 		wxMessageBox("Could not load file\n" + filename, wxMessageBoxCaptionStr, wxICON_ERROR);
 		Close();
 	}
 }
 
-void MainWindow::save(wxCommandEvent &event) {
-	event.Skip();
+bool MainWindow::save() {
 	std::shared_ptr<wxBitmap> image = imageStack.getImage();
 	if (loadedFile->filename.IsEmpty()) {
 		wxMessageBox("saving unnamed file not implemented", wxMessageBoxCaptionStr, wxICON_ERROR);
+		return false;
 	}
 	else {
 		Util::saveBitmap(imageStack.getImage().get(), loadedFile->filename, *loadedFile->imageHandler);
+		imageStack.markSaved();
+		return true;
+	}
+}
+
+void MainWindow::save(wxCommandEvent &event) {
+	event.Skip();
+	save();
+}
+
+void MainWindow::on_close(wxCloseEvent &event) {
+	if (imageStack.isModified()) {
+		wxMessageDialog dialog(this, "Save changes?", "Save changes", wxYES_NO | wxCANCEL);
+		int result = dialog.ShowModal();
+		if (result == wxID_YES) {
+			if (save()) {
+				Destroy();
+			}
+		}
+		else if (result == wxID_NO)  {
+			Destroy();
+		}
+		else {
+			// cancel, do nothing
+		}
+	}
+	else {
+		Destroy();
 	}
 }
 
