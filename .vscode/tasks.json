@@ -11,7 +11,21 @@
 				"kind": "build",
 				"isDefault": true
 			},
-			"label": "Meson: Build all targets"
-		}
+			"label": "Meson: Build all targets",
+			"dependsOn":"ninja build"
+		},
+		{
+            "label": "ninja build",
+            "type": "shell",
+            "command": "ninja",
+			"args": ["-j1"],
+			"options": {"cwd": "builddir"},
+			"group": {
+				"kind": "build",
+			},
+            "presentation": {
+                "reveal" : "always",
+            }
+        }
 	]
 }
