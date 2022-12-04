@@ -11,6 +11,12 @@
         <toolbar>1</toolbar>
         <object class="wxMenuBar" name="mainWindow0_menubar" base="EditMenuBar">
             <menus>
+                <menu label="File" name="">
+                    <item>
+                        <label>Save	Ctrl+S</label>
+                        <name>save_menu_item</name>
+                    </item>
+                </menu>
                 <menu label="Edit" name="">
                     <item>
                         <label>Undo	Ctrl+Z</label>

@@ -1,6 +1,7 @@
 #pragma once
 #include "MainWindowLayout.h"
 #include "ImageStack.h"
+#include "LoadedFile.h"
 #include <memory>
 #include <vector>
 
@@ -15,10 +16,10 @@ class MainWindow : public MainWindowLayout {
 	ImageStack imageStack;
 	const std::vector<int> brush_sizes{1, 2, 3, 4, 5, 6, 8, 10, 12, 15, 18};
 	std::vector<wxBitmap> icons;
-	wxString loadedFilename;
+	std::shared_ptr<LoadedFile> loadedFile;
 
 private:
-	wxBitmap *loadBitmap(const wxString &filename);
+	LoadedFile *loadBitmap(const wxString &filename);
 	void updateTitle();
 	void updateSize();
 
@@ -26,6 +27,7 @@ public:
 	MainWindow(wxWindow* parent, wxWindowID id, const wxString& title);
 	virtual ~MainWindow();
 	void open(const wxString &filename);
+	void save(wxCommandEvent &event);
 
 	void button_3_clicked(wxCommandEvent &event);
 	void button_4_clicked(wxCommandEvent &event);

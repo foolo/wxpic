@@ -10,22 +10,30 @@ wxBitmap *readBitmap(wxImageHandler &ih, wxFFileInputStream &fis) {
 	return NULL;
 }
 
-wxBitmap *Util::loadBitmap(wxFFileInputStream &fis) {
+LoadedFile *Util::loadBitmap(const wxString &filename) {
+	wxFFileInputStream fis(filename);
 	{
-		wxPNGHandler pngh;
-		wxBitmap *bmp = readBitmap(pngh, fis);
-		if (bmp != NULL) {
-			return bmp;
+		std::shared_ptr<wxPNGHandler> pngh(new wxPNGHandler());
+		std::shared_ptr<wxBitmap> bmp(readBitmap(*pngh, fis));
+		if (bmp) {
+			return new LoadedFile(bmp, filename, pngh);
 		}
 	}
 	{
-		wxJPEGHandler jpegh;
-		wxBitmap *bmp = readBitmap(jpegh, fis);
-		if (bmp != NULL) {
-			return bmp;
+		std::shared_ptr<wxJPEGHandler> jpegh(new wxJPEGHandler());
+		std::shared_ptr<wxBitmap> bmp(readBitmap(*jpegh, fis));
+		if (bmp) {
+			return new LoadedFile(bmp, filename, jpegh);
 		}
 	}
 	return NULL;
+}
+
+void Util::saveBitmap(wxBitmap *bmp, const wxString &filename, wxImageHandler &imageHandler) {
+	wxFFileOutputStream fos(filename);
+	wxImage img(bmp->ConvertToImage());
+	img.SetOption(wxIMAGE_OPTION_QUALITY, 90);
+	imageHandler.SaveFile(&img, fos);
 }
 
 int Util::limit(int val, int min, int max) {

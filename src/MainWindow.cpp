@@ -16,6 +16,7 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 	Bind(wxEVT_BUTTON, &MainWindow::button_5_clicked, this, button_5->GetId());
 	Bind(wxEVT_BUTTON, &MainWindow::button_6_clicked, this, button_6->GetId());
 	Bind(wxEVT_BUTTON, &MainWindow::color_button_clicked, this, color_button->GetId());
+	Bind(wxEVT_MENU, &MainWindow::save, this, save_menu_item->GetId());
 	Bind(wxEVT_MENU, &MainWindow::undo, this, undo_menu_item->GetId());
 	Bind(wxEVT_MENU, &MainWindow::redo, this, redo_menu_item->GetId());
 	Bind(wxEVT_SIZE, &MainWindow::resized, this );
@@ -55,11 +56,14 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::updateTitle() {
-	if (loadedFilename.empty()) {
+	if (!loadedFile) {
+		SetTitle("");
+	}
+	else if (loadedFile->filename.empty()) {
 		SetTitle("(new image)");
 	}
 	else {
-		SetTitle(loadedFilename);
+		SetTitle(loadedFile->filename);
 	}
 }
 
@@ -76,39 +80,48 @@ void MainWindow::updateSize() {
 	SetSize(newSize);
 }
 
-wxBitmap *MainWindow::loadBitmap(const wxString &filename) {
+LoadedFile *MainWindow::loadBitmap(const wxString &filename) {
 	if (filename.empty()) {
 		wxBitmap *bmp = new wxBitmap(640, 480, 32);
 		wxMemoryDC dc;
 		dc.SelectObject(*bmp);
 		dc.SetBackground(*wxWHITE_BRUSH);
 		dc.Clear();
-		return bmp;
+		return new LoadedFile(std::shared_ptr<wxBitmap>(bmp), filename, std::shared_ptr<wxImageHandler>());
 	}
 	else {
-		wxFFileInputStream fis(filename);
-		return Util::loadBitmap(fis);
+		return Util::loadBitmap(filename);
 	}
 }
 
 void MainWindow::open(const wxString &filename) {
 	imageStack.clear();
-	wxBitmap *bmp = loadBitmap(filename);
-	if (bmp != NULL) {
-		imageStack.pushImage(std::shared_ptr<wxBitmap>(bmp));
+	loadedFile = std::shared_ptr<LoadedFile>(loadBitmap(filename));
+	if (loadedFile) {
+		imageStack.pushImage(loadedFile->bitmap);
 		wxCommandEvent tmp;
 		draw_tool_selected(tmp);
-		loadedFilename = filename;
 		updateTitle();
 		updateSize();
 	}
 	else {
-		bmp = new wxBitmap(16, 16, 32);
+		wxBitmap *bmp = new wxBitmap(16, 16, 32);
 		wxMemoryDC dc;
 		dc.SelectObject(*bmp);
 		imageStack.pushImage(std::shared_ptr<wxBitmap>(bmp));
 		wxMessageBox("Could not load file\n" + filename, wxMessageBoxCaptionStr, wxICON_ERROR);
 		Close();
+	}
+}
+
+void MainWindow::save(wxCommandEvent &event) {
+	event.Skip();
+	std::shared_ptr<wxBitmap> image = imageStack.getImage();
+	if (loadedFile->filename.IsEmpty()) {
+		wxMessageBox("saving unnamed file not implemented", wxMessageBoxCaptionStr, wxICON_ERROR);
+	}
+	else {
+		Util::saveBitmap(imageStack.getImage().get(), loadedFile->filename, *loadedFile->imageHandler);
 	}
 }
 

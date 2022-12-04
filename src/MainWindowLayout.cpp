@@ -25,6 +25,9 @@ MainWindowLayout::MainWindowLayout(wxWindow* parent, wxWindowID id, const wxStri
 				mainWindow0_menubar = new wxMenuBar();
 				wxMenu *wxglade_tmp_menu;
 				wxglade_tmp_menu = new wxMenu();
+				save_menu_item = wxglade_tmp_menu->Append(wxID_ANY, wxT("Save\tCtrl+S"), wxEmptyString);
+				mainWindow0_menubar->Append(wxglade_tmp_menu, wxT("File"));
+				wxglade_tmp_menu = new wxMenu();
 				undo_menu_item = wxglade_tmp_menu->Append(wxID_ANY, wxT("Undo\tCtrl+Z"), wxEmptyString);
 				redo_menu_item = wxglade_tmp_menu->Append(wxID_ANY, wxT("Redo\tCtrl+Y"), wxEmptyString);
 				mainWindow0_menubar->Append(wxglade_tmp_menu, wxT("Edit"));
