@@ -129,7 +129,6 @@ bool MainWindow::save() {
 }
 
 void MainWindow::save(wxCommandEvent &event) {
-	event.Skip();
 	save();
 }
 
@@ -155,57 +154,46 @@ void MainWindow::on_close(wxCloseEvent &event) {
 }
 
 void MainWindow::button_3_clicked(wxCommandEvent &event) {
-	event.Skip();
 	std::cout << "button_3_clicked" << std::endl;
 }
 
 void MainWindow::button_4_clicked(wxCommandEvent &event) {
-	event.Skip();
 	std::cout << "button_4_clicked" << std::endl;
 }
 
 void MainWindow::button_5_clicked(wxCommandEvent &event) {
-	event.Skip();
 	std::cout << "button_5_clicked" << std::endl;
 }
 
 void MainWindow::button_6_clicked(wxCommandEvent &event) {
-	event.Skip();
 	std::cout << "button_6_clicked" << std::endl;
 }
 
 void MainWindow::rectangle_tool_selected(wxCommandEvent &event) {
-	event.Skip();
 	imagePanel->setTool(new ShapeTool(&imageStack, imagePanel, this, ToolType::RECTANGLE));
 }
 
 void MainWindow::rounded_rectangle_tool_selected(wxCommandEvent &event) {
-	event.Skip();
 	imagePanel->setTool(new ShapeTool(&imageStack, imagePanel, this, ToolType::ROUNDED_RECTANGLE));
 }
 
 void MainWindow::ellipse_tool_selected(wxCommandEvent &event) {
-	event.Skip();
 	imagePanel->setTool(new ShapeTool(&imageStack, imagePanel, this, ToolType::ELLIPSE));
 }
 
 void MainWindow::line_tool_selected(wxCommandEvent &event) {
-	event.Skip();
 	imagePanel->setTool(new ShapeTool(&imageStack, imagePanel, this, ToolType::LINE));
 }
 
 void MainWindow::arrow_tool_selected(wxCommandEvent &event) {
-	event.Skip();
 	imagePanel->setTool(new ShapeTool(&imageStack, imagePanel, this, ToolType::ARROW));
 }
 
 void MainWindow::draw_tool_selected(wxCommandEvent &event) {
-	event.Skip();
 	imagePanel->setTool(new DrawTool(&imageStack, imagePanel, this));
 }
 
 void MainWindow::color_button_clicked(wxCommandEvent &event) {
-	event.Skip();
 	wxColour color = wxGetColourFromUser(this, color_button->GetBackgroundColour());
 	if (color.IsOk()) {
 		color_button->SetBackgroundColour(color);
@@ -213,13 +201,11 @@ void MainWindow::color_button_clicked(wxCommandEvent &event) {
 }
 
 void MainWindow::undo(wxCommandEvent &event) {
-	event.Skip();
 	imageStack.popImage();
 	imagePanel->Refresh();
 }
 
 void MainWindow::redo(wxCommandEvent &event) {
-	event.Skip();
 	imageStack.redo();
 	imagePanel->Refresh();
 }
