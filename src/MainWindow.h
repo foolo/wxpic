@@ -12,7 +12,7 @@ public:
 	enum { RECTANGLE, ROUNDED_RECTANGLE, ELLIPSE, LINE, ARROW, DRAW, MAX };
 };
 
-class MainWindow : public MainWindowLayout {
+class MainWindow : public MainWindowLayout, public IUndoListener {
 	ImageStack imageStack;
 	const std::vector<int> brush_sizes{1, 2, 3, 4, 5, 6, 8, 10, 12, 15, 18};
 	std::vector<wxBitmap> icons;
@@ -49,4 +49,7 @@ public:
 	int getBrushSize();
 	void createToolIcons();
 	void initCursor();
+
+	// IUndoListener
+	void notify();
 };

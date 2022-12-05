@@ -11,6 +11,7 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
  : MainWindowLayout(parent, id, title)
 {
 	imagePanel->setImageSource(&imageStack);
+	imageStack.setUndoListener(this);
 	Bind(wxEVT_BUTTON, &MainWindow::button_3_clicked, this, button_3->GetId());
 	Bind(wxEVT_BUTTON, &MainWindow::button_4_clicked, this, button_4->GetId());
 	Bind(wxEVT_BUTTON, &MainWindow::button_5_clicked, this, button_5->GetId());
@@ -57,14 +58,15 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::updateTitle() {
+	std::string modifiedPrefix = imageStack.isModified() ? "* " : "";
 	if (!loadedFile) {
 		SetTitle("");
 	}
 	else if (loadedFile->filename.empty()) {
-		SetTitle("(new image)");
+		SetTitle(modifiedPrefix + "(new image)");
 	}
 	else {
-		SetTitle(loadedFile->filename);
+		SetTitle(modifiedPrefix + loadedFile->filename);
 	}
 }
 
@@ -266,4 +268,8 @@ void MainWindow::initCursor() {
 	img.SetOption(wxIMAGE_OPTION_CUR_HOTSPOT_X, 8);
 	img.SetOption(wxIMAGE_OPTION_CUR_HOTSPOT_Y, 8);
 	imagePanel->SetCursor(wxCursor(img));
+}
+
+void MainWindow::notify() {
+	updateTitle();
 }

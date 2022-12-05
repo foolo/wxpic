@@ -3,10 +3,17 @@
 #include <memory>
 #include <wx/bitmap.h>
 
+class IUndoListener {
+public:
+	virtual void notify() = 0;
+	virtual ~IUndoListener() {}
+};
+
 class ImageStack {
 	std::vector<std::shared_ptr<wxBitmap> > undoBuffer;
 	std::vector<std::shared_ptr<wxBitmap> > redoBuffer;
 	wxBitmap *savedBitmap = NULL;
+	IUndoListener *undoListener = NULL;
 
 public:
 	std::shared_ptr<wxBitmap> getImage();
@@ -17,4 +24,5 @@ public:
 	void popImage();
 	void markSaved();
 	bool isModified();
+	void setUndoListener(IUndoListener *ul);
 };
