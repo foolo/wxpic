@@ -37,7 +37,7 @@ void ImageStack::redo() {
 	}
 }
 
-void ImageStack::popImage() {
+void ImageStack::undo() {
 	if (undoBuffer.size() > 1) {
 		redoBuffer.push_back(undoBuffer.back());
 		undoBuffer.pop_back();

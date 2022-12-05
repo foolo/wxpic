@@ -21,7 +21,7 @@ public:
 	void init(std::shared_ptr<wxBitmap> bmp);
 	void pushImage(std::shared_ptr<wxBitmap> bmp);
 	void redo();
-	void popImage();
+	void undo();
 	void markSaved();
 	bool isModified();
 	void setUndoListener(IUndoListener *ul);

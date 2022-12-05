@@ -203,7 +203,7 @@ void MainWindow::color_button_clicked(wxCommandEvent &event) {
 }
 
 void MainWindow::undo(wxCommandEvent &event) {
-	imageStack.popImage();
+	imageStack.undo();
 	imagePanel->Refresh();
 }
 
