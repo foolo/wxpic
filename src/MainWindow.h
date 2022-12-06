@@ -19,7 +19,6 @@ class MainWindow : public MainWindowLayout, public IUndoListener {
 	std::shared_ptr<ActiveFile> activeFile;
 
 private:
-	std::shared_ptr<LoadResult> loadBitmap(const wxString &filename);
 	void updateTitle();
 	void updateSize();
 	bool save();

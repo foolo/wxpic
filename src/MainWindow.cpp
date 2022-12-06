@@ -60,9 +60,6 @@ MainWindow::~MainWindow()
 void MainWindow::updateTitle() {
 	std::string modifiedPrefix = imageStack.isModified() ? "* " : "";
 	if (!activeFile) {
-		SetTitle("");
-	}
-	else if (activeFile->path.empty()) {
 		SetTitle(modifiedPrefix + "(new image)");
 	}
 	else {
@@ -83,36 +80,37 @@ void MainWindow::updateSize() {
 	SetSize(newSize);
 }
 
-std::shared_ptr<LoadResult> MainWindow::loadBitmap(const wxString &filename) {
-	if (filename.empty()) {
-		wxBitmap *bmp = new wxBitmap(640, 480, 32);
-		wxMemoryDC dc;
-		dc.SelectObject(*bmp);
-		dc.SetBackground(*wxWHITE_BRUSH);
-		dc.Clear();
-		return std::shared_ptr<LoadResult>(new LoadResult(std::shared_ptr<wxBitmap>(bmp), std::shared_ptr<wxImageHandler>()));
-	}
-	else {
-		return Util::loadBitmap(filename);
-	}
+std::shared_ptr<wxBitmap> createEmptyBitmap() {
+	std::shared_ptr<wxBitmap> bmp(new wxBitmap(640, 480, 32));
+	wxMemoryDC dc;
+	dc.SelectObject(*bmp);
+	dc.SetBackground(*wxWHITE_BRUSH);
+	dc.Clear();
+	return bmp;
 }
 
 void MainWindow::open(const wxString &filename) {
-	imageStack.clear();
-	std::shared_ptr<LoadResult> loadResult = loadBitmap(filename);
-	if (loadResult) {
-		activeFile = std::shared_ptr<ActiveFile>(new ActiveFile(filename, loadResult->imageHandler));
-		imageStack.init(loadResult->bitmap);
+	std::shared_ptr<wxBitmap> bmp;
+	if (filename.empty()) {
+		bmp = createEmptyBitmap();
+	}
+	else {
+		std::shared_ptr<LoadResult> loadResult(Util::loadBitmap(filename));
+		if (loadResult) {
+			activeFile = std::shared_ptr<ActiveFile>(new ActiveFile(filename, loadResult->imageHandler));
+			bmp = loadResult->bitmap;
+		}
+	}
+
+	if (bmp) {
+		imageStack.init(bmp);
 		wxCommandEvent tmp;
 		draw_tool_selected(tmp);
 		updateTitle();
 		updateSize();
 	}
 	else {
-		wxBitmap *bmp = new wxBitmap(16, 16, 32);
-		wxMemoryDC dc;
-		dc.SelectObject(*bmp);
-		imageStack.init(std::shared_ptr<wxBitmap>(bmp));
+		imageStack.init(createEmptyBitmap());
 		wxMessageBox("Could not load file\n" + filename, wxMessageBoxCaptionStr, wxICON_ERROR);
 		Close();
 	}
@@ -120,7 +118,7 @@ void MainWindow::open(const wxString &filename) {
 
 bool MainWindow::save() {
 	std::shared_ptr<wxBitmap> image = imageStack.getImage();
-	if (activeFile->path.IsEmpty()) {
+	if (!activeFile) {
 		wxFileDialog dialog(this, "Save file", "", "", "", wxFD_SAVE|wxFD_OVERWRITE_PROMPT);
 		if (dialog.ShowModal() == wxID_CANCEL) {
 			return false;
