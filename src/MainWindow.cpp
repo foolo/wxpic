@@ -59,14 +59,14 @@ MainWindow::~MainWindow()
 
 void MainWindow::updateTitle() {
 	std::string modifiedPrefix = imageStack.isModified() ? "* " : "";
-	if (!loadedFile) {
+	if (!activeFile) {
 		SetTitle("");
 	}
-	else if (loadedFile->filename.empty()) {
+	else if (activeFile->filename.empty()) {
 		SetTitle(modifiedPrefix + "(new image)");
 	}
 	else {
-		SetTitle(modifiedPrefix + loadedFile->filename);
+		SetTitle(modifiedPrefix + activeFile->filename);
 	}
 }
 
@@ -83,14 +83,14 @@ void MainWindow::updateSize() {
 	SetSize(newSize);
 }
 
-LoadedFile *MainWindow::loadBitmap(const wxString &filename) {
+std::shared_ptr<LoadResult> MainWindow::loadBitmap(const wxString &filename) {
 	if (filename.empty()) {
 		wxBitmap *bmp = new wxBitmap(640, 480, 32);
 		wxMemoryDC dc;
 		dc.SelectObject(*bmp);
 		dc.SetBackground(*wxWHITE_BRUSH);
 		dc.Clear();
-		return new LoadedFile(std::shared_ptr<wxBitmap>(bmp), filename, std::shared_ptr<wxImageHandler>());
+		return std::shared_ptr<LoadResult>(new LoadResult(std::shared_ptr<wxBitmap>(bmp), std::shared_ptr<wxImageHandler>()));
 	}
 	else {
 		return Util::loadBitmap(filename);
@@ -99,9 +99,10 @@ LoadedFile *MainWindow::loadBitmap(const wxString &filename) {
 
 void MainWindow::open(const wxString &filename) {
 	imageStack.clear();
-	loadedFile = std::shared_ptr<LoadedFile>(loadBitmap(filename));
-	if (loadedFile) {
-		imageStack.init(loadedFile->bitmap);
+	std::shared_ptr<LoadResult> loadResult = loadBitmap(filename);
+	if (loadResult) {
+		activeFile = std::shared_ptr<ActiveFile>(new ActiveFile(filename, loadResult->imageHandler));
+		imageStack.init(loadResult->bitmap);
 		wxCommandEvent tmp;
 		draw_tool_selected(tmp);
 		updateTitle();
@@ -119,12 +120,12 @@ void MainWindow::open(const wxString &filename) {
 
 bool MainWindow::save() {
 	std::shared_ptr<wxBitmap> image = imageStack.getImage();
-	if (loadedFile->filename.IsEmpty()) {
+	if (activeFile->filename.IsEmpty()) {
 		wxMessageBox("saving unnamed file not implemented", wxMessageBoxCaptionStr, wxICON_ERROR);
 		return false;
 	}
 	else {
-		Util::saveBitmap(imageStack.getImage().get(), loadedFile->filename, *loadedFile->imageHandler);
+		Util::saveBitmap(imageStack.getImage().get(), activeFile->filename, *activeFile->imageHandler);
 		imageStack.markSaved();
 		return true;
 	}

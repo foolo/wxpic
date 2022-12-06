@@ -6,7 +6,7 @@ src = [
 	'src/MainWindowLayout.cpp',
 	'src/ImagePanel.cpp',
 	'src/ImageStack.cpp',
-	'src/LoadedFile.cpp',
+	'src/Types.cpp',
 	'src/ShapeTool.cpp',
 	'src/DrawTool.cpp',
 	'src/Util.cpp',

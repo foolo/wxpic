@@ -1,7 +1,7 @@
 #pragma once
 #include "MainWindowLayout.h"
 #include "ImageStack.h"
-#include "LoadedFile.h"
+#include "Types.h"
 #include <memory>
 #include <vector>
 
@@ -16,10 +16,10 @@ class MainWindow : public MainWindowLayout, public IUndoListener {
 	ImageStack imageStack;
 	const std::vector<int> brush_sizes{1, 2, 3, 4, 5, 6, 8, 10, 12, 15, 18};
 	std::vector<wxBitmap> icons;
-	std::shared_ptr<LoadedFile> loadedFile;
+	std::shared_ptr<ActiveFile> activeFile;
 
 private:
-	LoadedFile *loadBitmap(const wxString &filename);
+	std::shared_ptr<LoadResult> loadBitmap(const wxString &filename);
 	void updateTitle();
 	void updateSize();
 	bool save();

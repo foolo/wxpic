@@ -10,23 +10,23 @@ wxBitmap *readBitmap(wxImageHandler &ih, wxFFileInputStream &fis) {
 	return NULL;
 }
 
-LoadedFile *Util::loadBitmap(const wxString &filename) {
+std::shared_ptr<LoadResult> Util::loadBitmap(const wxString &filename) {
 	wxFFileInputStream fis(filename);
 	{
 		std::shared_ptr<wxPNGHandler> pngh(new wxPNGHandler());
 		std::shared_ptr<wxBitmap> bmp(readBitmap(*pngh, fis));
 		if (bmp) {
-			return new LoadedFile(bmp, filename, pngh);
+			return std::shared_ptr<LoadResult>(new LoadResult(bmp, pngh));
 		}
 	}
 	{
 		std::shared_ptr<wxJPEGHandler> jpegh(new wxJPEGHandler());
 		std::shared_ptr<wxBitmap> bmp(readBitmap(*jpegh, fis));
 		if (bmp) {
-			return new LoadedFile(bmp, filename, jpegh);
+			return std::shared_ptr<LoadResult>(new LoadResult(bmp, jpegh));
 		}
 	}
-	return NULL;
+	return std::shared_ptr<LoadResult>();
 }
 
 void Util::saveBitmap(wxBitmap *bmp, const wxString &filename, wxImageHandler &imageHandler) {
