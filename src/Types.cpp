@@ -1,7 +1,7 @@
 #include "Types.h"
 
-ActiveFile::ActiveFile(wxString filename, std::shared_ptr<wxImageHandler> imageHandler) :
-	filename(filename),
+ActiveFile::ActiveFile(wxString path, std::shared_ptr<wxImageHandler> imageHandler) :
+	path(path),
 	imageHandler(imageHandler)
 {
 }

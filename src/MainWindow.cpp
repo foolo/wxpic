@@ -62,11 +62,11 @@ void MainWindow::updateTitle() {
 	if (!activeFile) {
 		SetTitle("");
 	}
-	else if (activeFile->filename.empty()) {
+	else if (activeFile->path.empty()) {
 		SetTitle(modifiedPrefix + "(new image)");
 	}
 	else {
-		SetTitle(modifiedPrefix + activeFile->filename);
+		SetTitle(modifiedPrefix + activeFile->path);
 	}
 }
 
@@ -120,7 +120,7 @@ void MainWindow::open(const wxString &filename) {
 
 bool MainWindow::save() {
 	std::shared_ptr<wxBitmap> image = imageStack.getImage();
-	if (activeFile->filename.IsEmpty()) {
+	if (activeFile->path.IsEmpty()) {
 		wxFileDialog dialog(this, "Save file", "", "", "", wxFD_SAVE|wxFD_OVERWRITE_PROMPT);
 		if (dialog.ShowModal() == wxID_CANCEL) {
 			return false;
@@ -140,7 +140,7 @@ bool MainWindow::save() {
 		return false;
 	}
 	else {
-		if (Util::saveBitmap(imageStack.getImage().get(), activeFile->filename, *activeFile->imageHandler)) {
+		if (Util::saveBitmap(imageStack.getImage().get(), activeFile->path, *activeFile->imageHandler)) {
 			imageStack.markSaved();
 			return true;
 		}

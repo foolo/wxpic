@@ -4,9 +4,9 @@
 
 class ActiveFile {
 public:
-	const wxString filename;
+	const wxString path;
 	const std::shared_ptr<wxImageHandler> imageHandler;
-	ActiveFile(wxString filename, std::shared_ptr<wxImageHandler> imageHandler);
+	ActiveFile(wxString path, std::shared_ptr<wxImageHandler> imageHandler);
 };
 
 class LoadResult {
