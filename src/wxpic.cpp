@@ -1,4 +1,5 @@
 #include "MainWindow.h"
+#include "Util.h"
 #include <vector>
 #include <string>
 #include <wx/wx.h>
@@ -21,14 +22,25 @@ bool MyApp::OnInit() {
 	wxLog::SetActiveTarget(logger);
 
 	wxInitAllImageHandlers();
+
+	std::shared_ptr<LoadResult> loadResult;
+	if (args.size() > 0) {
+		wxString filename(args.at(0));
+		loadResult = Util::loadBitmap(filename);
+		if (!loadResult) {
+			wxMessageBox("Could not load file\n" + filename, "wxpic loading error", wxICON_ERROR);
+			return false;
+		}
+	}
+
 	MainWindow* mainWindow0 = new MainWindow(NULL, wxID_ANY, wxEmptyString);
 	SetTopWindow(mainWindow0);
 	mainWindow0->Show();
-	if (args.size() > 0) {
-		mainWindow0->open(args.at(0));
+	if (loadResult) {
+		mainWindow0->open(loadResult);
 	}
 	else {
-		mainWindow0->open("");
+		mainWindow0->newFile();
 	}
 	return true;
 }

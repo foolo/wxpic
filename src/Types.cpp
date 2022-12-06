@@ -6,7 +6,8 @@ ActiveFile::ActiveFile(wxString path, std::shared_ptr<wxImageHandler> imageHandl
 {
 }
 
-LoadResult::LoadResult(std::shared_ptr<wxBitmap> bitmap, std::shared_ptr<wxImageHandler> imageHandler) :
+LoadResult::LoadResult(wxString path, std::shared_ptr<wxBitmap> bitmap, std::shared_ptr<wxImageHandler> imageHandler) :
+	path(path),
 	bitmap(bitmap),
 	imageHandler(imageHandler)
 {

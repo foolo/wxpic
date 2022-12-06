@@ -17,7 +17,6 @@ class ImageStack {
 
 public:
 	std::shared_ptr<wxBitmap> getImage();
-	void clear();
 	void init(std::shared_ptr<wxBitmap> bmp);
 	void pushImage(std::shared_ptr<wxBitmap> bmp);
 	void redo();

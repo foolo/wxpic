@@ -5,10 +5,6 @@ std::shared_ptr<wxBitmap> ImageStack::getImage() {
 	return undoBuffer.back();
 }
 
-void ImageStack::clear() {
-	undoBuffer.clear();
-}
-
 void ImageStack::init(std::shared_ptr<wxBitmap> bmp) {
 	if (!undoBuffer.empty() || !redoBuffer.empty()) {
 		std::cerr << "ImageStack::init - warning: buffers not empty";

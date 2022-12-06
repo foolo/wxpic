@@ -11,7 +11,8 @@ public:
 
 class LoadResult {
 public:
+	wxString path;
 	std::shared_ptr<wxBitmap> bitmap;
 	std::shared_ptr<wxImageHandler> imageHandler;
-	LoadResult(std::shared_ptr<wxBitmap> bitmap, std::shared_ptr<wxImageHandler> imageHandler);
+	LoadResult(wxString path, std::shared_ptr<wxBitmap> bitmap, std::shared_ptr<wxImageHandler> imageHandler);
 };

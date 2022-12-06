@@ -26,7 +26,9 @@ private:
 public:
 	MainWindow(wxWindow* parent, wxWindowID id, const wxString& title);
 	virtual ~MainWindow();
-	void open(const wxString &filename);
+	void init(std::shared_ptr<wxBitmap> bmp);
+	void open(std::shared_ptr<LoadResult> loadResult);
+	void newFile();
 	void save(wxCommandEvent &event);
 	void on_close(wxCloseEvent& event);
 

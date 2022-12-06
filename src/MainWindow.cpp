@@ -89,31 +89,21 @@ std::shared_ptr<wxBitmap> createEmptyBitmap() {
 	return bmp;
 }
 
-void MainWindow::open(const wxString &filename) {
-	std::shared_ptr<wxBitmap> bmp;
-	if (filename.empty()) {
-		bmp = createEmptyBitmap();
-	}
-	else {
-		std::shared_ptr<LoadResult> loadResult(Util::loadBitmap(filename));
-		if (loadResult) {
-			activeFile = std::shared_ptr<ActiveFile>(new ActiveFile(filename, loadResult->imageHandler));
-			bmp = loadResult->bitmap;
-		}
-	}
+void MainWindow::init(std::shared_ptr<wxBitmap> bmp) {
+	imageStack.init(bmp);
+	wxCommandEvent tmp;
+	draw_tool_selected(tmp);
+	updateTitle();
+	updateSize();
+}
 
-	if (bmp) {
-		imageStack.init(bmp);
-		wxCommandEvent tmp;
-		draw_tool_selected(tmp);
-		updateTitle();
-		updateSize();
-	}
-	else {
-		imageStack.init(createEmptyBitmap());
-		wxMessageBox("Could not load file\n" + filename, wxMessageBoxCaptionStr, wxICON_ERROR);
-		Close();
-	}
+void MainWindow::open(std::shared_ptr<LoadResult> loadResult) {
+	activeFile = std::shared_ptr<ActiveFile>(new ActiveFile(loadResult->path, loadResult->imageHandler));
+	init(loadResult->bitmap);
+}
+
+void MainWindow::newFile() {
+	init(createEmptyBitmap());
 }
 
 bool MainWindow::save() {
