@@ -29,11 +29,11 @@ std::shared_ptr<LoadResult> Util::loadBitmap(const wxString &filename) {
 	return std::shared_ptr<LoadResult>();
 }
 
-void Util::saveBitmap(wxBitmap *bmp, const wxString &filename, wxImageHandler &imageHandler) {
+bool Util::saveBitmap(wxBitmap *bmp, const wxString &filename, wxImageHandler &imageHandler) {
 	wxFFileOutputStream fos(filename);
 	wxImage img(bmp->ConvertToImage());
 	img.SetOption(wxIMAGE_OPTION_QUALITY, 90);
-	imageHandler.SaveFile(&img, fos);
+	return imageHandler.SaveFile(&img, fos);
 }
 
 int Util::limit(int val, int min, int max) {
@@ -45,3 +45,14 @@ int Util::limit(int val, int min, int max) {
 	}
 	return val;
 }
+
+ std::shared_ptr<wxImageHandler> Util::filenameToHandler(const wxString &filename) {
+	wxString f = filename.Lower();
+	if (f.EndsWith(".jpg") || f.EndsWith(".jpeg")) {
+		return std::shared_ptr<wxImageHandler>(new wxJPEGHandler());
+	}
+	else if (f.EndsWith(".png")) {
+		return std::shared_ptr<wxImageHandler>(new wxPNGHandler());
+	}
+	return std::shared_ptr<wxImageHandler>();
+ }

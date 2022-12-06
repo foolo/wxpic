@@ -121,14 +121,31 @@ void MainWindow::open(const wxString &filename) {
 bool MainWindow::save() {
 	std::shared_ptr<wxBitmap> image = imageStack.getImage();
 	if (activeFile->filename.IsEmpty()) {
-		wxMessageBox("saving unnamed file not implemented", wxMessageBoxCaptionStr, wxICON_ERROR);
+		wxFileDialog dialog(this, "Save file", "", "", "", wxFD_SAVE|wxFD_OVERWRITE_PROMPT);
+		if (dialog.ShowModal() == wxID_CANCEL) {
+			return false;
+		}
+		wxString path = dialog.GetPath();
+		wxString filename = dialog.GetFilename();
+		std::shared_ptr<wxImageHandler> imageHandler = Util::filenameToHandler(filename);
+		if (!imageHandler) {
+			wxMessageBox("Filetype not recognized from filename:\n" + filename, wxMessageBoxCaptionStr, wxICON_ERROR);
+			return false;
+		}
+		if (Util::saveBitmap(imageStack.getImage().get(), path, *imageHandler)) {
+			activeFile = std::shared_ptr<ActiveFile>(new ActiveFile(path, imageHandler));
+			imageStack.markSaved();
+			return true;
+		}
 		return false;
 	}
 	else {
-		Util::saveBitmap(imageStack.getImage().get(), activeFile->filename, *activeFile->imageHandler);
-		imageStack.markSaved();
-		return true;
+		if (Util::saveBitmap(imageStack.getImage().get(), activeFile->filename, *activeFile->imageHandler)) {
+			imageStack.markSaved();
+			return true;
+		}
 	}
+	return false;
 }
 
 void MainWindow::save(wxCommandEvent &event) {
