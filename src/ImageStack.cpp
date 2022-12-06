@@ -49,6 +49,9 @@ void ImageStack::undo() {
 
 void ImageStack::markSaved() {
 	savedBitmap = undoBuffer.back().get();
+	if (undoListener) {
+		undoListener->notify();
+	}
 }
 
 bool ImageStack::isModified() {
