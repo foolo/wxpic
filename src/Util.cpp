@@ -56,3 +56,15 @@ int Util::limit(int val, int min, int max) {
 	}
 	return std::shared_ptr<wxImageHandler>();
  }
+
+wxPoint Util::getUpperLeft(const wxPoint &p1, const wxPoint &p2) {
+	return wxPoint(std::min(p1.x, p2.x), std::min(p1.y, p2.y));
+}
+
+wxPoint Util::getLowerRight(const wxPoint &p1, const wxPoint &p2) {
+	return wxPoint(std::max(p1.x, p2.x), std::max(p1.y, p2.y));
+}
+
+wxPoint Util::limit(const wxPoint &p, const wxSize &size) {
+	return wxPoint(std::min(std::max(p.x, 0), size.x), std::min(std::max(p.y, 0), size.y));
+}

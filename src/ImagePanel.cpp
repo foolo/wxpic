@@ -8,6 +8,7 @@ ImagePanel::ImagePanel(wxScrolledWindow* parent) :
 	SetMinSize( wxSize(buttonWidth, buttonHeight) );
 	tool = std::unique_ptr<ITool>(new NullTool());
 	Bind(wxEVT_MOTION, &ImagePanel::mouseMoved, this);
+	Bind(wxEVT_LEAVE_WINDOW, &ImagePanel::mouseLeaving, this);
 	Bind(wxEVT_LEFT_DOWN, &ImagePanel::mouseLeftDown, this);
 	Bind(wxEVT_MIDDLE_DOWN, &ImagePanel::mouseMiddleDown, this);
 	Bind(wxEVT_MIDDLE_UP, &ImagePanel::mouseMiddleReleased, this);
@@ -25,6 +26,19 @@ void ImagePanel::setImageSource(ImageStack *is) {
 
 void ImagePanel::setTool(ITool* t) {
 	tool = std::unique_ptr<ITool>(t);
+	Refresh();
+}
+
+void ImagePanel::undo() {
+	imageStack->undo();
+	tool->reset();
+	Refresh();
+}
+
+void ImagePanel::redo() {
+	imageStack->redo();
+	tool->reset();
+	Refresh();
 }
 
 void ImagePanel::paintEvent(wxPaintEvent & evt) {
@@ -60,6 +74,7 @@ void ImagePanel::mouseLeftDown(wxMouseEvent& event) {
 	if (inputState == InputState::IDLE) {
 		tool->mouseDown(mouseToImg(event.GetPosition()));
 		inputState = InputState::LEFT_DOWN;
+		Refresh();
 	}
 }
 
@@ -77,8 +92,8 @@ void ImagePanel::mouseMiddleReleased(wxMouseEvent& event) {
 }
 
 void ImagePanel::mouseMoved(wxMouseEvent& event) {
+	tool->mouseMoved(mouseToImg(event.GetPosition()));
 	if (inputState == InputState::LEFT_DOWN) {
-		tool->mouseMoved(mouseToImg(event.GetPosition()));
 	}
 	else if (inputState == InputState::MIDDLE_DOWN) {
 		wxPoint dm = event.GetPosition() - panGrabPosInImage;
@@ -87,12 +102,19 @@ void ImagePanel::mouseMoved(wxMouseEvent& event) {
 		wxSize ds = GetSize() - parentWindow->GetSize();
 		parentWindow->Scroll(std::min(ds.x, newScrollPos.x), std::min(ds.y, newScrollPos.y));
 	}
+	Refresh();
+}
+
+void ImagePanel::mouseLeaving(wxMouseEvent& event) {
+	tool->mouseLeaving(event.GetPosition());
+	Refresh();
 }
 
 void ImagePanel::mouseLeftReleased(wxMouseEvent& event) {
 	if (inputState == InputState::LEFT_DOWN) {
 		tool->mouseUp(mouseToImg(event.GetPosition()));
 		inputState = InputState::IDLE;
+		Refresh();
 	}
 }
 

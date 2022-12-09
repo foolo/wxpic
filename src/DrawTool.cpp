@@ -28,7 +28,13 @@ void DrawTool::mouseMoved(wxPoint pos) {
 	imagePanel->Refresh();
 }
 
+void DrawTool::mouseLeaving(wxPoint pos) {
+}
+
 void DrawTool::mouseUp(wxPoint pos) {
+	if (!preview) {
+		return;
+	}
 	wxMemoryDC dc;
 	dc.SelectObject(*imageStack->getImage());
 	dc.SetPen(wxPen(mainWindow->getPrimaryColor()));
@@ -39,4 +45,8 @@ void DrawTool::mouseUp(wxPoint pos) {
 
 std::shared_ptr<wxBitmap> DrawTool::getPreview() {
 	return preview;
+}
+
+void DrawTool::reset() {
+	preview.reset();
 }

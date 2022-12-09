@@ -15,6 +15,8 @@ public:
 	DrawTool(ImageStack *is, ImagePanel* ip, MainWindow* mw);
 	void mouseDown(wxPoint pos);
 	void mouseMoved(wxPoint pos);
+	void mouseLeaving(wxPoint pos);
 	void mouseUp(wxPoint pos);
 	std::shared_ptr<wxBitmap> getPreview();
+	void reset();
 };

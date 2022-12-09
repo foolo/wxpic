@@ -1,5 +1,6 @@
 #include "MainWindow.h"
 #include "ShapeTool.h"
+#include "CropTool.h"
 #include "DrawTool.h"
 #include "Util.h"
 #include "image_data.h"
@@ -51,6 +52,9 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 
 	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::ARROW), icons.at(IconId::ARROW), wxITEM_RADIO, "Arrow", wxEmptyString);
 	Bind(wxEVT_MENU, &MainWindow::arrow_tool_selected, this, tmp_tool->GetId());
+
+	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::CROP), icons.at(IconId::CROP), wxITEM_RADIO, "Crop", wxEmptyString);
+	Bind(wxEVT_MENU, &MainWindow::crop_tool_selected, this, tmp_tool->GetId());
 }
 
 MainWindow::~MainWindow()
@@ -181,6 +185,10 @@ void MainWindow::rectangle_tool_selected(wxCommandEvent &event) {
 	imagePanel->setTool(new ShapeTool(&imageStack, imagePanel, this, ToolType::RECTANGLE));
 }
 
+void MainWindow::crop_tool_selected(wxCommandEvent &event) {
+	imagePanel->setTool(new CropTool(&imageStack, this));
+}
+
 void MainWindow::rounded_rectangle_tool_selected(wxCommandEvent &event) {
 	imagePanel->setTool(new ShapeTool(&imageStack, imagePanel, this, ToolType::ROUNDED_RECTANGLE));
 }
@@ -209,13 +217,11 @@ void MainWindow::color_button_clicked(wxCommandEvent &event) {
 }
 
 void MainWindow::undo(wxCommandEvent &event) {
-	imageStack.undo();
-	imagePanel->Refresh();
+	imagePanel->undo();
 }
 
 void MainWindow::redo(wxCommandEvent &event) {
-	imageStack.redo();
-	imagePanel->Refresh();
+	imagePanel->redo();
 }
 
 void MainWindow::resized(wxSizeEvent& event) {
@@ -264,6 +270,17 @@ void MainWindow::createToolIcons() {
 			dc.DrawLine(11, 0, 15, 4);
 		}
 		break;
+		case IconId::CROP: {
+			int x1 = 3;
+			int y1 = 3;
+			int x2 = 12;
+			int y2 = 10;
+			int o = 3;
+			dc.DrawLine(x1-o, y1, x2, y1);
+			dc.DrawLine(x1, y2, x2+o, y2);
+			dc.DrawLine(x1, y1-o, x1, y2);
+			dc.DrawLine(x2, y1, x2, y2+o);
+		}
 		default: break;
 		}
 	}

@@ -30,7 +30,13 @@ void ShapeTool::mouseMoved(wxPoint pos) {
 	imagePanel->Refresh();
 }
 
+void ShapeTool::mouseLeaving(wxPoint pos) {
+}
+
 void ShapeTool::mouseUp(wxPoint pos) {
+	if (!preview) {
+		return;
+	}
 	imageStack->pushImage(preview);
 	preview.reset();
 	startPos = wxPoint(wxDefaultCoord, wxDefaultCoord);
@@ -86,4 +92,9 @@ void ShapeTool::drawDc(wxMemoryDC &dc, const wxRect &r) {
 	case ToolType::ARROW: drawArrow(dc, r); break;
 	default: break;
 	}
+}
+
+void ShapeTool::reset() {
+	preview.reset();
+	startPos = wxPoint(wxDefaultCoord, wxDefaultCoord);
 }

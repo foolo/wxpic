@@ -8,6 +8,7 @@ src = [
 	'src/ImageStack.cpp',
 	'src/Types.cpp',
 	'src/ShapeTool.cpp',
+	'src/CropTool.cpp',
 	'src/DrawTool.cpp',
 	'src/Util.cpp',
 ]

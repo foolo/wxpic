@@ -32,6 +32,8 @@ public:
 
 	void setImageSource(ImageStack *is);
 	void setTool(ITool *t);
+	void undo();
+	void redo();
 
 	void paintEvent(wxPaintEvent & evt);
 
@@ -42,6 +44,7 @@ public:
 	void mouseMiddleDown(wxMouseEvent& event);
 	void mouseMiddleReleased(wxMouseEvent& event);
 	void mouseMoved(wxMouseEvent& event);
+	void mouseLeaving(wxMouseEvent& event);
 	void mouseLeftReleased(wxMouseEvent& event);
 	void mouseWheelMoved(wxMouseEvent& event);
 	void rightClick(wxMouseEvent& event);
