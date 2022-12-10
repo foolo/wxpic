@@ -2,9 +2,8 @@
 #include <wx/dcmemory.h>
 #include <iostream>
 
-ShapeTool::ShapeTool(ImageStack* is, ImagePanel* ip, MainWindow* mw, ToolType tt) :
+ShapeTool::ShapeTool(ImageStack* is, MainWindow* mw, ToolType tt) :
 		imageStack(is),
-		imagePanel(ip),
 		mainWindow(mw),
 		startPos(wxDefaultCoord, wxDefaultCoord),
 		toolType(tt)
@@ -27,7 +26,6 @@ void ShapeTool::mouseMoved(wxPoint pos) {
 	dc.SetBrush(*wxTRANSPARENT_BRUSH);
 	wxSize size(pos.x - startPos.x, pos.y - startPos.y);
 	drawDc(dc, wxRect(startPos, size));
-	imagePanel->Refresh();
 }
 
 void ShapeTool::mouseLeaving(wxPoint pos) {
@@ -40,7 +38,6 @@ void ShapeTool::mouseUp(wxPoint pos) {
 	imageStack->pushImage(preview);
 	preview.reset();
 	startPos = wxPoint(wxDefaultCoord, wxDefaultCoord);
-	imagePanel->Refresh();
 }
 
 std::shared_ptr<wxBitmap> ShapeTool::getPreview() {

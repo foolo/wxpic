@@ -2,9 +2,8 @@
 #include <wx/dcmemory.h>
 #include <iostream>
 
-DrawTool::DrawTool(ImageStack* is, ImagePanel* ip, MainWindow* mw) :
+DrawTool::DrawTool(ImageStack* is, MainWindow* mw) :
 		imageStack(is),
-		imagePanel(ip),
 		mainWindow(mw)
 {
 }
@@ -25,7 +24,6 @@ void DrawTool::mouseMoved(wxPoint pos) {
 	dc.SetBrush(*wxTRANSPARENT_BRUSH);
 	dc.DrawLine(lastMousePos, pos);
 	lastMousePos = pos;
-	imagePanel->Refresh();
 }
 
 void DrawTool::mouseLeaving(wxPoint pos) {
@@ -40,7 +38,6 @@ void DrawTool::mouseUp(wxPoint pos) {
 	dc.SetPen(wxPen(mainWindow->getPrimaryColor()));
 	imageStack->pushImage(preview);
 	preview.reset();
-	imagePanel->Refresh();
 }
 
 std::shared_ptr<wxBitmap> DrawTool::getPreview() {

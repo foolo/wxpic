@@ -182,7 +182,7 @@ void MainWindow::button_6_clicked(wxCommandEvent &event) {
 }
 
 void MainWindow::rectangle_tool_selected(wxCommandEvent &event) {
-	imagePanel->setTool(new ShapeTool(&imageStack, imagePanel, this, ToolType::RECTANGLE));
+	imagePanel->setTool(new ShapeTool(&imageStack, this, ToolType::RECTANGLE));
 }
 
 void MainWindow::crop_tool_selected(wxCommandEvent &event) {
@@ -190,23 +190,23 @@ void MainWindow::crop_tool_selected(wxCommandEvent &event) {
 }
 
 void MainWindow::rounded_rectangle_tool_selected(wxCommandEvent &event) {
-	imagePanel->setTool(new ShapeTool(&imageStack, imagePanel, this, ToolType::ROUNDED_RECTANGLE));
+	imagePanel->setTool(new ShapeTool(&imageStack, this, ToolType::ROUNDED_RECTANGLE));
 }
 
 void MainWindow::ellipse_tool_selected(wxCommandEvent &event) {
-	imagePanel->setTool(new ShapeTool(&imageStack, imagePanel, this, ToolType::ELLIPSE));
+	imagePanel->setTool(new ShapeTool(&imageStack, this, ToolType::ELLIPSE));
 }
 
 void MainWindow::line_tool_selected(wxCommandEvent &event) {
-	imagePanel->setTool(new ShapeTool(&imageStack, imagePanel, this, ToolType::LINE));
+	imagePanel->setTool(new ShapeTool(&imageStack, this, ToolType::LINE));
 }
 
 void MainWindow::arrow_tool_selected(wxCommandEvent &event) {
-	imagePanel->setTool(new ShapeTool(&imageStack, imagePanel, this, ToolType::ARROW));
+	imagePanel->setTool(new ShapeTool(&imageStack, this, ToolType::ARROW));
 }
 
 void MainWindow::draw_tool_selected(wxCommandEvent &event) {
-	imagePanel->setTool(new DrawTool(&imageStack, imagePanel, this));
+	imagePanel->setTool(new DrawTool(&imageStack, this));
 }
 
 void MainWindow::color_button_clicked(wxCommandEvent &event) {
