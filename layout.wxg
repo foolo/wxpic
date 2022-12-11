@@ -13,6 +13,10 @@
             <menus>
                 <menu label="File" name="">
                     <item>
+                        <label>New	Ctrl+N</label>
+                        <name>menu_item_new</name>
+                    </item>
+                    <item>
                         <label>Save	Ctrl+S</label>
                         <name>menu_item_save</name>
                     </item>

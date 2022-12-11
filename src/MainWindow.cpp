@@ -18,6 +18,7 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 	Bind(wxEVT_BUTTON, &MainWindow::button_5_clicked, this, button_5->GetId());
 	Bind(wxEVT_BUTTON, &MainWindow::button_6_clicked, this, button_6->GetId());
 	Bind(wxEVT_BUTTON, &MainWindow::color_button_clicked, this, color_button->GetId());
+	Bind(wxEVT_MENU, &MainWindow::menu_new, this, menu_item_new->GetId());
 	Bind(wxEVT_MENU, &MainWindow::menu_save, this, menu_item_save->GetId());
 	Bind(wxEVT_MENU, &MainWindow::menu_save_as, this, menu_item_save_as->GetId());
 	Bind(wxEVT_MENU, &MainWindow::menu_exit, this, menu_item_exit->GetId());
@@ -153,6 +154,28 @@ bool MainWindow::save() {
 	}
 }
 
+bool MainWindow::save_changes_prompt() {
+	if (imageStack.isModified() == false) {
+		return true;
+	}
+	wxMessageDialog dialog(this, "Save changes?", "Save changes", wxYES_NO | wxCANCEL);
+	switch(dialog.ShowModal()) {
+		case wxID_YES:
+			return save();
+		case wxID_NO:
+			return true;
+		case wxID_CANCEL:
+		default:
+			return false;
+	}
+}
+
+void MainWindow::menu_new(wxCommandEvent &event) {
+	if (save_changes_prompt()) {
+		newFile();
+	}
+}
+
 void MainWindow::menu_save(wxCommandEvent &event) {
 	save();
 }
@@ -166,22 +189,7 @@ void MainWindow::menu_exit(wxCommandEvent &event) {
 }
 
 void MainWindow::exit() {
-	if (imageStack.isModified()) {
-		wxMessageDialog dialog(this, "Save changes?", "Save changes", wxYES_NO | wxCANCEL);
-		int result = dialog.ShowModal();
-		if (result == wxID_YES) {
-			if (save()) {
-				Destroy();
-			}
-		}
-		else if (result == wxID_NO)  {
-			Destroy();
-		}
-		else {
-			// cancel, do nothing
-		}
-	}
-	else {
+	if (save_changes_prompt()) {
 		Destroy();
 	}
 }

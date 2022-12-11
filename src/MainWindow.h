@@ -22,6 +22,7 @@ private:
 	void updateTitle();
 	void updateSize();
 	bool save();
+	bool save_changes_prompt();
 	bool save_as(const wxString &filePath);
 
 public:
@@ -30,6 +31,7 @@ public:
 	void init(std::shared_ptr<wxBitmap> bmp);
 	void open(std::shared_ptr<LoadResult> loadResult);
 	void newFile();
+	void menu_new(wxCommandEvent &event);
 	void menu_save(wxCommandEvent &event);
 	void menu_save_as(wxCommandEvent &event);
 	void menu_exit(wxCommandEvent &event);
