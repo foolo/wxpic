@@ -25,13 +25,13 @@ MainWindowLayout::MainWindowLayout(wxWindow* parent, wxWindowID id, const wxStri
 				mainWindow0_menubar = new wxMenuBar();
 				wxMenu *wxglade_tmp_menu;
 				wxglade_tmp_menu = new wxMenu();
-				save_menu_item = wxglade_tmp_menu->Append(wxID_ANY, wxT("Save\tCtrl+S"), wxEmptyString);
-				save_as_menu_item = wxglade_tmp_menu->Append(wxID_ANY, wxT("Save as …\tCtrl+Shift+S"), wxEmptyString);
-				exit_menu_item = wxglade_tmp_menu->Append(wxID_ANY, wxT("Exit\tCtrl+Q"), wxEmptyString);
+				menu_item_save = wxglade_tmp_menu->Append(wxID_ANY, wxT("Save\tCtrl+S"), wxEmptyString);
+				menu_item_save_as = wxglade_tmp_menu->Append(wxID_ANY, wxT("Save as …\tCtrl+Shift+S"), wxEmptyString);
+				menu_item_exit = wxglade_tmp_menu->Append(wxID_ANY, wxT("Exit\tCtrl+Q"), wxEmptyString);
 				mainWindow0_menubar->Append(wxglade_tmp_menu, wxT("File"));
 				wxglade_tmp_menu = new wxMenu();
-				undo_menu_item = wxglade_tmp_menu->Append(wxID_ANY, wxT("Undo\tCtrl+Z"), wxEmptyString);
-				redo_menu_item = wxglade_tmp_menu->Append(wxID_ANY, wxT("Redo\tCtrl+Y"), wxEmptyString);
+				menu_item_undo = wxglade_tmp_menu->Append(wxID_ANY, wxT("Undo\tCtrl+Z"), wxEmptyString);
+				menu_item_redo = wxglade_tmp_menu->Append(wxID_ANY, wxT("Redo\tCtrl+Y"), wxEmptyString);
 				mainWindow0_menubar->Append(wxglade_tmp_menu, wxT("Edit"));
 				SetMenuBar(mainWindow0_menubar);
 				toolbar = new wxToolBar(this, -1);

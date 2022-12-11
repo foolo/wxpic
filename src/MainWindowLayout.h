@@ -35,11 +35,11 @@ private:
 
 protected:
 				// begin wxGlade: MainWindowLayout::attributes
-				wxMenuItem* save_menu_item;
-				wxMenuItem* save_as_menu_item;
-				wxMenuItem* exit_menu_item;
-				wxMenuItem* undo_menu_item;
-				wxMenuItem* redo_menu_item;
+				wxMenuItem* menu_item_save;
+				wxMenuItem* menu_item_save_as;
+				wxMenuItem* menu_item_exit;
+				wxMenuItem* menu_item_undo;
+				wxMenuItem* menu_item_redo;
 				wxMenuBar* mainWindow0_menubar;
 				wxToolBar* toolbar;
 				wxButton* button_3;

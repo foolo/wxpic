@@ -18,11 +18,11 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 	Bind(wxEVT_BUTTON, &MainWindow::button_5_clicked, this, button_5->GetId());
 	Bind(wxEVT_BUTTON, &MainWindow::button_6_clicked, this, button_6->GetId());
 	Bind(wxEVT_BUTTON, &MainWindow::color_button_clicked, this, color_button->GetId());
-	Bind(wxEVT_MENU, &MainWindow::menu_save, this, save_menu_item->GetId());
-	Bind(wxEVT_MENU, &MainWindow::menu_save_as, this, save_as_menu_item->GetId());
-	Bind(wxEVT_MENU, &MainWindow::menu_exit, this, exit_menu_item->GetId());
-	Bind(wxEVT_MENU, &MainWindow::menu_undo, this, undo_menu_item->GetId());
-	Bind(wxEVT_MENU, &MainWindow::menu_redo, this, redo_menu_item->GetId());
+	Bind(wxEVT_MENU, &MainWindow::menu_save, this, menu_item_save->GetId());
+	Bind(wxEVT_MENU, &MainWindow::menu_save_as, this, menu_item_save_as->GetId());
+	Bind(wxEVT_MENU, &MainWindow::menu_exit, this, menu_item_exit->GetId());
+	Bind(wxEVT_MENU, &MainWindow::menu_undo, this, menu_item_undo->GetId());
+	Bind(wxEVT_MENU, &MainWindow::menu_redo, this, menu_item_redo->GetId());
 	Bind(wxEVT_SIZE, &MainWindow::resized, this);
 	Bind(wxEVT_CLOSE_WINDOW, &MainWindow::on_close, this);
 

@@ -14,25 +14,25 @@
                 <menu label="File" name="">
                     <item>
                         <label>Save	Ctrl+S</label>
-                        <name>save_menu_item</name>
+                        <name>menu_item_save</name>
                     </item>
                     <item>
                         <label>Save as …	Ctrl+Shift+S</label>
-                        <name>save_as_menu_item</name>
+                        <name>menu_item_save_as</name>
                     </item>
                     <item>
                         <label>Exit	Ctrl+Q</label>
-                        <name>exit_menu_item</name>
+                        <name>menu_item_exit</name>
                     </item>
                 </menu>
                 <menu label="Edit" name="">
                     <item>
                         <label>Undo	Ctrl+Z</label>
-                        <name>undo_menu_item</name>
+                        <name>menu_item_undo</name>
                     </item>
                     <item>
                         <label>Redo	Ctrl+Y</label>
-                        <name>redo_menu_item</name>
+                        <name>menu_item_redo</name>
                     </item>
                 </menu>
             </menus>
