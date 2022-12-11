@@ -30,9 +30,9 @@ public:
 	void init(std::shared_ptr<wxBitmap> bmp);
 	void open(std::shared_ptr<LoadResult> loadResult);
 	void newFile();
-	void save(wxCommandEvent &event);
-	void save_as(wxCommandEvent &event);
-	void exit(wxCommandEvent &event);
+	void menu_save(wxCommandEvent &event);
+	void menu_save_as(wxCommandEvent &event);
+	void menu_exit(wxCommandEvent &event);
 	void exit();
 	void on_close(wxCloseEvent& event);
 
@@ -48,8 +48,8 @@ public:
 	void arrow_tool_selected(wxCommandEvent &event);
 	void draw_tool_selected(wxCommandEvent &event);
 	void color_button_clicked(wxCommandEvent &event);
-	void undo(wxCommandEvent &event);
-	void redo(wxCommandEvent &event);
+	void menu_undo(wxCommandEvent &event);
+	void menu_redo(wxCommandEvent &event);
 	void resized(wxSizeEvent& event);
 	wxColor getPrimaryColor();
 	int getBrushSize();

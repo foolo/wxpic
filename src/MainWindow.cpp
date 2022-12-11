@@ -18,11 +18,11 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 	Bind(wxEVT_BUTTON, &MainWindow::button_5_clicked, this, button_5->GetId());
 	Bind(wxEVT_BUTTON, &MainWindow::button_6_clicked, this, button_6->GetId());
 	Bind(wxEVT_BUTTON, &MainWindow::color_button_clicked, this, color_button->GetId());
-	Bind(wxEVT_MENU, &MainWindow::save, this, save_menu_item->GetId());
-	Bind(wxEVT_MENU, &MainWindow::save_as, this, save_as_menu_item->GetId());
-	Bind(wxEVT_MENU, &MainWindow::exit, this, exit_menu_item->GetId());
-	Bind(wxEVT_MENU, &MainWindow::undo, this, undo_menu_item->GetId());
-	Bind(wxEVT_MENU, &MainWindow::redo, this, redo_menu_item->GetId());
+	Bind(wxEVT_MENU, &MainWindow::menu_save, this, save_menu_item->GetId());
+	Bind(wxEVT_MENU, &MainWindow::menu_save_as, this, save_as_menu_item->GetId());
+	Bind(wxEVT_MENU, &MainWindow::menu_exit, this, exit_menu_item->GetId());
+	Bind(wxEVT_MENU, &MainWindow::menu_undo, this, undo_menu_item->GetId());
+	Bind(wxEVT_MENU, &MainWindow::menu_redo, this, redo_menu_item->GetId());
 	Bind(wxEVT_SIZE, &MainWindow::resized, this);
 	Bind(wxEVT_CLOSE_WINDOW, &MainWindow::on_close, this);
 
@@ -146,15 +146,15 @@ bool MainWindow::save() {
 	return false;
 }
 
-void MainWindow::save(wxCommandEvent &event) {
+void MainWindow::menu_save(wxCommandEvent &event) {
 	save();
 }
 
-void MainWindow::save_as(wxCommandEvent &event) {
+void MainWindow::menu_save_as(wxCommandEvent &event) {
 	save_as(activeFile ? activeFile->path : "");
 }
 
-void MainWindow::exit(wxCommandEvent &event) {
+void MainWindow::menu_exit(wxCommandEvent &event) {
 	exit();
 }
 
@@ -234,11 +234,11 @@ void MainWindow::color_button_clicked(wxCommandEvent &event) {
 	}
 }
 
-void MainWindow::undo(wxCommandEvent &event) {
+void MainWindow::menu_undo(wxCommandEvent &event) {
 	imagePanel->undo();
 }
 
-void MainWindow::redo(wxCommandEvent &event) {
+void MainWindow::menu_redo(wxCommandEvent &event) {
 	imagePanel->redo();
 }
 
