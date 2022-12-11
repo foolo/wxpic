@@ -16,3 +16,14 @@ public:
 	std::shared_ptr<wxImageHandler> imageHandler;
 	LoadResult(wxString path, std::shared_ptr<wxBitmap> bitmap, std::shared_ptr<wxImageHandler> imageHandler);
 };
+
+class IOException : public std::exception {
+private:
+    std::string message;
+
+public:
+    IOException(const std::string message) : message(message) {}
+    const char* what() const noexcept override {
+        return message.c_str();
+    }
+};

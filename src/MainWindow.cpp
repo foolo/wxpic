@@ -124,10 +124,15 @@ bool MainWindow::save_as(const wxString &filePath) {
 		wxMessageBox("Filetype not recognized from filename:\n" + filename, wxMessageBoxCaptionStr, wxICON_ERROR);
 		return false;
 	}
-	if (Util::saveBitmap(imageStack.getImage().get(), path, *imageHandler)) {
+	try {
+		Util::saveBitmap(imageStack.getImage().get(), path, *imageHandler);
 		activeFile = std::shared_ptr<ActiveFile>(new ActiveFile(path, imageHandler));
 		imageStack.markSaved();
 		return true;
+	}
+	catch (const IOException &ex) {
+		wxMessageBox("Could not save " + filename + "\n" + ex.what(), wxMessageBoxCaptionStr, wxICON_ERROR);
+		return false;
 	}
 	return false;
 }
@@ -137,13 +142,15 @@ bool MainWindow::save() {
 	if (!activeFile) {
 		return save_as("");
 	}
-	else {
-		if (Util::saveBitmap(imageStack.getImage().get(), activeFile->path, *activeFile->imageHandler)) {
-			imageStack.markSaved();
-			return true;
-		}
+	try {
+		Util::saveBitmap(imageStack.getImage().get(), activeFile->path, *activeFile->imageHandler);
+		imageStack.markSaved();
+		return true;
 	}
-	return false;
+	catch (const IOException &ex) {
+		wxMessageBox("Could not save " + activeFile->path + "\n" + ex.what(), wxMessageBoxCaptionStr, wxICON_ERROR);
+		return false;
+	}
 }
 
 void MainWindow::menu_save(wxCommandEvent &event) {

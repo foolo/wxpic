@@ -6,7 +6,7 @@
 class Util {
 public:
 	static std::shared_ptr<LoadResult> loadBitmap(const wxString &filename);
-	static bool saveBitmap(wxBitmap *bmp, const wxString &filename, wxImageHandler &imageHandler);
+	static void saveBitmap(wxBitmap *bmp, const wxString &filename, wxImageHandler &imageHandler);
 	static int limit(int val, int min, int max);
 	static std::shared_ptr<wxImageHandler> filenameToHandler(const wxString &filename);
 	static wxPoint getUpperLeft(const wxPoint &p1, const wxPoint &p2);

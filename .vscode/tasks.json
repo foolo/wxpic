@@ -18,7 +18,7 @@
             "label": "ninja build",
             "type": "shell",
             "command": "ninja",
-			"args": ["-j1"],
+			"args": ["-j1", "-v"],
 			"options": {"cwd": "builddir"},
 			"group": {
 				"kind": "build",

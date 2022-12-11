@@ -29,11 +29,21 @@ std::shared_ptr<LoadResult> Util::loadBitmap(const wxString &filename) {
 	return std::shared_ptr<LoadResult>();
 }
 
-bool Util::saveBitmap(wxBitmap *bmp, const wxString &filename, wxImageHandler &imageHandler) {
+void Util::saveBitmap(wxBitmap *bmp, const wxString &filename, wxImageHandler &imageHandler) {
 	wxFFileOutputStream fos(filename);
 	wxImage img(bmp->ConvertToImage());
 	img.SetOption(wxIMAGE_OPTION_QUALITY, 90);
-	return imageHandler.SaveFile(&img, fos);
+	if (imageHandler.SaveFile(&img, fos) == false) {
+		throw IOException("");
+	}
+	wxStreamError err = fos.GetLastError();
+	switch(err) {
+		case wxSTREAM_NO_ERROR: return;
+		case wxSTREAM_EOF: throw IOException("End of file");
+		case wxSTREAM_WRITE_ERROR: throw IOException("Could not write file");
+		case wxSTREAM_READ_ERROR: throw IOException("Could not read file");
+		default: throw IOException("Unknown error code: " + std::to_string(err));
+	}
 }
 
 int Util::limit(int val, int min, int max) {
