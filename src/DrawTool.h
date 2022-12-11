@@ -17,5 +17,6 @@ public:
 	void mouseLeaving(wxPoint pos);
 	void mouseUp(wxPoint pos);
 	std::shared_ptr<wxBitmap> getPreview();
-	void reset();
+	bool busy();
+	void resetPreview();
 };

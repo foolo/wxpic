@@ -32,9 +32,6 @@ void ShapeTool::mouseLeaving(wxPoint pos) {
 }
 
 void ShapeTool::mouseUp(wxPoint pos) {
-	if (!preview) {
-		return;
-	}
 	imageStack->pushImage(preview);
 	preview.reset();
 	startPos = wxPoint(wxDefaultCoord, wxDefaultCoord);
@@ -91,7 +88,10 @@ void ShapeTool::drawDc(wxMemoryDC &dc, const wxRect &r) {
 	}
 }
 
-void ShapeTool::reset() {
+bool ShapeTool::busy() {
+	return startPos.IsFullySpecified();
+}
+
+void ShapeTool::resetPreview() {
 	preview.reset();
-	startPos = wxPoint(wxDefaultCoord, wxDefaultCoord);
 }

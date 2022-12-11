@@ -9,7 +9,8 @@ public:
 	virtual void mouseMoved(wxPoint pos) = 0;
 	virtual void mouseLeaving(wxPoint pos) = 0;
 	virtual std::shared_ptr<wxBitmap> getPreview() = 0;
-	virtual void reset() = 0;
+	virtual bool busy() = 0;
+	virtual void resetPreview() = 0;
 };
 
 class NullTool : public ITool {
@@ -19,5 +20,6 @@ public:
 	void mouseLeaving(wxPoint pos) {};
 	void mouseUp(wxPoint pos) {};
 	std::shared_ptr<wxBitmap> getPreview() {return std::shared_ptr<wxBitmap>();};
-	void reset() {};
+	bool busy() {return false;}
+	void resetPreview() {};
 };

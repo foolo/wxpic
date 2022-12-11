@@ -30,14 +30,18 @@ void ImagePanel::setTool(ITool* t) {
 }
 
 void ImagePanel::undo() {
-	imageStack->undo();
-	tool->reset();
+	if (!tool->busy()) {
+		imageStack->undo();
+		tool->resetPreview();
+	}
 	Refresh();
 }
 
 void ImagePanel::redo() {
-	imageStack->redo();
-	tool->reset();
+	if (!tool->busy()) {
+		imageStack->redo();
+		tool->resetPreview();
+	}
 	Refresh();
 }
 

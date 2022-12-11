@@ -19,5 +19,6 @@ public:
 	void mouseUp(wxPoint pos);
 	std::shared_ptr<wxBitmap> getPreview();
 	void drawDc(wxMemoryDC &dc, const wxRect &r);
-	void reset();
+	bool busy();
+	void resetPreview();
 };

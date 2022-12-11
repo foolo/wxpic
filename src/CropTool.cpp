@@ -56,9 +56,6 @@ void CropTool::mouseLeaving(wxPoint pos) {
 }
 
 void CropTool::mouseUp(wxPoint pos) {
-	if (startPos.IsFullySpecified() == false) {
-		return;
-	}
 	wxMemoryDC dc;
 	dc.SelectObject(*imageStack->getImage());
 	wxPoint p1(Util::limit(Util::getUpperLeft(pos, startPos), dc.GetSize()));
@@ -71,14 +68,18 @@ void CropTool::mouseUp(wxPoint pos) {
 		tmpDc.Blit(wxPoint(0,0), size, &dc, p1);
 		imageStack->pushImage(bmp);
 	}
-	reset();
+	preview.reset();
+	startPos = wxPoint(wxDefaultCoord, wxDefaultCoord);
 }
 
 std::shared_ptr<wxBitmap> CropTool::getPreview() {
 	return preview;
 }
 
-void CropTool::reset() {
+bool CropTool::busy() {
+	return startPos.IsFullySpecified();
+}
+
+void CropTool::resetPreview() {
 	preview.reset();
-	startPos = wxPoint(wxDefaultCoord, wxDefaultCoord);
 }
