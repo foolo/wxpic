@@ -22,6 +22,7 @@ private:
 	void updateTitle();
 	void updateSize();
 	bool save();
+	bool save_as(const wxString &filePath);
 
 public:
 	MainWindow(wxWindow* parent, wxWindowID id, const wxString& title);
@@ -30,6 +31,7 @@ public:
 	void open(std::shared_ptr<LoadResult> loadResult);
 	void newFile();
 	void save(wxCommandEvent &event);
+	void save_as(wxCommandEvent &event);
 	void exit(wxCommandEvent &event);
 	void exit();
 	void on_close(wxCloseEvent& event);

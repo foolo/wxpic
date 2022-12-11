@@ -19,6 +19,7 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 	Bind(wxEVT_BUTTON, &MainWindow::button_6_clicked, this, button_6->GetId());
 	Bind(wxEVT_BUTTON, &MainWindow::color_button_clicked, this, color_button->GetId());
 	Bind(wxEVT_MENU, &MainWindow::save, this, save_menu_item->GetId());
+	Bind(wxEVT_MENU, &MainWindow::save_as, this, save_as_menu_item->GetId());
 	Bind(wxEVT_MENU, &MainWindow::exit, this, exit_menu_item->GetId());
 	Bind(wxEVT_MENU, &MainWindow::undo, this, undo_menu_item->GetId());
 	Bind(wxEVT_MENU, &MainWindow::redo, this, redo_menu_item->GetId());
@@ -111,26 +112,30 @@ void MainWindow::newFile() {
 	init(createEmptyBitmap());
 }
 
+bool MainWindow::save_as(const wxString &filePath) {
+	wxFileDialog dialog(this, "Save file", "", filePath, "", wxFD_SAVE|wxFD_OVERWRITE_PROMPT);
+	if (dialog.ShowModal() == wxID_CANCEL) {
+		return false;
+	}
+	wxString path = dialog.GetPath();
+	wxString filename = dialog.GetFilename();
+	std::shared_ptr<wxImageHandler> imageHandler = Util::filenameToHandler(filename);
+	if (!imageHandler) {
+		wxMessageBox("Filetype not recognized from filename:\n" + filename, wxMessageBoxCaptionStr, wxICON_ERROR);
+		return false;
+	}
+	if (Util::saveBitmap(imageStack.getImage().get(), path, *imageHandler)) {
+		activeFile = std::shared_ptr<ActiveFile>(new ActiveFile(path, imageHandler));
+		imageStack.markSaved();
+		return true;
+	}
+	return false;
+}
+
 bool MainWindow::save() {
 	std::shared_ptr<wxBitmap> image = imageStack.getImage();
 	if (!activeFile) {
-		wxFileDialog dialog(this, "Save file", "", "", "", wxFD_SAVE|wxFD_OVERWRITE_PROMPT);
-		if (dialog.ShowModal() == wxID_CANCEL) {
-			return false;
-		}
-		wxString path = dialog.GetPath();
-		wxString filename = dialog.GetFilename();
-		std::shared_ptr<wxImageHandler> imageHandler = Util::filenameToHandler(filename);
-		if (!imageHandler) {
-			wxMessageBox("Filetype not recognized from filename:\n" + filename, wxMessageBoxCaptionStr, wxICON_ERROR);
-			return false;
-		}
-		if (Util::saveBitmap(imageStack.getImage().get(), path, *imageHandler)) {
-			activeFile = std::shared_ptr<ActiveFile>(new ActiveFile(path, imageHandler));
-			imageStack.markSaved();
-			return true;
-		}
-		return false;
+		return save_as("");
 	}
 	else {
 		if (Util::saveBitmap(imageStack.getImage().get(), activeFile->path, *activeFile->imageHandler)) {
@@ -143,6 +148,10 @@ bool MainWindow::save() {
 
 void MainWindow::save(wxCommandEvent &event) {
 	save();
+}
+
+void MainWindow::save_as(wxCommandEvent &event) {
+	save_as(activeFile ? activeFile->path : "");
 }
 
 void MainWindow::exit(wxCommandEvent &event) {

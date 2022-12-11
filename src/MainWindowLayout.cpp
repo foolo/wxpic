@@ -26,6 +26,7 @@ MainWindowLayout::MainWindowLayout(wxWindow* parent, wxWindowID id, const wxStri
 				wxMenu *wxglade_tmp_menu;
 				wxglade_tmp_menu = new wxMenu();
 				save_menu_item = wxglade_tmp_menu->Append(wxID_ANY, wxT("Save\tCtrl+S"), wxEmptyString);
+				save_as_menu_item = wxglade_tmp_menu->Append(wxID_ANY, wxT("Save as …\tCtrl+Shift+S"), wxEmptyString);
 				exit_menu_item = wxglade_tmp_menu->Append(wxID_ANY, wxT("Exit\tCtrl+Q"), wxEmptyString);
 				mainWindow0_menubar->Append(wxglade_tmp_menu, wxT("File"));
 				wxglade_tmp_menu = new wxMenu();
