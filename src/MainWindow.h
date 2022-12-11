@@ -30,6 +30,8 @@ public:
 	void open(std::shared_ptr<LoadResult> loadResult);
 	void newFile();
 	void save(wxCommandEvent &event);
+	void exit(wxCommandEvent &event);
+	void exit();
 	void on_close(wxCloseEvent& event);
 
 	void button_3_clicked(wxCommandEvent &event);

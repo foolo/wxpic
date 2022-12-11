@@ -16,6 +16,10 @@
                         <label>Save	Ctrl+S</label>
                         <name>save_menu_item</name>
                     </item>
+                    <item>
+                        <label>Exit	Ctrl+Q</label>
+                        <name>exit_menu_item</name>
+                    </item>
                 </menu>
                 <menu label="Edit" name="">
                     <item>

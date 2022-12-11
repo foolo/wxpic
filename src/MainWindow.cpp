@@ -19,6 +19,7 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 	Bind(wxEVT_BUTTON, &MainWindow::button_6_clicked, this, button_6->GetId());
 	Bind(wxEVT_BUTTON, &MainWindow::color_button_clicked, this, color_button->GetId());
 	Bind(wxEVT_MENU, &MainWindow::save, this, save_menu_item->GetId());
+	Bind(wxEVT_MENU, &MainWindow::exit, this, exit_menu_item->GetId());
 	Bind(wxEVT_MENU, &MainWindow::undo, this, undo_menu_item->GetId());
 	Bind(wxEVT_MENU, &MainWindow::redo, this, redo_menu_item->GetId());
 	Bind(wxEVT_SIZE, &MainWindow::resized, this);
@@ -144,7 +145,11 @@ void MainWindow::save(wxCommandEvent &event) {
 	save();
 }
 
-void MainWindow::on_close(wxCloseEvent &event) {
+void MainWindow::exit(wxCommandEvent &event) {
+	exit();
+}
+
+void MainWindow::exit() {
 	if (imageStack.isModified()) {
 		wxMessageDialog dialog(this, "Save changes?", "Save changes", wxYES_NO | wxCANCEL);
 		int result = dialog.ShowModal();
@@ -163,6 +168,10 @@ void MainWindow::on_close(wxCloseEvent &event) {
 	else {
 		Destroy();
 	}
+}
+
+void MainWindow::on_close(wxCloseEvent &event) {
+	exit();
 }
 
 void MainWindow::button_3_clicked(wxCommandEvent &event) {
