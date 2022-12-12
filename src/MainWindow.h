@@ -32,6 +32,7 @@ public:
 	void open(std::shared_ptr<LoadResult> loadResult);
 	void newFile();
 	void menu_new(wxCommandEvent &event);
+	void menu_open(wxCommandEvent &event);
 	void menu_save(wxCommandEvent &event);
 	void menu_save_as(wxCommandEvent &event);
 	void menu_exit(wxCommandEvent &event);

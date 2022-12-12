@@ -19,6 +19,7 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 	Bind(wxEVT_BUTTON, &MainWindow::button_6_clicked, this, button_6->GetId());
 	Bind(wxEVT_BUTTON, &MainWindow::color_button_clicked, this, color_button->GetId());
 	Bind(wxEVT_MENU, &MainWindow::menu_new, this, menu_item_new->GetId());
+	Bind(wxEVT_MENU, &MainWindow::menu_open, this, menu_item_open->GetId());
 	Bind(wxEVT_MENU, &MainWindow::menu_save, this, menu_item_save->GetId());
 	Bind(wxEVT_MENU, &MainWindow::menu_save_as, this, menu_item_save_as->GetId());
 	Bind(wxEVT_MENU, &MainWindow::menu_exit, this, menu_item_exit->GetId());
@@ -173,6 +174,28 @@ bool MainWindow::save_changes_prompt() {
 void MainWindow::menu_new(wxCommandEvent &event) {
 	if (save_changes_prompt()) {
 		newFile();
+	}
+}
+
+void MainWindow::menu_open(wxCommandEvent &event) {
+	if (save_changes_prompt()) {
+		wxFileDialog dialog(this, "Open file", "", (activeFile ? activeFile->path : ""), "", wxFD_OPEN|wxFD_OVERWRITE_PROMPT);
+		if (dialog.ShowModal() == wxID_CANCEL) {
+			return;
+		}
+		wxString path = dialog.GetPath();
+		wxString filename = dialog.GetFilename();
+		std::shared_ptr<wxImageHandler> imageHandler = Util::filenameToHandler(filename);
+		if (!imageHandler) {
+			wxMessageBox("Filetype not recognized for " + filename, wxMessageBoxCaptionStr, wxICON_ERROR);
+			return;
+		}
+		std::shared_ptr<LoadResult> loadResult = Util::loadBitmap(path);
+		if (!loadResult) {
+			wxMessageBox("Could not load file\n" + path, "wxpic loading error", wxICON_ERROR);
+			return;
+		}
+		open(loadResult);
 	}
 }
 

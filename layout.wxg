@@ -17,6 +17,10 @@
                         <name>menu_item_new</name>
                     </item>
                     <item>
+                        <label>Open	Ctrl+O</label>
+                        <name>menu_item_open</name>
+                    </item>
+                    <item>
                         <label>Save	Ctrl+S</label>
                         <name>menu_item_save</name>
                     </item>
