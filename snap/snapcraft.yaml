@@ -29,7 +29,6 @@ parts:
   my-part:
     source: .
     plugin: meson
-    after: [desktop-gtk3]
     after:
     - wxwidgets-sdk
     build-packages:
