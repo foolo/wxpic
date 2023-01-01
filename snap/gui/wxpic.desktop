@@ -8,5 +8,5 @@ Exec=wxpic %U
 MimeType=image/jpeg;image/jpg;image/pjpeg;image/png;image/x-png;
 Categories=Graphics;2DGraphics;
 Keywords=draw;drawing;paint;painting;graphics;2d;
-StartupNotify=false
+StartupNotify=true
 X-SnapInstanceName=wxpic
