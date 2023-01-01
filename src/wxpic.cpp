@@ -13,6 +13,7 @@ public:
 IMPLEMENT_APP(MyApp)
 
 bool MyApp::OnInit() {
+	setlocale(LC_ALL, "");
 	std::vector<std::string> args;
 	for (int i = 1; i < wxApp::argc; i++) {
 		args.push_back(std::string(wxApp::argv[i]));
