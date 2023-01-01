@@ -28,7 +28,7 @@ bool MyApp::OnInit() {
 		wxString filename(args.at(0));
 		loadResult = Util::loadBitmap(filename);
 		if (!loadResult) {
-			wxMessageBox("Could not load file\n" + filename, "wxpic loading error", wxICON_ERROR);
+			wxMessageBox("Could not load file\n\"" + filename + "\"", "wxpic loading error", wxICON_ERROR);
 			return false;
 		}
 	}

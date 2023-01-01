@@ -123,7 +123,7 @@ bool MainWindow::save_as(const wxString &filePath) {
 	wxString filename = dialog.GetFilename();
 	std::shared_ptr<wxImageHandler> imageHandler = Util::filenameToHandler(filename);
 	if (!imageHandler) {
-		wxMessageBox("Filetype not recognized from filename:\n" + filename, wxMessageBoxCaptionStr, wxICON_ERROR);
+		wxMessageBox("Filetype not recognized from filename:\n\"" + filename + "\"", wxMessageBoxCaptionStr, wxICON_ERROR);
 		return false;
 	}
 	try {
@@ -133,7 +133,7 @@ bool MainWindow::save_as(const wxString &filePath) {
 		return true;
 	}
 	catch (const IOException &ex) {
-		wxMessageBox("Could not save " + filename + "\n" + ex.what(), wxMessageBoxCaptionStr, wxICON_ERROR);
+		wxMessageBox("Could not save \"" + filename + "\"\n" + ex.what(), wxMessageBoxCaptionStr, wxICON_ERROR);
 		return false;
 	}
 	return false;
@@ -150,7 +150,7 @@ bool MainWindow::save() {
 		return true;
 	}
 	catch (const IOException &ex) {
-		wxMessageBox("Could not save " + activeFile->path + "\n" + ex.what(), wxMessageBoxCaptionStr, wxICON_ERROR);
+		wxMessageBox("Could not save \"" + activeFile->path + "\"\n" + ex.what(), wxMessageBoxCaptionStr, wxICON_ERROR);
 		return false;
 	}
 }
@@ -192,7 +192,7 @@ void MainWindow::menu_open(wxCommandEvent &event) {
 		}
 		std::shared_ptr<LoadResult> loadResult = Util::loadBitmap(path);
 		if (!loadResult) {
-			wxMessageBox("Could not load file\n" + path, "wxpic loading error", wxICON_ERROR);
+			wxMessageBox("Could not load file\n\"" + path + "\"", "wxpic loading error", wxICON_ERROR);
 			return;
 		}
 		open(loadResult);
