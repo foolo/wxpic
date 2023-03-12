@@ -79,9 +79,12 @@ void MainWindow::updateSize() {
 	imagePanel->adjustImagePos();
 	Layout();
 	wxSize scrollbarSize(wxSystemSettings::GetMetric(wxSYS_VSCROLL_X), wxSystemSettings::GetMetric(wxSYS_HSCROLL_Y));
+	wxPoint windowCenterPos(GetScreenRect().GetX() + GetScreenRect().GetWidth() / 2, GetScreenRect().GetY() + GetScreenRect().GetHeight() / 2) ;
+	int displayId = wxDisplay::GetFromPoint(windowCenterPos);
+	wxDisplay display(displayId);
 	wxSize sizeDiff = imagePanel->GetSize() - panel_1->GetClientSize();
 	wxSize newSize = GetSize() + sizeDiff + scrollbarSize;
-	wxSize maxSize(1024, 768);
+	wxSize maxSize = display.GetGeometry().GetSize();
 	wxSize minSize(640, 480);
 	newSize.SetWidth(Util::limit(newSize.GetWidth(), minSize.GetWidth(), maxSize.GetWidth()));
 	newSize.SetHeight(Util::limit(newSize.GetHeight(), minSize.GetHeight(), maxSize.GetHeight()));
