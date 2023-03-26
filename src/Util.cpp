@@ -1,4 +1,5 @@
 #include "Util.h"
+#include "imagwebp.h"
 
 wxBitmap *readBitmap(wxImageHandler &ih, wxFFileInputStream &fis) {
 	if (ih.CanRead(fis)) {
@@ -24,6 +25,13 @@ std::shared_ptr<LoadResult> Util::loadBitmap(const wxString &filename) {
 		std::shared_ptr<wxBitmap> bmp(readBitmap(*jpegh, fis));
 		if (bmp) {
 			return std::shared_ptr<LoadResult>(new LoadResult(filename, bmp, jpegh));
+		}
+	}
+	{
+		std::shared_ptr<wxWEBPHandler> handler(new wxWEBPHandler());
+		std::shared_ptr<wxBitmap> bmp(readBitmap(*handler, fis));
+		if (bmp) {
+			return std::shared_ptr<LoadResult>(new LoadResult(filename, bmp, handler));
 		}
 	}
 	return std::shared_ptr<LoadResult>();

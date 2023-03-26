@@ -10,6 +10,7 @@
                 "/usr/lib/x86_64-linux-gnu/wx/include/gtk3-unicode-3.0"
             ],
             "defines": [
+                "wxUSE_WEBP=1",
                 "_FILE_OFFSET_BITS=64",
                 "WXUSINGDLL",
                 "__WXGTK__"

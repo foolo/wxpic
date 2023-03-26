@@ -11,8 +11,11 @@ src = [
 	'src/CropTool.cpp',
 	'src/DrawTool.cpp',
 	'src/Util.cpp',
+	'src/imagwebp.cpp',
 ]
 
 wx_dep = dependency('wxWidgets', version: '>=3.0.0')
+libwebp_dev = dependency('libwebp', static: true)
+libwebpdemux = dependency('libwebpdemux', static: true)
 
-executable('wxpic', src, dependencies: wx_dep, install : true,  cpp_args : '-DNDEBUG')
+executable('wxpic', src, dependencies: [wx_dep, libwebp_dev, libwebpdemux], install : true,  cpp_args : '-DNDEBUG')

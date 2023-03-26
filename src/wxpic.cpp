@@ -4,6 +4,7 @@
 #include <string>
 #include <wx/wx.h>
 #include <wx/image.h>
+#include "imagwebp.h"
 
 class MyApp: public wxApp {
 public:
@@ -23,6 +24,7 @@ bool MyApp::OnInit() {
 	wxLog::SetActiveTarget(logger);
 
 	wxInitAllImageHandlers();
+	wxImage::AddHandler(new wxWEBPHandler);
 
 	std::shared_ptr<LoadResult> loadResult;
 	if (args.size() > 0) {
