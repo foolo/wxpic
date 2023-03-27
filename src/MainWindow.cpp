@@ -12,6 +12,7 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
  : MainWindowLayout(parent, id, title)
 {
 	imagePanel->setImageSource(&imageStack);
+	imagePanel->setStatusListener(this);
 	imageStack.setUndoListener(this);
 	Bind(wxEVT_BUTTON, &MainWindow::button_3_clicked, this, button_3->GetId());
 	Bind(wxEVT_BUTTON, &MainWindow::button_4_clicked, this, button_4->GetId());
@@ -33,6 +34,12 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 	}
 	brush_size_choice->SetSelection(2);
 	color_button->SetBackgroundColour(*wxRED);
+
+	statusBar = CreateStatusBar();
+	std::vector<int> statusBarWidths{ -1, 100 };
+	std::vector<int> statusFieldStyles{ wxSB_SUNKEN, wxSB_SUNKEN };
+	statusBar->SetFieldsCount(statusBarWidths.size(), &statusBarWidths.front());
+	statusBar->SetStatusStyles(statusFieldStyles.size(), &statusFieldStyles.front());
 
 	createToolIcons();
 	initCursor();
@@ -354,4 +361,8 @@ void MainWindow::initCursor() {
 
 void MainWindow::notify() {
 	updateTitle();
+}
+
+void MainWindow::updateStatus(const wxString& text) {
+	statusBar->SetStatusText(text, 1);
 }

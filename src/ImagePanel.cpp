@@ -29,6 +29,10 @@ void ImagePanel::setTool(ITool* t) {
 	Refresh();
 }
 
+void ImagePanel::setStatusListener(IStatusListener* sl) {
+	statusListener = sl;
+}
+
 void ImagePanel::undo() {
 	if (!tool->busy()) {
 		imageStack->undo();
@@ -105,6 +109,9 @@ void ImagePanel::mouseMoved(wxMouseEvent& event) {
 		wxPoint newScrollPos = currentScrollPos - dm;
 		wxSize ds = GetSize() - parentWindow->GetSize();
 		parentWindow->Scroll(std::min(ds.x, newScrollPos.x), std::min(ds.y, newScrollPos.y));
+	}
+	if (statusListener) {
+		statusListener->updateStatus(std::to_string(event.GetX()) + ", " + std::to_string(event.GetY()));
 	}
 	Refresh();
 }

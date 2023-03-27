@@ -12,11 +12,12 @@ public:
 	enum { RECTANGLE, ROUNDED_RECTANGLE, ELLIPSE, LINE, ARROW, DRAW, CROP, MAX };
 };
 
-class MainWindow : public MainWindowLayout, public IUndoListener {
+class MainWindow : public MainWindowLayout, public IUndoListener, public IStatusListener {
 	ImageStack imageStack;
 	const std::vector<int> brush_sizes{1, 2, 3, 4, 5, 6, 8, 10, 12, 15, 18};
 	std::vector<wxBitmap> icons;
 	std::shared_ptr<ActiveFile> activeFile;
+	wxStatusBar *statusBar;
 
 private:
 	void updateTitle();
@@ -61,4 +62,7 @@ public:
 
 	// IUndoListener
 	void notify();
+
+	// IStatusListener
+	void updateStatus(const wxString& text);
 };

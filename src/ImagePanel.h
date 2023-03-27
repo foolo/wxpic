@@ -7,6 +7,12 @@
 
 enum class InputState {IDLE, LEFT_DOWN, MIDDLE_DOWN};
 
+class IStatusListener {
+public:
+	virtual void updateStatus(const wxString& text) = 0;
+	virtual ~IStatusListener() {}
+};
+
 class ImagePanel : public wxWindow {
 	static const int buttonWidth = 200;
 	static const int buttonHeight = 50;
@@ -20,6 +26,7 @@ class ImagePanel : public wxWindow {
 	wxPoint panGrabPosInImage;
 	InputState inputState = InputState::IDLE;
 	wxScrolledWindow* parentWindow;
+	IStatusListener *statusListener = NULL;
 
 private:
 	wxPoint mouseToImg(const wxPoint &mp);
@@ -32,6 +39,7 @@ public:
 
 	void setImageSource(ImageStack *is);
 	void setTool(ITool *t);
+	void setStatusListener(IStatusListener *sl);
 	void undo();
 	void redo();
 
