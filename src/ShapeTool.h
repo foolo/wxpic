@@ -21,4 +21,7 @@ public:
 	void drawDc(wxMemoryDC &dc, const wxRect &r);
 	bool busy();
 	void resetPreview();
+
+private:
+	wxString getToolName();
 };

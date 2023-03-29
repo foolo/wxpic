@@ -364,9 +364,13 @@ void MainWindow::notify() {
 }
 
 void MainWindow::updatePositionStatus(const wxString& text) {
-	statusBar->SetStatusText(text, 1);
+	statusBar->SetStatusText(text, POSITION_STATUS_FIELD);
 }
 
 void MainWindow::updateZoomStatus(double zoomScale) {
-	statusBar->SetStatusText(std::to_string((int)(zoomScale * 100 + 0.5)) + "%", 2);
+	statusBar->SetStatusText(std::to_string((int)(zoomScale * 100 + 0.5)) + "%", ZOOM_STATUS_FIELD);
+}
+
+void MainWindow::updateToolStatus(const wxString& text) {
+	statusBar->SetStatusText(text, TOOL_STATUS_FIELD);
 }

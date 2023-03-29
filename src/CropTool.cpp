@@ -48,6 +48,7 @@ void CropTool::mouseMoved(wxPoint pos) {
 		wxPoint p1(Util::limit(Util::getUpperLeft(pos, startPos), dc.GetSize()));
 		wxPoint p2(Util::limit(Util::getLowerRight(pos, startPos), dc.GetSize()));
 		drawCropPreview(dc, p1, p2);
+		mainWindow->updateToolStatus("Crop: " + std::to_string(p2.x - p1.x) + ", " +  std::to_string(p2.y - p1.y));
 	}
 }
 
@@ -70,6 +71,7 @@ void CropTool::mouseUp(wxPoint pos) {
 	}
 	preview.reset();
 	startPos = wxPoint(wxDefaultCoord, wxDefaultCoord);
+	mainWindow->updateToolStatus("");
 }
 
 std::shared_ptr<wxBitmap> CropTool::getPreview() {

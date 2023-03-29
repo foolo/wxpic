@@ -15,6 +15,9 @@ public:
 class MainWindow : public MainWindowLayout, public IUndoListener, public IStatusListener {
 	ImageStack imageStack;
 	const std::vector<int> brush_sizes{1, 2, 3, 4, 5, 6, 8, 10, 12, 15, 18};
+	const int TOOL_STATUS_FIELD = 0;
+	const int POSITION_STATUS_FIELD = 1;
+	const int ZOOM_STATUS_FIELD = 2;
 	std::vector<wxBitmap> icons;
 	std::shared_ptr<ActiveFile> activeFile;
 	wxStatusBar *statusBar;
@@ -66,4 +69,5 @@ public:
 	// IStatusListener
 	void updatePositionStatus(const wxString& text);
 	void updateZoomStatus(double zoomScale);
+	void updateToolStatus(const wxString& text);
 };

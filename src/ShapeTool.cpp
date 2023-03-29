@@ -15,6 +15,17 @@ void ShapeTool::mouseDown(wxPoint pos) {
 	mouseMoved(pos);
 }
 
+wxString ShapeTool::getToolName() {
+	switch (toolType) {
+		case ToolType::RECTANGLE: return "Rectangle";
+		case ToolType::ROUNDED_RECTANGLE: return "Rounded rectangle";
+		case ToolType::ELLIPSE: return "Ellipse";
+		case ToolType::LINE: return "Line";
+		case ToolType::ARROW: return "Arrow";
+		default: return "";
+	}
+}
+
 void ShapeTool::mouseMoved(wxPoint pos) {
 	if (startPos.IsFullySpecified() == false) {
 		return;
@@ -26,6 +37,7 @@ void ShapeTool::mouseMoved(wxPoint pos) {
 	dc.SetBrush(*wxTRANSPARENT_BRUSH);
 	wxSize size(pos.x - startPos.x, pos.y - startPos.y);
 	drawDc(dc, wxRect(startPos, size));
+	mainWindow->updateToolStatus(getToolName() + ": " + std::to_string(size.GetX()) + ", " +  std::to_string(size.GetY()));
 }
 
 void ShapeTool::mouseLeaving(wxPoint pos) {
@@ -35,6 +47,7 @@ void ShapeTool::mouseUp(wxPoint pos) {
 	imageStack->pushImage(preview);
 	preview.reset();
 	startPos = wxPoint(wxDefaultCoord, wxDefaultCoord);
+	mainWindow->updateToolStatus("");
 }
 
 std::shared_ptr<wxBitmap> ShapeTool::getPreview() {
