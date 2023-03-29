@@ -101,7 +101,8 @@ void ImagePanel::mouseMiddleReleased(wxMouseEvent& event) {
 }
 
 void ImagePanel::mouseMoved(wxMouseEvent& event) {
-	tool->mouseMoved(mouseToImg(event.GetPosition()));
+	wxPoint imagePos = mouseToImg(event.GetPosition());
+	tool->mouseMoved(imagePos);
 	if (inputState == InputState::LEFT_DOWN) {
 	}
 	else if (inputState == InputState::MIDDLE_DOWN) {
@@ -112,7 +113,7 @@ void ImagePanel::mouseMoved(wxMouseEvent& event) {
 		parentWindow->Scroll(std::min(ds.x, newScrollPos.x), std::min(ds.y, newScrollPos.y));
 	}
 	if (statusListener) {
-		statusListener->updatePositionStatus(std::to_string(event.GetX()) + ", " + std::to_string(event.GetY()));
+		statusListener->updatePositionStatus(std::to_string(imagePos.x) + ", " + std::to_string(imagePos.y));
 	}
 	Refresh();
 }
