@@ -3,9 +3,10 @@
 #include <wx/dcmemory.h>
 #include <iostream>
 
-CropTool::CropTool(ImageStack* is, MainWindow* mw) :
+CropTool::CropTool(ImageStack* is, MainWindow* mw, IImageListener *il) :
 		imageStack(is),
 		mainWindow(mw),
+		imageListener(il),
 		startPos(wxDefaultCoord, wxDefaultCoord)
 {
 }
@@ -72,6 +73,7 @@ void CropTool::mouseUp(wxPoint pos) {
 	preview.reset();
 	startPos = wxPoint(wxDefaultCoord, wxDefaultCoord);
 	mainWindow->updateToolStatus("");
+	imageListener->imageSizeChanged();
 }
 
 std::shared_ptr<wxBitmap> CropTool::getPreview() {

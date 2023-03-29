@@ -9,9 +9,10 @@ class CropTool : public ITool {
 	MainWindow* mainWindow;
 	wxPoint startPos;
 	std::shared_ptr<wxBitmap> preview;
+	IImageListener *imageListener;
 
 public:
-	CropTool(ImageStack *is, MainWindow* mw);
+	CropTool(ImageStack *is, MainWindow* mw, IImageListener *il);
 	void mouseDown(wxPoint pos);
 	void mouseMoved(wxPoint pos);
 	void mouseLeaving(wxPoint pos);

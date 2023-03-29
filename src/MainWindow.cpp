@@ -252,7 +252,7 @@ void MainWindow::rectangle_tool_selected(wxCommandEvent &event) {
 }
 
 void MainWindow::crop_tool_selected(wxCommandEvent &event) {
-	imagePanel->setTool(new CropTool(&imageStack, this));
+	imagePanel->setTool(new CropTool(&imageStack, this, imagePanel));
 }
 
 void MainWindow::rounded_rectangle_tool_selected(wxCommandEvent &event) {

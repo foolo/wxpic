@@ -1,6 +1,7 @@
 #pragma once
 #include "ImageStack.h"
 #include "ITool.h"
+#include "IImageListener.h"
 #include <memory>
 #include <wx/wx.h>
 #include <wx/sizer.h>
@@ -15,7 +16,7 @@ public:
 	virtual ~IStatusListener() {}
 };
 
-class ImagePanel : public wxWindow {
+class ImagePanel : public wxWindow, public IImageListener {
 	static const int buttonWidth = 200;
 	static const int buttonHeight = 50;
 
@@ -61,5 +62,8 @@ public:
 	void keyPressed(wxKeyEvent& event);
 	void keyReleased(wxKeyEvent& event);
 	void windowResized(wxSizeEvent& event);
+
+	// IImageListener
+	void imageSizeChanged();
 };
 
