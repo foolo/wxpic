@@ -1,13 +1,8 @@
 #pragma once
+#include "IUndoListener.h"
 #include <vector>
 #include <memory>
 #include <wx/bitmap.h>
-
-class IUndoListener {
-public:
-	virtual void notify() = 0;
-	virtual ~IUndoListener() {}
-};
 
 class ImageStack {
 	std::vector<std::shared_ptr<wxBitmap> > undoBuffer;

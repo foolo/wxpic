@@ -2,19 +2,13 @@
 #include "ImageStack.h"
 #include "ITool.h"
 #include "IImageListener.h"
+#include "IStatusListener.h"
+#include "IUndoListener.h"
 #include <memory>
 #include <wx/wx.h>
 #include <wx/sizer.h>
 
 enum class InputState {IDLE, LEFT_DOWN, MIDDLE_DOWN};
-
-class IStatusListener {
-public:
-	virtual void updatePositionStatus(const wxString& text) = 0;
-	virtual void updateZoomStatus(double zoomScale) = 0;
-	virtual void updateToolStatus(const wxString& text) = 0;
-	virtual ~IStatusListener() {}
-};
 
 class ImagePanel : public wxWindow, public IImageListener {
 	static const int buttonWidth = 200;

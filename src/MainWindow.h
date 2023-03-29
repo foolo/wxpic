@@ -1,11 +1,10 @@
 #pragma once
 #include "MainWindowLayout.h"
 #include "ImageStack.h"
+#include "IStatusListener.h"
 #include "Types.h"
 #include <memory>
 #include <vector>
-
-enum class ToolType { RECTANGLE, ROUNDED_RECTANGLE, ELLIPSE, LINE, ARROW };
 
 class IconId {
 public:
