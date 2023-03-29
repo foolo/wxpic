@@ -179,6 +179,21 @@ void ImagePanel::mouseWheelMoved(wxMouseEvent& event) {
 		parentWindow->Scroll(std::min(ds.x, scrollPos.x), std::min(ds.y, scrollPos.y));
 		Refresh();
 	}
+	else {
+		const int scrollPerDelta = 100;
+		int scroll = scrollPerDelta * event.GetWheelRotation() / event.GetWheelDelta();
+		if (scroll != 0) {
+			int hpos = parentWindow->GetScrollPos(wxHORIZONTAL);
+			int vpos = parentWindow->GetScrollPos(wxVERTICAL);
+			bool horizontalScroll = (event.GetModifiers() & wxMOD_SHIFT);
+			if (horizontalScroll) {
+				parentWindow->Scroll(hpos - scroll, vpos);
+			}
+			else {
+				parentWindow->Scroll(hpos, vpos - scroll);
+			}
+		}
+	}
 }
 
 // currently unused events
