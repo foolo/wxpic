@@ -12,7 +12,6 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
  : MainWindowLayout(parent, id, title)
 {
 	imagePanel->setImageSource(&imageStack);
-	imagePanel->setStatusListener(this);
 	imageStack.setUndoListener(this);
 	Bind(wxEVT_BUTTON, &MainWindow::button_3_clicked, this, button_3->GetId());
 	Bind(wxEVT_BUTTON, &MainWindow::button_4_clicked, this, button_4->GetId());
@@ -36,8 +35,8 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 	color_button->SetBackgroundColour(*wxRED);
 
 	statusBar = CreateStatusBar();
-	std::vector<int> statusBarWidths{ -1, 100 };
-	std::vector<int> statusFieldStyles{ wxSB_SUNKEN, wxSB_SUNKEN };
+	std::vector<int> statusBarWidths{ -1, 100, 100 };
+	std::vector<int> statusFieldStyles{ wxSB_SUNKEN, wxSB_SUNKEN, wxSB_SUNKEN };
 	statusBar->SetFieldsCount(statusBarWidths.size(), &statusBarWidths.front());
 	statusBar->SetStatusStyles(statusFieldStyles.size(), &statusFieldStyles.front());
 
@@ -113,6 +112,7 @@ void MainWindow::init(std::shared_ptr<wxBitmap> bmp) {
 	draw_tool_selected(tmp);
 	updateTitle();
 	updateSize();
+	imagePanel->setStatusListener(this);
 }
 
 void MainWindow::open(std::shared_ptr<LoadResult> loadResult) {
@@ -363,6 +363,10 @@ void MainWindow::notify() {
 	updateTitle();
 }
 
-void MainWindow::updateStatus(const wxString& text) {
+void MainWindow::updatePositionStatus(const wxString& text) {
 	statusBar->SetStatusText(text, 1);
+}
+
+void MainWindow::updateZoomStatus(double zoomScale) {
+	statusBar->SetStatusText(std::to_string((int)(zoomScale * 100 + 0.5)) + "%", 2);
 }

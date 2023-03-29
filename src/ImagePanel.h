@@ -9,7 +9,8 @@ enum class InputState {IDLE, LEFT_DOWN, MIDDLE_DOWN};
 
 class IStatusListener {
 public:
-	virtual void updateStatus(const wxString& text) = 0;
+	virtual void updatePositionStatus(const wxString& text) = 0;
+	virtual void updateZoomStatus(double zoomScale) = 0;
 	virtual ~IStatusListener() {}
 };
 

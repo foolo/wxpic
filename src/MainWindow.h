@@ -64,5 +64,6 @@ public:
 	void notify();
 
 	// IStatusListener
-	void updateStatus(const wxString& text);
+	void updatePositionStatus(const wxString& text);
+	void updateZoomStatus(double zoomScale);
 };

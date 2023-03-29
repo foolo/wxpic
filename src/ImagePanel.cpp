@@ -31,6 +31,7 @@ void ImagePanel::setTool(ITool* t) {
 
 void ImagePanel::setStatusListener(IStatusListener* sl) {
 	statusListener = sl;
+	statusListener->updateZoomStatus(zoomScale);
 }
 
 void ImagePanel::undo() {
@@ -111,7 +112,7 @@ void ImagePanel::mouseMoved(wxMouseEvent& event) {
 		parentWindow->Scroll(std::min(ds.x, newScrollPos.x), std::min(ds.y, newScrollPos.y));
 	}
 	if (statusListener) {
-		statusListener->updateStatus(std::to_string(event.GetX()) + ", " + std::to_string(event.GetY()));
+		statusListener->updatePositionStatus(std::to_string(event.GetX()) + ", " + std::to_string(event.GetY()));
 	}
 	Refresh();
 }
@@ -164,6 +165,9 @@ void ImagePanel::mouseWheelMoved(wxMouseEvent& event) {
 		}
 		zoomLevel = newZoomLevel;
 		zoomScale = zoomLevelToScale(zoomLevel);
+		if (statusListener) {
+			statusListener->updateZoomStatus(zoomScale);
+		}
 
 		wxPoint currentScrollPos = wxPoint(parentWindow->GetScrollPos(wxHORIZONTAL), parentWindow->GetScrollPos(wxVERTICAL));
 		wxPoint eventRelPos = event.GetPosition() - currentScrollPos ;
