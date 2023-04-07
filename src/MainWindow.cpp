@@ -28,6 +28,8 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 	Bind(wxEVT_SIZE, &MainWindow::resized, this);
 	Bind(wxEVT_CLOSE_WINDOW, &MainWindow::on_close, this);
 
+	SetMinSize(wxSize(500, 375));
+
 	for (unsigned i = 0; i < brush_sizes.size(); i++) {
 		brush_size_choice->Append(wxString(std::to_string(brush_sizes[i])));
 	}
