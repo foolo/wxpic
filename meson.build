@@ -11,6 +11,7 @@ src = [
 	'src/CropTool.cpp',
 	'src/DrawTool.cpp',
 	'src/Util.cpp',
+	'src/Version.cpp',
 	'src/imagwebp.cpp',
 ]
 
@@ -18,4 +19,9 @@ wx_dep = dependency('wxWidgets', version: '>=3.0.0')
 libwebp_dev = dependency('libwebp', static: true)
 libwebpdemux = dependency('libwebpdemux', static: true)
 
-executable('wxpic', src, dependencies: [wx_dep, libwebp_dev, libwebpdemux], install : true,  cpp_args : '-DNDEBUG')
+version_gen_h = custom_target(
+	command : ['version.sh', 'version_gen.h'],
+	build_always_stale: true,
+   output: 'version_gen.h')
+
+executable('wxpic', src, version_gen_h, dependencies: [wx_dep, libwebp_dev, libwebpdemux], install : true,  cpp_args : '-DNDEBUG')

@@ -1,5 +1,6 @@
 #include "MainWindow.h"
 #include "Util.h"
+#include "Version.h"
 #include <vector>
 #include <string>
 #include <wx/wx.h>
@@ -14,6 +15,7 @@ public:
 IMPLEMENT_APP(MyApp)
 
 bool MyApp::OnInit() {
+	std::cout << "wxPic " << Version::getVcsRef() << ", " << Version::getBuildTimestamp()  <<  std::endl;
 	setlocale(LC_ALL, "");
 	std::vector<std::string> args;
 	for (int i = 1; i < wxApp::argc; i++) {
