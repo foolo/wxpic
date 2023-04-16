@@ -15,7 +15,7 @@ public:
 IMPLEMENT_APP(MyApp)
 
 bool MyApp::OnInit() {
-	std::cout << "wxPic " << Version::getVcsRef() << ", " << Version::getBuildTimestamp()  <<  std::endl;
+	std::cout << Version::getAppName() << " " << Version::getVersion() << ", " << Version::getVcsRef() << ", " << Version::getBuildTimestamp()  <<  std::endl;
 	setlocale(LC_ALL, "");
 	std::vector<std::string> args;
 	for (int i = 1; i < wxApp::argc; i++) {

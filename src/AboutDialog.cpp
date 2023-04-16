@@ -24,10 +24,11 @@ AboutDialog::AboutDialog(wxWindow* parent, wxWindowID id, const wxString& title,
 				wxBoxSizer* sizer_1 = new wxBoxSizer(wxVERTICAL);
 				panel_1 = new wxPanel(this, wxID_ANY);
 				sizer_1->Add(panel_1, 0, wxEXPAND, 0);
-				titleLabel = new wxStaticText(this, wxID_ANY, wxT("wxPic"));
+				titleLabel = new wxStaticText(this, wxID_ANY, wxT("appname"));
 				wxFont font = titleLabel->GetFont();
 				font.SetWeight(wxFONTWEIGHT_BOLD);
 				titleLabel->SetFont(font);
+				titleLabel->SetLabelText(Version::getAppName() + " " + Version::getVersion());
 				sizer_1->Add(titleLabel, 0, wxALIGN_CENTER_HORIZONTAL, 0);
 				versionLabel = new wxStaticText(this, wxID_ANY, wxT("version"));
 				versionLabel->SetLabelText("Commit: " + Version::getVcsRef() + "\nBuild: " + Version::getBuildTimestamp());
