@@ -42,10 +42,6 @@ public:
 	void exit();
 	void on_close(wxCloseEvent& event);
 
-	void button_3_clicked(wxCommandEvent &event);
-	void button_4_clicked(wxCommandEvent &event);
-	void button_5_clicked(wxCommandEvent &event);
-	void button_6_clicked(wxCommandEvent &event);
 	void rectangle_tool_selected(wxCommandEvent &event);
 	void crop_tool_selected(wxCommandEvent &event);
 	void rounded_rectangle_tool_selected(wxCommandEvent &event);

@@ -44,10 +44,6 @@ protected:
 				wxMenuItem* menu_item_redo;
 				wxMenuBar* mainWindow0_menubar;
 				wxToolBar* toolbar;
-				wxButton* button_3;
-				wxButton* button_4;
-				wxButton* button_5;
-				wxButton* button_6;
 				wxButton* color_button;
 				wxChoice* brush_size_choice;
 				wxScrolledWindow* panel_1;

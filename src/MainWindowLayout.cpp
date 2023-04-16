@@ -42,14 +42,6 @@ MainWindowLayout::MainWindowLayout(wxWindow* parent, wxWindowID id, const wxStri
 				wxBoxSizer* sizer_1 = new wxBoxSizer(wxHORIZONTAL);
 				wxBoxSizer* sizer_2 = new wxBoxSizer(wxVERTICAL);
 				sizer_1->Add(sizer_2, 0, wxALL|wxEXPAND, 0);
-				button_3 = new wxButton(this, wxID_ANY, wxT("button_3"));
-				sizer_2->Add(button_3, 0, 0, 0);
-				button_4 = new wxButton(this, wxID_ANY, wxT("button_4"));
-				sizer_2->Add(button_4, 0, 0, 0);
-				button_5 = new wxButton(this, wxID_ANY, wxT("button_5"));
-				sizer_2->Add(button_5, 0, 0, 0);
-				button_6 = new wxButton(this, wxID_ANY, wxT("button_6"));
-				sizer_2->Add(button_6, 0, 0, 0);
 				color_button = new wxButton(this, wxID_ANY, wxEmptyString);
 				color_button->SetMinSize(wxSize(32, 32));
 				color_button->SetToolTip(wxT("Active color"));

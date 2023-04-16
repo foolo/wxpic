@@ -13,10 +13,6 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 {
 	imagePanel->setImageSource(&imageStack);
 	imageStack.setUndoListener(this);
-	Bind(wxEVT_BUTTON, &MainWindow::button_3_clicked, this, button_3->GetId());
-	Bind(wxEVT_BUTTON, &MainWindow::button_4_clicked, this, button_4->GetId());
-	Bind(wxEVT_BUTTON, &MainWindow::button_5_clicked, this, button_5->GetId());
-	Bind(wxEVT_BUTTON, &MainWindow::button_6_clicked, this, button_6->GetId());
 	Bind(wxEVT_BUTTON, &MainWindow::color_button_clicked, this, color_button->GetId());
 	Bind(wxEVT_MENU, &MainWindow::menu_new, this, menu_item_new->GetId());
 	Bind(wxEVT_MENU, &MainWindow::menu_open, this, menu_item_open->GetId());
@@ -231,22 +227,6 @@ void MainWindow::exit() {
 
 void MainWindow::on_close(wxCloseEvent &event) {
 	exit();
-}
-
-void MainWindow::button_3_clicked(wxCommandEvent &event) {
-	std::cout << "button_3_clicked" << std::endl;
-}
-
-void MainWindow::button_4_clicked(wxCommandEvent &event) {
-	std::cout << "button_4_clicked" << std::endl;
-}
-
-void MainWindow::button_5_clicked(wxCommandEvent &event) {
-	std::cout << "button_5_clicked" << std::endl;
-}
-
-void MainWindow::button_6_clicked(wxCommandEvent &event) {
-	std::cout << "button_6_clicked" << std::endl;
 }
 
 void MainWindow::rectangle_tool_selected(wxCommandEvent &event) {
