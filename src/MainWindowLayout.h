@@ -42,6 +42,7 @@ protected:
 				wxMenuItem* menu_item_exit;
 				wxMenuItem* menu_item_undo;
 				wxMenuItem* menu_item_redo;
+				wxMenuItem* menu_item_about;
 				wxMenuBar* mainWindow0_menubar;
 				wxToolBar* toolbar;
 				wxButton* color_button;

@@ -38,6 +38,7 @@ public:
 	void menu_open(wxCommandEvent &event);
 	void menu_save(wxCommandEvent &event);
 	void menu_save_as(wxCommandEvent &event);
+	void menu_about(wxCommandEvent &event);
 	void menu_exit(wxCommandEvent &event);
 	void exit();
 	void on_close(wxCloseEvent& event);

@@ -4,6 +4,7 @@ src = [
 	'src/wxpic.cpp',
 	'src/MainWindow.cpp',
 	'src/MainWindowLayout.cpp',
+	'src/AboutDialog.cpp',
 	'src/ImagePanel.cpp',
 	'src/ImageStack.cpp',
 	'src/Types.cpp',

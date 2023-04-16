@@ -35,6 +35,9 @@ MainWindowLayout::MainWindowLayout(wxWindow* parent, wxWindowID id, const wxStri
 				menu_item_undo = wxglade_tmp_menu->Append(wxID_ANY, wxT("Undo\tCtrl+Z"), wxEmptyString);
 				menu_item_redo = wxglade_tmp_menu->Append(wxID_ANY, wxT("Redo\tCtrl+Y"), wxEmptyString);
 				mainWindow0_menubar->Append(wxglade_tmp_menu, wxT("Edit"));
+				wxglade_tmp_menu = new wxMenu();
+				menu_item_about = wxglade_tmp_menu->Append(wxID_ANY, wxT("About"), wxEmptyString);
+				mainWindow0_menubar->Append(wxglade_tmp_menu, wxT("Help"));
 				SetMenuBar(mainWindow0_menubar);
 				toolbar = new wxToolBar(this, -1);
 				SetToolBar(toolbar);

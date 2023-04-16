@@ -1,4 +1,5 @@
 #include "MainWindow.h"
+#include "AboutDialog.h"
 #include "ShapeTool.h"
 #include "CropTool.h"
 #include "DrawTool.h"
@@ -18,6 +19,7 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 	Bind(wxEVT_MENU, &MainWindow::menu_open, this, menu_item_open->GetId());
 	Bind(wxEVT_MENU, &MainWindow::menu_save, this, menu_item_save->GetId());
 	Bind(wxEVT_MENU, &MainWindow::menu_save_as, this, menu_item_save_as->GetId());
+	Bind(wxEVT_MENU, &MainWindow::menu_about, this, menu_item_about->GetId());
 	Bind(wxEVT_MENU, &MainWindow::menu_exit, this, menu_item_exit->GetId());
 	Bind(wxEVT_MENU, &MainWindow::menu_undo, this, menu_item_undo->GetId());
 	Bind(wxEVT_MENU, &MainWindow::menu_redo, this, menu_item_redo->GetId());
@@ -213,6 +215,12 @@ void MainWindow::menu_save(wxCommandEvent &event) {
 
 void MainWindow::menu_save_as(wxCommandEvent &event) {
 	save_as(activeFile ? activeFile->path : "");
+}
+
+void MainWindow::menu_about(wxCommandEvent &event) {
+	AboutDialog *dialog = new AboutDialog(this, wxID_ANY, "About");
+   dialog->ShowModal();
+   dialog->Destroy();
 }
 
 void MainWindow::menu_exit(wxCommandEvent &event) {
