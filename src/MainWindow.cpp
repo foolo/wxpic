@@ -8,6 +8,7 @@
 #include <wx/wfstream.h>
 #include <wx/colordlg.h>
 #include <wx/display.h>
+#include <filesystem>
 
 MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
  : MainWindowLayout(parent, id, title)
@@ -77,7 +78,8 @@ void MainWindow::updateTitle() {
 		SetTitle(modifiedPrefix + "(new image)");
 	}
 	else {
-		SetTitle(modifiedPrefix + activeFile->path);
+		std::string filename = std::filesystem::path(activeFile->path.ToStdString()).filename();
+		SetTitle(modifiedPrefix + filename);
 	}
 }
 
