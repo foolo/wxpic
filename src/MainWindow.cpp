@@ -74,13 +74,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::updateTitle() {
 	std::string modifiedPrefix = imageStack.isModified() ? "* " : "";
-	if (!activeFile) {
-		SetTitle(modifiedPrefix + "(new image)");
-	}
-	else {
-		std::string filename = std::filesystem::path(activeFile->path.ToStdString()).filename();
-		SetTitle(modifiedPrefix + filename);
-	}
+	std::string filename = activeFile ? std::filesystem::path(activeFile->path.ToStdString()).filename() : "new image";
+	std::string imageSize = std::to_string(imageStack.getImage()->GetWidth()) + "×" + std::to_string(imageStack.getImage()->GetHeight());
+	SetTitle(modifiedPrefix + "[" + filename + "] – " + imageSize );
 }
 
 void MainWindow::updateSize() {
