@@ -4,6 +4,7 @@
 #include "CropTool.h"
 #include "DrawTool.h"
 #include "Util.h"
+#include "Settings.h"
 #include "image_data.h"
 #include <wx/wfstream.h>
 #include <wx/colordlg.h>
@@ -111,6 +112,7 @@ void MainWindow::init(std::shared_ptr<wxBitmap> bmp) {
 	updateTitle();
 	updateSize();
 	imagePanel->setStatusListener(this);
+	color_button->SetBackgroundColour(Settings::getPrimaryColor());
 }
 
 void MainWindow::open(std::shared_ptr<LoadResult> loadResult) {
@@ -267,6 +269,7 @@ void MainWindow::color_button_clicked(wxCommandEvent &event) {
 	wxColour color = wxGetColourFromUser(this, color_button->GetBackgroundColour());
 	if (color.IsOk()) {
 		color_button->SetBackgroundColour(color);
+		Settings::setPrimaryColor(color);
 	}
 }
 

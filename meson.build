@@ -13,6 +13,7 @@ src = [
 	'src/DrawTool.cpp',
 	'src/Util.cpp',
 	'src/Version.cpp',
+	'src/Settings.cpp',
 	'src/imagwebp.cpp',
 ]
 

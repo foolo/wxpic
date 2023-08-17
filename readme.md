@@ -2,6 +2,7 @@
 
 	sudo apt install libwxgtk3.0-gtk3-dev
 	sudo apt install libwebp-dev
+	sudo apt install libboost-dev
 
 # Building
 
