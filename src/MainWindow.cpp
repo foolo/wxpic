@@ -17,6 +17,7 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 	imagePanel->setImageSource(&imageStack);
 	imageStack.setUndoListener(this);
 	Bind(wxEVT_BUTTON, &MainWindow::color_button_clicked, this, color_button->GetId());
+	Bind(wxEVT_CHOICE, &MainWindow::brush_size_changed, this, brush_size_choice->GetId());
 	Bind(wxEVT_MENU, &MainWindow::menu_new, this, menu_item_new->GetId());
 	Bind(wxEVT_MENU, &MainWindow::menu_open, this, menu_item_open->GetId());
 	Bind(wxEVT_MENU, &MainWindow::menu_save, this, menu_item_save->GetId());
@@ -113,6 +114,8 @@ void MainWindow::init(std::shared_ptr<wxBitmap> bmp) {
 	updateSize();
 	imagePanel->setStatusListener(this);
 	color_button->SetBackgroundColour(Settings::getPrimaryColor());
+	int brushSizeIndex = Util::findIndex(Settings::getBrushSize(), brush_sizes);
+	brush_size_choice->SetSelection(brushSizeIndex);
 }
 
 void MainWindow::open(std::shared_ptr<LoadResult> loadResult) {
@@ -271,6 +274,10 @@ void MainWindow::color_button_clicked(wxCommandEvent &event) {
 		color_button->SetBackgroundColour(color);
 		Settings::setPrimaryColor(color);
 	}
+}
+
+void MainWindow::brush_size_changed(wxCommandEvent &event) {
+	Settings::setBrushSize(getBrushSize());
 }
 
 void MainWindow::menu_undo(wxCommandEvent &event) {

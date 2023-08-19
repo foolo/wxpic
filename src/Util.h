@@ -2,6 +2,7 @@
 #include "Types.h"
 #include <wx/bitmap.h>
 #include <wx/wfstream.h>
+#include <vector>
 
 class Util {
 public:
@@ -12,4 +13,5 @@ public:
 	static wxPoint getUpperLeft(const wxPoint &p1, const wxPoint &p2);
 	static wxPoint getLowerRight(const wxPoint &p1, const wxPoint &p2);
 	static wxPoint limit(const wxPoint &p, const wxSize &size);
+	static unsigned findIndex(int value, const std::vector<int> &sortedValues);
 };

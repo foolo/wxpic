@@ -5,6 +5,7 @@
 
 #define CONFIG_FILENAME "wxpic.config.json"
 #define CONFIG_TOOLS_PRIMARY_COLOR "tools.primary_color"
+#define CONFIG_TOOLS_BRUSH_SIZE "tools.brush_size"
 
 namespace pt = boost::property_tree;
 
@@ -39,5 +40,22 @@ wxColor Settings::getPrimaryColor() {
 void Settings::setPrimaryColor(const wxColor &c) {
 	pt::ptree pt(getPtree());
 	pt.put(CONFIG_TOOLS_PRIMARY_COLOR, c.GetAsString(wxC2S_HTML_SYNTAX));
+	pt::write_json(CONFIG_FILENAME, pt);
+}
+
+int Settings::getBrushSize() {
+	pt::ptree pt(getPtree());
+	try {
+		return pt.get<int>(CONFIG_TOOLS_BRUSH_SIZE);
+	}
+	catch (const pt::ptree_error &e) {
+		std::cerr << e.what() << std::endl;
+		return 1;
+	}
+}
+
+void Settings::setBrushSize(int size) {
+	pt::ptree pt(getPtree());
+	pt.put(CONFIG_TOOLS_BRUSH_SIZE, size);
 	pt::write_json(CONFIG_FILENAME, pt);
 }

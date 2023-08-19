@@ -86,3 +86,12 @@ wxPoint Util::getLowerRight(const wxPoint &p1, const wxPoint &p2) {
 wxPoint Util::limit(const wxPoint &p, const wxSize &size) {
 	return wxPoint(std::min(std::max(p.x, 0), size.x), std::min(std::max(p.y, 0), size.y));
 }
+
+unsigned Util::findIndex(int value, const std::vector<int> &sortedValues) {
+	for (unsigned i = 1; i < sortedValues.size(); i++) {
+		if (sortedValues[i] > value) {
+			return i - 1;
+		}
+	}
+	return sortedValues.size() - 1;
+}
