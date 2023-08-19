@@ -7,9 +7,9 @@
 class CropTool : public ITool {
 	ImageStack *imageStack;
 	MainWindow* mainWindow;
-	wxPoint startPos;
 	std::shared_ptr<wxBitmap> preview;
 	IImageListener *imageListener;
+	wxPoint startPos;
 
 public:
 	CropTool(ImageStack *is, MainWindow* mw, IImageListener *il);
