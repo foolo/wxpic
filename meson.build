@@ -10,6 +10,7 @@ src = [
 	'src/Types.cpp',
 	'src/ShapeTool.cpp',
 	'src/CropTool.cpp',
+	'src/BlurTool.cpp',
 	'src/DrawTool.cpp',
 	'src/Util.cpp',
 	'src/Version.cpp',

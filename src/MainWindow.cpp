@@ -2,6 +2,7 @@
 #include "AboutDialog.h"
 #include "ShapeTool.h"
 #include "CropTool.h"
+#include "BlurTool.h"
 #include "DrawTool.h"
 #include "Util.h"
 #include "Settings.h"
@@ -68,6 +69,9 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 
 	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::CROP), icons.at(IconId::CROP), wxITEM_RADIO, "Crop", wxEmptyString);
 	Bind(wxEVT_MENU, &MainWindow::crop_tool_selected, this, tmp_tool->GetId());
+
+	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::BLUR), icons.at(IconId::CROP), wxITEM_RADIO, "Blur", wxEmptyString);
+	Bind(wxEVT_MENU, &MainWindow::blur_tool_selected, this, tmp_tool->GetId());
 }
 
 MainWindow::~MainWindow()
@@ -248,6 +252,10 @@ void MainWindow::crop_tool_selected(wxCommandEvent &event) {
 	imagePanel->setTool(new CropTool(&imageStack, this, imagePanel));
 }
 
+void MainWindow::blur_tool_selected(wxCommandEvent &event) {
+	imagePanel->setTool(new BlurTool(&imageStack, this));
+}
+
 void MainWindow::rounded_rectangle_tool_selected(wxCommandEvent &event) {
 	imagePanel->setTool(new ShapeTool(&imageStack, this, ToolType::ROUNDED_RECTANGLE));
 }
@@ -344,6 +352,17 @@ void MainWindow::createToolIcons() {
 			dc.DrawLine(x1, y2, x2+o, y2);
 			dc.DrawLine(x1, y1-o, x1, y2);
 			dc.DrawLine(x2, y1, x2, y2+o);
+		}
+		break;
+		case IconId::BLUR: {
+			wxPoint p0(4, 7);
+			wxPoint p1(11, 7);
+			dc.SetPen(wxPen(*wxLIGHT_GREY, 9));
+			dc.DrawLine(p0, p1);
+			dc.SetPen(wxPen(wxColor(0xB0, 0xB0, 0xB0), 5));
+			dc.DrawLine(p0, p1);
+			dc.SetPen(wxPen(*wxColor(0x80, 0x80, 0x80), 1));
+			dc.DrawLine(p0, p1);
 		}
 		default: break;
 		}
