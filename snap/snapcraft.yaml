@@ -1,5 +1,5 @@
 name: wxpic
-base: core20
+base: core22
 version: '0.1'
 summary: Example summary
 description: Example description
@@ -8,7 +8,7 @@ confinement: devmode
 
 apps:
   wxpic:
-    extensions: [gnome-3-38]
+    extensions: [gnome]
     command: usr/local/bin/wxpic
 
 parts:
@@ -18,14 +18,6 @@ parts:
     plugin: nil
     stage-snaps:
     - wxwidgets-sdk-gtk3
-    filesets:
-      crash-dialog-support:
-      - usr/bin/*addr2line
-      library-shared:
-      - '**/lib/**/*.so*'
-    prime:
-    - $crash-dialog-support
-    - $library-shared
   my-part:
     source: .
     plugin: meson
