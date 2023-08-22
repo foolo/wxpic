@@ -8,7 +8,18 @@
 
 class IconId {
 public:
-	enum { RECTANGLE, ROUNDED_RECTANGLE, ELLIPSE, LINE, ARROW, DRAW, CROP, BLUR, MAX };
+	enum {
+		RECTANGLE,
+		RECTANGLE_FILLED,
+		ROUNDED_RECTANGLE,
+		ELLIPSE,
+		LINE,
+		ARROW,
+		DRAW,
+		CROP,
+		BLUR,
+		MAX
+	};
 };
 
 class MainWindow : public MainWindowLayout, public IUndoListener, public IStatusListener {
@@ -44,6 +55,7 @@ public:
 	void on_close(wxCloseEvent& event);
 
 	void rectangle_tool_selected(wxCommandEvent &event);
+	void filled_rectangle_tool_selected(wxCommandEvent &event);
 	void crop_tool_selected(wxCommandEvent &event);
 	void blur_tool_selected(wxCommandEvent &event);
 	void rounded_rectangle_tool_selected(wxCommandEvent &event);

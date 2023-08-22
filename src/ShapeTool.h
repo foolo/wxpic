@@ -4,7 +4,14 @@
 #include "ITool.h"
 #include "MainWindow.h"
 
-enum class ToolType { RECTANGLE, ROUNDED_RECTANGLE, ELLIPSE, LINE, ARROW };
+enum class ToolType {
+	RECTANGLE,
+	RECTANGLE_FILLED,
+	ROUNDED_RECTANGLE,
+	ELLIPSE,
+	LINE,
+	ARROW
+};
 
 class ShapeTool : public ITool {
 	ImageStack *imageStack;

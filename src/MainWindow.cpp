@@ -55,6 +55,9 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::RECTANGLE), icons.at(IconId::RECTANGLE), wxITEM_RADIO, "Rectangle", wxEmptyString);
 	Bind(wxEVT_MENU, &MainWindow::rectangle_tool_selected, this, tmp_tool->GetId());
 
+	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::RECTANGLE_FILLED), icons.at(IconId::RECTANGLE_FILLED), wxITEM_RADIO, "Filled rectangle", wxEmptyString);
+	Bind(wxEVT_MENU, &MainWindow::filled_rectangle_tool_selected, this, tmp_tool->GetId());
+
 	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::ROUNDED_RECTANGLE), icons.at(IconId::ROUNDED_RECTANGLE), wxITEM_RADIO, "Rounded rectangle", wxEmptyString);
 	Bind(wxEVT_MENU, &MainWindow::rounded_rectangle_tool_selected, this, tmp_tool->GetId());
 
@@ -248,6 +251,10 @@ void MainWindow::rectangle_tool_selected(wxCommandEvent &event) {
 	imagePanel->setTool(new ShapeTool(&imageStack, this, ToolType::RECTANGLE));
 }
 
+void MainWindow::filled_rectangle_tool_selected(wxCommandEvent &event) {
+	imagePanel->setTool(new ShapeTool(&imageStack, this, ToolType::RECTANGLE_FILLED));
+}
+
 void MainWindow::crop_tool_selected(wxCommandEvent &event) {
 	imagePanel->setTool(new CropTool(&imageStack, this, imagePanel));
 }
@@ -316,10 +323,20 @@ void MainWindow::createToolIcons() {
 		dc.SelectObject(icons.back());
 		dc.SetBackground(*wxTRANSPARENT_BRUSH);
 		dc.Clear();
-		dc.SetPen(wxPen(*wxBLACK));
-		dc.SetBrush(*wxTRANSPARENT_BRUSH);
+		bool isFilled = (i == IconId::RECTANGLE_FILLED);
+		if (isFilled) {
+			dc.SetPen(*wxTRANSPARENT_PEN);
+			dc.SetBrush(wxBrush(*wxBLACK));
+		}
+		else {
+			dc.SetPen(wxPen(*wxBLACK));
+			dc.SetBrush(*wxTRANSPARENT_BRUSH);
+		}
 		switch (i) {
-		case IconId::RECTANGLE: dc.DrawRectangle(1, 3, 14, 10); break;
+		case IconId::RECTANGLE:
+		case IconId::RECTANGLE_FILLED:
+			dc.DrawRectangle(1, 3, 14, 10);
+			break;
 		case IconId::ROUNDED_RECTANGLE: dc.DrawRoundedRectangle(0, 3, 16, 10, 3); break;
 		case IconId::ELLIPSE: dc.DrawEllipse(0, 3, 15, 10); break;
 		case IconId::LINE: dc.DrawLine(0, 13, 15, 3); break;

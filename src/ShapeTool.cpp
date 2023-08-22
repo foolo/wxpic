@@ -18,6 +18,7 @@ void ShapeTool::mouseDown(wxPoint pos) {
 wxString ShapeTool::getToolName() {
 	switch (toolType) {
 		case ToolType::RECTANGLE: return "Rectangle";
+		case ToolType::RECTANGLE_FILLED: return "Filled rectangle";
 		case ToolType::ROUNDED_RECTANGLE: return "Rounded rectangle";
 		case ToolType::ELLIPSE: return "Ellipse";
 		case ToolType::LINE: return "Line";
@@ -33,8 +34,7 @@ void ShapeTool::mouseMoved(wxPoint pos) {
 	preview = std::shared_ptr<wxBitmap>(new wxBitmap(*imageStack->getImage()));
 	wxMemoryDC dc;
 	dc.SelectObject(*preview);
-	dc.SetPen(wxPen(mainWindow->getPrimaryColor(), mainWindow->getBrushSize()));
-	dc.SetBrush(*wxTRANSPARENT_BRUSH);
+
 	wxSize size(pos.x - startPos.x, pos.y - startPos.y);
 	drawDc(dc, wxRect(startPos, size));
 	mainWindow->updateToolStatus(getToolName() + ": " + std::to_string(size.GetX()) + ", " +  std::to_string(size.GetY()));
@@ -91,8 +91,20 @@ void drawArrow(wxMemoryDC &dc, const wxRect &r) {
 }
 
 void ShapeTool::drawDc(wxMemoryDC &dc, const wxRect &r) {
+	bool isFilled = (toolType == ToolType::RECTANGLE_FILLED);
+	if (isFilled) {
+		dc.SetPen(*wxTRANSPARENT_PEN);
+		dc.SetBrush(wxBrush(mainWindow->getPrimaryColor()));
+	}
+	else {
+		dc.SetPen(wxPen(mainWindow->getPrimaryColor(), mainWindow->getBrushSize()));
+		dc.SetBrush(*wxTRANSPARENT_BRUSH);
+	}
 	switch (toolType) {
-	case ToolType::RECTANGLE: dc.DrawRectangle(r); break;
+	case ToolType::RECTANGLE:
+	case ToolType::RECTANGLE_FILLED:
+		dc.DrawRectangle(r);
+		break;
 	case ToolType::ROUNDED_RECTANGLE: dc.DrawRoundedRectangle(normalize(r), getRoundedRadius(r)); break;
 	case ToolType::ELLIPSE: dc.DrawEllipse(normalize(r)); break;
 	case ToolType::LINE: dc.DrawLine(r.GetLeftTop(), r.GetBottomRight()); break;
