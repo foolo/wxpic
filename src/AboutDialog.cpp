@@ -30,28 +30,31 @@ AboutDialog::AboutDialog(wxWindow* parent, wxWindowID id, const wxString& title,
 				panel_1 = new wxPanel(this, wxID_ANY);
 				sizer_3->Add(panel_1, 0, wxEXPAND, 0);
 				titleLabel = new wxStaticText(this, wxID_ANY, wxT("appname"));
-				wxFont font = titleLabel->GetFont();
-				font.SetWeight(wxFONTWEIGHT_BOLD);
-				titleLabel->SetFont(font);
-				titleLabel->SetLabelText(Version::getAppName() + " " + Version::getVersion());
-				sizer_3->Add(titleLabel, 0, wxEXPAND, 0);
-				versionLabel = new wxStaticText(this, wxID_ANY, wxT("version"));
-				versionLabel->SetLabelText("Commit: " + Version::getVcsRef() + "\nBuild: " + Version::getBuildTimestamp());
-				sizer_3->Add(versionLabel, 0, wxEXPAND, 0);
-				projectHyperlink = new wxHyperlinkCtrl(this, wxID_ANY, wxEmptyString, wxT("https://github.com/foolo/wxpic"));
-				sizer_3->Add(projectHyperlink, 0, 0, 0);
-				panel_2 = new wxPanel(this, wxID_ANY);
-				sizer_3->Add(panel_2, 1, wxEXPAND, 0);
+    wxFont font = titleLabel->GetFont();
+    font.SetWeight(wxFONTWEIGHT_BOLD);
+    titleLabel->SetFont(font);
+    titleLabel->SetLabelText(Version::getAppName() + " " + Version::getVersion());
+    thankYouLabel->SetFont(font);
+    				sizer_3->Add(titleLabel, 0, wxEXPAND, 0);
+    				versionLabel = new wxStaticText(this, wxID_ANY, wxT("version"));
+    				versionLabel->SetLabelText("Commit: " + Version::getVcsRef() + "\nBuild: " + Version::getBuildTimestamp());
+    				sizer_3->Add(versionLabel, 0, wxEXPAND, 0);
+    projectHyperlink = new wxHyperlinkCtrl(this, wxID_ANY, wxEmptyString, wxT("https://github.com/foolo/wxpic.git"));
+    sizer_3->Add(projectHyperlink, 0, 0, 0);
+    thankYouLabel = new wxStaticText(this, wxID_ANY, wxT("Thank you for using wxPic!"));
+    sizer_3->Add(thankYouLabel, 0, wxEXPAND, 0);
+    panel_2 = new wxPanel(this, wxID_ANY);
+    				sizer_3->Add(panel_2, 1, wxEXPAND, 0);
 				wxBoxSizer* sizer_2 = new wxBoxSizer(wxHORIZONTAL);
 				sizer_3->Add(sizer_2, 0, wxALIGN_RIGHT|wxALL, 4);
 				button_OK = new wxButton(this, wxID_OK, wxEmptyString);
 				button_OK->SetDefault();
 				sizer_2->Add(button_OK, 0, 0, 0);
 				
-				SetSizer(sizer_1);
-				SetAffirmativeId(button_OK->GetId());
-				
-				Layout();
+    SetSizer(sizer_1);
+    SetAffirmativeId(button_OK->GetId());
+    
+    Layout();
 				// end wxGlade
 }
 
