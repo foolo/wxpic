@@ -34,14 +34,15 @@ public:
 private:
 
 protected:
-				// begin wxGlade: AboutDialog::attributes
-				wxPanel* panel_1;
-				wxStaticText* titleLabel;
-				wxStaticText* versionLabel;
-				wxHyperlinkCtrl* projectHyperlink;
-				wxPanel* panel_2;
-				wxButton* button_OK;
-				// end wxGlade
+    // begin wxGlade: AboutDialog::attributes
+    wxPanel* panel_1;
+    wxStaticText* titleLabel;
+    wxStaticText* versionLabel;
+    wxStaticText* thankYouLabel;
+    wxHyperlinkCtrl* projectHyperlink;
+    wxPanel* panel_2;
+    wxButton* button_OK;
+    // end wxGlade
 }; // wxGlade: end class
 
 
