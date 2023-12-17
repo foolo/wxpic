@@ -48,9 +48,12 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 	createToolIcons();
 	initCursor();
 
+	wxBitmap colorPickerIcon = wxBitmap::NewFromPNGData(res_icons_gimp_tool_color_picker_png, res_icons_gimp_tool_color_picker_png_len);
+	wxBitmap drawIcon = wxBitmap::NewFromPNGData(res_icons_gimp_tool_pencil_png, res_icons_gimp_tool_pencil_png_len);
+
 	wxToolBarToolBase *tmp_tool;
 
-	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::DRAW), wxNullBitmap, wxITEM_RADIO, "Draw", wxEmptyString);
+	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, drawIcon, wxNullBitmap, wxITEM_RADIO, "Draw", wxEmptyString);
 	Bind(wxEVT_MENU, &MainWindow::draw_tool_selected, this, tmp_tool->GetId());
 
 	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::RECTANGLE), wxNullBitmap, wxITEM_RADIO, "Rectangle", wxEmptyString);
@@ -77,7 +80,7 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::BLUR), wxNullBitmap, wxITEM_RADIO, "Blur", wxEmptyString);
 	Bind(wxEVT_MENU, &MainWindow::blur_tool_selected, this, tmp_tool->GetId());
 
-	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::COLOR_PICKER), wxNullBitmap, wxITEM_RADIO, "Color picker", wxEmptyString);
+	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, colorPickerIcon, wxNullBitmap, wxITEM_RADIO, "Color picker", wxEmptyString);
 	Bind(wxEVT_MENU, &MainWindow::color_picker_tool_selected, this, tmp_tool->GetId());
 }
 
@@ -357,27 +360,6 @@ void MainWindow::createToolIcons() {
 			dc.DrawLine(15, 8, 12, 5);
 			dc.DrawLine(15, 8, 12, 11);
 			break;
-		case IconId::DRAW: {
-			const int d = 2;
-			const int s1x = 0+d;
-			const int s1y = 11-d;
-			const int s2x = 4+d;
-			const int s2y = 15-d;
-			dc.DrawLine(0, 15, s2x, s2y);
-			dc.DrawLine(0, 15, s1x, s1y);
-			dc.DrawLine(s1x, s1y, s2x, s2y);
-			dc.DrawLine(s1x, s1y, 11, 0);
-			dc.DrawLine(s2x, s2y, 15, 4);
-			dc.DrawLine(11, 0, 15, 4);
-		}
-		break;
-		case IconId::COLOR_PICKER: {
-			const int x0 = 3;
-			const int y0 = 13;
-			dc.DrawLine(x0, y0, 15, 3);
-			dc.DrawCircle(x0, y0, 2);
-		}
-		break;
 		case IconId::CROP: {
 			int x1 = 3;
 			int y1 = 3;

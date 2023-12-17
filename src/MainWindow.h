@@ -15,8 +15,6 @@ public:
 		ELLIPSE,
 		LINE,
 		ARROW,
-		DRAW,
-		COLOR_PICKER,
 		CROP,
 		BLUR,
 		MAX

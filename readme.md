@@ -23,9 +23,9 @@ or
 	cd builddir
 	./wxpic FILENAME
 
-# Update icon
+# Update image data
 
-	xxd --include res/crosshair.png > src/image_data.h
+	util/files-to-h.py res/crosshair.png res/icons/* > src/image_data.h
 
 # Local install
 
