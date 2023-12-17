@@ -73,7 +73,7 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::CROP), icons.at(IconId::CROP), wxITEM_RADIO, "Crop", wxEmptyString);
 	Bind(wxEVT_MENU, &MainWindow::crop_tool_selected, this, tmp_tool->GetId());
 
-	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::BLUR), icons.at(IconId::CROP), wxITEM_RADIO, "Blur", wxEmptyString);
+	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::BLUR), icons.at(IconId::BLUR), wxITEM_RADIO, "Blur", wxEmptyString);
 	Bind(wxEVT_MENU, &MainWindow::blur_tool_selected, this, tmp_tool->GetId());
 }
 
