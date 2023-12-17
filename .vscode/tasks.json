@@ -9,23 +9,36 @@
 			],
 			"group": {
 				"kind": "build",
-				"isDefault": true
 			},
 			"label": "Meson: Build all targets",
 			"dependsOn":"ninja build"
 		},
 		{
-            "label": "ninja build",
-            "type": "shell",
-            "command": "ninja",
+			"label": "ninja build",
+			"type": "shell",
+			"command": "ninja",
 			"args": ["-j1", "-v"],
 			"options": {"cwd": "builddir"},
 			"group": {
 				"kind": "build",
 			},
-            "presentation": {
-                "reveal" : "always",
-            }
-        }
+			"presentation": {
+				"reveal" : "always",
+			}
+		},
+		{
+			"label": "ninja-build-and-run",
+			"type": "shell",
+			"command": "bash",
+			"args": ["-c", "ninja && ./wxpic"],
+			"options": {"cwd": "builddir"},
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"presentation": {
+				"reveal" : "always",
+			}
+		}
 	]
 }
