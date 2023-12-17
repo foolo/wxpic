@@ -16,6 +16,7 @@ public:
 		LINE,
 		ARROW,
 		DRAW,
+		COLOR_PICKER,
 		CROP,
 		BLUR,
 		MAX
@@ -63,12 +64,14 @@ public:
 	void line_tool_selected(wxCommandEvent &event);
 	void arrow_tool_selected(wxCommandEvent &event);
 	void draw_tool_selected(wxCommandEvent &event);
+	void color_picker_tool_selected(wxCommandEvent &event);
 	void color_button_clicked(wxCommandEvent &event);
 	void brush_size_changed(wxCommandEvent &event);
 	void menu_undo(wxCommandEvent &event);
 	void menu_redo(wxCommandEvent &event);
 	void resized(wxSizeEvent& event);
 	wxColor getPrimaryColor();
+	void setPrimaryColor(const wxColor &color);
 	int getBrushSize();
 	void createToolIcons();
 	void initCursor();

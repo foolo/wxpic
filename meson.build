@@ -12,6 +12,7 @@ src = [
 	'src/CropTool.cpp',
 	'src/BlurTool.cpp',
 	'src/DrawTool.cpp',
+	'src/ColorPickerTool.cpp',
 	'src/Util.cpp',
 	'src/Version.cpp',
 	'src/Settings.cpp',

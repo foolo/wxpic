@@ -4,6 +4,7 @@
 #include "CropTool.h"
 #include "BlurTool.h"
 #include "DrawTool.h"
+#include "ColorPickerTool.h"
 #include "Util.h"
 #include "Settings.h"
 #include "image_data.h"
@@ -75,6 +76,9 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 
 	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::BLUR), icons.at(IconId::BLUR), wxITEM_RADIO, "Blur", wxEmptyString);
 	Bind(wxEVT_MENU, &MainWindow::blur_tool_selected, this, tmp_tool->GetId());
+
+	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::COLOR_PICKER), icons.at(IconId::COLOR_PICKER), wxITEM_RADIO, "Color picker", wxEmptyString);
+	Bind(wxEVT_MENU, &MainWindow::color_picker_tool_selected, this, tmp_tool->GetId());
 }
 
 MainWindow::~MainWindow()
@@ -283,6 +287,10 @@ void MainWindow::draw_tool_selected(wxCommandEvent &event) {
 	imagePanel->setTool(new DrawTool(&imageStack, this));
 }
 
+void MainWindow::color_picker_tool_selected(wxCommandEvent &event) {
+	imagePanel->setTool(new ColorPickerTool(&imageStack, this));
+}
+
 void MainWindow::color_button_clicked(wxCommandEvent &event) {
 	wxColour color = wxGetColourFromUser(this, color_button->GetBackgroundColour());
 	if (color.IsOk()) {
@@ -310,6 +318,10 @@ void MainWindow::resized(wxSizeEvent& event) {
 
 wxColor MainWindow::getPrimaryColor() {
 	return color_button->GetBackgroundColour();
+}
+
+void MainWindow::setPrimaryColor(const wxColor &color) {
+	color_button->SetBackgroundColour(color);
 }
 
 int MainWindow::getBrushSize() {
@@ -357,6 +369,13 @@ void MainWindow::createToolIcons() {
 			dc.DrawLine(s1x, s1y, 11, 0);
 			dc.DrawLine(s2x, s2y, 15, 4);
 			dc.DrawLine(11, 0, 15, 4);
+		}
+		break;
+		case IconId::COLOR_PICKER: {
+			const int x0 = 3;
+			const int y0 = 13;
+			dc.DrawLine(x0, y0, 15, 3);
+			dc.DrawCircle(x0, y0, 2);
 		}
 		break;
 		case IconId::CROP: {
