@@ -50,34 +50,34 @@ MainWindow::MainWindow(wxWindow* parent, wxWindowID id, const wxString& title)
 
 	wxToolBarToolBase *tmp_tool;
 
-	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::DRAW), icons.at(IconId::DRAW), wxITEM_RADIO, "Draw", wxEmptyString);
+	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::DRAW), wxNullBitmap, wxITEM_RADIO, "Draw", wxEmptyString);
 	Bind(wxEVT_MENU, &MainWindow::draw_tool_selected, this, tmp_tool->GetId());
 
-	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::RECTANGLE), icons.at(IconId::RECTANGLE), wxITEM_RADIO, "Rectangle", wxEmptyString);
+	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::RECTANGLE), wxNullBitmap, wxITEM_RADIO, "Rectangle", wxEmptyString);
 	Bind(wxEVT_MENU, &MainWindow::rectangle_tool_selected, this, tmp_tool->GetId());
 
-	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::RECTANGLE_FILLED), icons.at(IconId::RECTANGLE_FILLED), wxITEM_RADIO, "Filled rectangle", wxEmptyString);
+	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::RECTANGLE_FILLED), wxNullBitmap, wxITEM_RADIO, "Filled rectangle", wxEmptyString);
 	Bind(wxEVT_MENU, &MainWindow::filled_rectangle_tool_selected, this, tmp_tool->GetId());
 
-	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::ROUNDED_RECTANGLE), icons.at(IconId::ROUNDED_RECTANGLE), wxITEM_RADIO, "Rounded rectangle", wxEmptyString);
+	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::ROUNDED_RECTANGLE), wxNullBitmap, wxITEM_RADIO, "Rounded rectangle", wxEmptyString);
 	Bind(wxEVT_MENU, &MainWindow::rounded_rectangle_tool_selected, this, tmp_tool->GetId());
 
-	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::ELLIPSE), icons.at(IconId::ELLIPSE), wxITEM_RADIO, "Ellipse", wxEmptyString);
+	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::ELLIPSE), wxNullBitmap, wxITEM_RADIO, "Ellipse", wxEmptyString);
 	Bind(wxEVT_MENU, &MainWindow::ellipse_tool_selected, this, tmp_tool->GetId());
 
-	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::LINE), icons.at(IconId::LINE), wxITEM_RADIO, "Line", wxEmptyString);
+	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::LINE), wxNullBitmap, wxITEM_RADIO, "Line", wxEmptyString);
 	Bind(wxEVT_MENU, &MainWindow::line_tool_selected, this, tmp_tool->GetId());
 
-	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::ARROW), icons.at(IconId::ARROW), wxITEM_RADIO, "Arrow", wxEmptyString);
+	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::ARROW), wxNullBitmap, wxITEM_RADIO, "Arrow", wxEmptyString);
 	Bind(wxEVT_MENU, &MainWindow::arrow_tool_selected, this, tmp_tool->GetId());
 
-	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::CROP), icons.at(IconId::CROP), wxITEM_RADIO, "Crop", wxEmptyString);
+	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::CROP), wxNullBitmap, wxITEM_RADIO, "Crop", wxEmptyString);
 	Bind(wxEVT_MENU, &MainWindow::crop_tool_selected, this, tmp_tool->GetId());
 
-	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::BLUR), icons.at(IconId::BLUR), wxITEM_RADIO, "Blur", wxEmptyString);
+	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::BLUR), wxNullBitmap, wxITEM_RADIO, "Blur", wxEmptyString);
 	Bind(wxEVT_MENU, &MainWindow::blur_tool_selected, this, tmp_tool->GetId());
 
-	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::COLOR_PICKER), icons.at(IconId::COLOR_PICKER), wxITEM_RADIO, "Color picker", wxEmptyString);
+	tmp_tool = toolbar->AddTool(wxID_ANY, wxEmptyString, icons.at(IconId::COLOR_PICKER), wxNullBitmap, wxITEM_RADIO, "Color picker", wxEmptyString);
 	Bind(wxEVT_MENU, &MainWindow::color_picker_tool_selected, this, tmp_tool->GetId());
 }
 
