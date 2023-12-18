@@ -1,0 +1,4 @@
+Gimp icons from https://github.com/GNOME/gimp/tree/master/icons/Legacy
+gimp-tool-color-picker.png
+gimp-tool-pencil.png
+Licensed under Creative Commons by-sa 3.0 or 4.0, according to https://github.com/GNOME/gimp/blob/master/LICENSE
