@@ -1,9 +1,12 @@
 #include "Settings.h"
+#include "Util.h"
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
 #include <iostream>
+#include <filesystem>
 
-#define CONFIG_FILENAME "wxpic.config.json"
+std::filesystem::path configFilePath(Util::getConfigDir() / "wxpic.config.json");
+
 #define CONFIG_TOOLS_PRIMARY_COLOR "tools.primary_color"
 #define CONFIG_TOOLS_BRUSH_SIZE "tools.brush_size"
 
@@ -12,12 +15,17 @@ namespace pt = boost::property_tree;
 pt::ptree getPtree() {
 	pt::ptree pt;
 	try {
-		pt::read_json(CONFIG_FILENAME, pt);
+		pt::read_json(configFilePath, pt);
 	}
 	catch (const pt::json_parser_error &e) {
 		std::cerr << e.what() << std::endl;
 	}
 	return pt;
+}
+
+void savePtree(const pt::ptree &pt) {
+	std::filesystem::create_directories(configFilePath.parent_path());
+	pt::write_json(configFilePath, pt);
 }
 
 wxColor Settings::getPrimaryColor() {
@@ -40,7 +48,7 @@ wxColor Settings::getPrimaryColor() {
 void Settings::setPrimaryColor(const wxColor &c) {
 	pt::ptree pt(getPtree());
 	pt.put(CONFIG_TOOLS_PRIMARY_COLOR, c.GetAsString(wxC2S_HTML_SYNTAX));
-	pt::write_json(CONFIG_FILENAME, pt);
+	savePtree(pt);
 }
 
 int Settings::getBrushSize() {
@@ -57,5 +65,5 @@ int Settings::getBrushSize() {
 void Settings::setBrushSize(int size) {
 	pt::ptree pt(getPtree());
 	pt.put(CONFIG_TOOLS_BRUSH_SIZE, size);
-	pt::write_json(CONFIG_FILENAME, pt);
+	savePtree(pt);
 }

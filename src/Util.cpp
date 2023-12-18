@@ -1,5 +1,6 @@
 #include "Util.h"
 #include "imagwebp.h"
+#include <pwd.h>
 
 wxBitmap *readBitmap(wxImageHandler &ih, wxFFileInputStream &fis) {
 	if (ih.CanRead(fis)) {
@@ -94,4 +95,16 @@ unsigned Util::findIndex(int value, const std::vector<int> &sortedValues) {
 		}
 	}
 	return sortedValues.size() - 1;
+}
+
+std::filesystem::path getHomeDir() {
+	const char *homedir;
+	if ((homedir = getenv("HOME")) == NULL) {
+		homedir = getpwuid(getuid())->pw_dir;
+	}
+	return std::filesystem::path(homedir);
+}
+
+std::filesystem::path Util::getConfigDir() {
+	return getHomeDir() / ".config/wxpic";
 }
