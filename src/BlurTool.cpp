@@ -47,7 +47,8 @@ void BlurTool::drawDc(wxMemoryDC &dc, const wxRect &r) {
 	wxPoint p1(Util::limit(r.GetTopLeft(), dc.GetSize()));
 	wxPoint p2(Util::limit(r.GetRightBottom(), dc.GetSize()));
 	wxRect limitedRect(p1, p2);
-	wxImage img = dc.GetAsBitmap().ConvertToImage();
+	wxBitmap dcBmp = dc.GetAsBitmap();
+	wxImage img = dcBmp.GetSubBitmap(wxRect(0, 0, dcBmp.GetWidth(), dcBmp.GetHeight())).ConvertToImage();
 	wxImage blurredAreaImg = img.GetSubImage(limitedRect).Blur(mainWindow->getBrushSize());
 	wxBitmap bmp = wxBitmap(blurredAreaImg);
 	dc.DrawBitmap(bmp, limitedRect.GetTopLeft());
